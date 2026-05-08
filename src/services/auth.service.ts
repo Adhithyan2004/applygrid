@@ -54,7 +54,7 @@ export const refreshAccessToken = async (refreshToken: string) => {
 };
 
 
-export const loginUser = async (email: string, password: string) => {
+export const loginUserService = async (email: string, password: string) => {
   const user = await prisma.user.findUnique({
     where: { email }
   });
@@ -89,3 +89,25 @@ export const loginUser = async (email: string, password: string) => {
 
   return { accessToken, refreshToken };
 };
+
+
+export const logoutUserService = async (refreshToken?: string) => {
+  if (!refreshToken) return;
+
+  await prisma.user.updateMany({
+    where: { refreshToken },
+    data: { refreshToken: null },
+  });
+};   
+
+
+export const deleteUserService = async(userId:string) =>{
+  if(!userId) throw new Error("User not found");
+
+  await prisma.user.delete({
+      where: {
+        id: userId
+      },
+    });
+  return;
+}

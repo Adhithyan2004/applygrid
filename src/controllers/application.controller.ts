@@ -1,12 +1,16 @@
 import { Request,Response } from "express";
 import { ApplicationBody, UpdateApplicationStatusHistort } from "../types/application.types";
-import { createApplication,updateApplicationStatus } from "../services/application.service";
-import { prisma } from "../lib/prisma";
+import { createApplication,
+         updateApplicationStatus,
+         getAllApplicationService,
+         getSingleApplicationService,
+        deleteApplicationService } from "../services/application.service";
+
 
 export const applicationController = async(
     req:Request<{},{},ApplicationBody>,
     res:Response) => {
-        try{ const { companyName, role} = req.body;
+        try{ const { companyName, role } = req.body;
 
          const userId = req.userId!;
          const appliedDate = new Date();
@@ -15,7 +19,7 @@ export const applicationController = async(
             userId,
             companyName,
             role,
-            appliedDate
+            appliedDate,
           );
         
           res.json(application);
@@ -47,29 +51,22 @@ export const applicationUpdateStatusController = async(
 export const getAllApplicationContoller = async(req:Request,res:Response) =>{
     
   try {
-    const userId = req.userId;
-    // #TODO Move services separately
-    const applications = await prisma.application.findMany({
-        where : {userId},
-    });
-    res.status(200).json(applications);
-  } catch (error:  any) {
+    const userId = req.userId as string;
+    const applications = await getAllApplicationService(userId)
+    res.json(applications);
+  } 
+  catch (error:  any) {
     res.status(500).json({ message: 'Failed to fetch applications', error: error.message });
   }
 }
 
 export const getSingleApplicationContoller = async(req:Request,res:Response) =>{
     try{
-        const {id} = req.params
-         // #TODO Move services separately
-        const application = await prisma.application.findUnique({
-            where : {id : id as string}
-        });
-
-        if(!application){
-            return res.status(404).json({message : 'Application not found'});
-        }
-        res.status(200).json(application);
+        const {id} = req.params;
+        const userId = req.userId as string;
+       
+        const application = await getSingleApplicationService(id as string,userId)
+        res.json(application);
     }
     catch(error:any){
         res.status(500).json({message : 'failed to fetch application',error:error.message})
@@ -78,33 +75,11 @@ export const getSingleApplicationContoller = async(req:Request,res:Response) =>{
 
 export const deleteApplicationController = async(req:Request,res:Response) => {
     try{
-        const userId = req.userId;
+        const userId = req.userId as string;
         const applicationId = req.params.id as string;
 
-        const application = await prisma.application.findFirst({
-            where: {
-                id: applicationId,
-                userId: userId,
-            },
-        });
-        if(!application){
-            return res.status(404).json({message: "Application not found"});
-        }
-
-        await prisma.applicationStatusHistory.deleteMany({
-            where: {
-                applicationId: applicationId
-            },
-        });
-
-         await prisma.application.delete({
-      where: {
-        id: applicationId,
-      },
-    });
- 
-    res.status(200).json({ message: "Application deleted successfully" });
-
+        const application = await deleteApplicationService(userId,applicationId);
+        res.json(application)
     }
     catch(error:any){
         res.status(500).json({

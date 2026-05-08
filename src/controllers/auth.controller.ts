@@ -1,6 +1,9 @@
-import { registerUser,loginUser,refreshAccessToken } from "../services/auth.service";
+import { registerUser,
+         loginUserService,
+         refreshAccessToken,
+         logoutUserService,
+         deleteUserService } from "../services/auth.service";
 import { Request,Response } from "express";
-import { prisma } from "../lib/prisma";
 import { SignupBody,LoginBody } from "../types/auth.types";
 
 export const signupController = async (
@@ -34,7 +37,7 @@ export const loginController = async (
   try {
     const { email, password } = req.body;
 
-    const { accessToken, refreshToken } = await loginUser(
+    const { accessToken, refreshToken } = await loginUserService(
       email,
       password
     );
@@ -66,18 +69,18 @@ export const loginController = async (
 };
 
 export const logoutContoller = async(req:Request,res:Response) => {
-    const refreshToken = req.cookies.refreshToken;
-    if (refreshToken) {
-        await prisma.user.updateMany({
-          where: { refreshToken },
-          data: { refreshToken: null }
-        });
-      }
-    
-      res.clearCookie("accessToken");
-      res.clearCookie("refreshToken");
-    
-      res.json({ message: "Logged out successfully" });
+
+     try {
+    await logoutUserService(req.cookies.refreshToken);
+
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+
+    res.json({ message: "Logged out successfully" });
+}
+catch(error:any){
+   res.status(500).json({message: "Failed to Logout"});
+}
 }
 
 export const refreshController = async(req:Request,res:Response) =>{
@@ -108,22 +111,12 @@ export const deleteUserController = async(req:Request,res:Response) =>{
   try{
     const userId = req.params.id as string;
 
-    if(!userId){
-      return res.status(404).json({message: "User not found"});
-    }
+    await deleteUserService(userId);
 
-    await prisma.user.delete({
-      where: {
-        id: userId
-      },
-    });
- 
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
     
-    return res.status(200).json({
-      message: "User deleted successfully",
-    });
+    return res.status(200).json({message: "User deleted successfully",});
   }
   catch(error:any){
     res.status(500).json({message: "Failed to delete user"});

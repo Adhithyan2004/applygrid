@@ -22,7 +22,6 @@ router.get('/',authenticate, getAllApplicationContoller);
 router.get('/:id',authenticate,getSingleApplicationContoller);
 
 //Delete a application
-//Will autenticate after testing !! 
 router.delete('/:id',authenticate,deleteApplicationController);
 
 // Update status
