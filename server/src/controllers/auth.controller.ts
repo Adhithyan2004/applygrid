@@ -1,19 +1,39 @@
-import { registerUser,
-         loginUserService,
-         refreshAccessToken,
-         logoutUserService,
-         deleteUserService } from "../services/auth.service";
-import { Request,Response } from "express";
-import { SignupBody,LoginBody } from "../types/auth.types";
+import {
+  registerUser,
+  loginUserService,
+  refreshAccessToken,
+  logoutUserService,
+  deleteUserService,
+} from "../services/auth.service";
+import { Request, Response } from "express";
+import { SignupBody, LoginBody } from "../types/auth.types";
 
 export const signupController = async (
   req: Request<{}, {}, SignupBody>,
-  res: Response
+  res: Response,
 ) => {
   try {
     const { name, email, password } = req.body;
 
-    const user = await registerUser(name, email, password);
+    const { user, accessToken, refreshToken } = await registerUser(
+      name,
+      email,
+      password,
+    );
+
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      maxAge: 15 * 60 * 1000,
+    });
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     return res.status(201).json({
       message: "User created successfully",
@@ -32,14 +52,14 @@ export const signupController = async (
 
 export const loginController = async (
   req: Request<{}, {}, LoginBody>,
-  res: Response
+  res: Response,
 ) => {
   try {
     const { email, password } = req.body;
 
     const { accessToken, refreshToken } = await loginUserService(
       email,
-      password
+      password,
     );
 
     // Set cookies
@@ -61,35 +81,32 @@ export const loginController = async (
       message: "Login successful",
     });
   } catch (error: any) {
-    const message =
-      error instanceof Error ? error.message : "Login failed";
+    const message = error instanceof Error ? error.message : "Login failed";
 
     return res.status(401).json({ message });
   }
 };
 
-export const logoutContoller = async(req:Request,res:Response) => {
-
-     try {
+export const logoutContoller = async (req: Request, res: Response) => {
+  try {
     await logoutUserService(req.cookies.refreshToken);
 
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
 
     res.json({ message: "Logged out successfully" });
-}
-catch(error:any){
-   res.status(500).json({message: "Failed to Logout"});
-}
-}
+  } catch (error: any) {
+    res.status(500).json({ message: "Failed to Logout" });
+  }
+};
 
-export const refreshController = async(req:Request,res:Response) =>{
+export const refreshController = async (req: Request, res: Response) => {
   const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {
     return res.status(401).json({ message: "Refresh token missing" });
   }
- 
+
   try {
     const newAccessToken = await refreshAccessToken(refreshToken);
 
@@ -97,28 +114,26 @@ export const refreshController = async(req:Request,res:Response) =>{
       httpOnly: true,
       secure: false,
       sameSite: "lax",
-      maxAge: 15 * 60 * 1000
+      maxAge: 15 * 60 * 1000,
     });
 
     res.json({ message: "Access token refreshed" });
-
   } catch (error: any) {
     res.status(403).json({ message: error.message });
   }
-}
+};
 
-export const deleteUserController = async(req:Request,res:Response) =>{
-  try{
+export const deleteUserController = async (req: Request, res: Response) => {
+  try {
     const userId = req.params.id as string;
 
     await deleteUserService(userId);
 
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
-    
-    return res.status(200).json({message: "User deleted successfully",});
-  }
-  catch(error:any){
-    res.status(500).json({message: "Failed to delete user"});
+
+    return res.status(200).json({ message: "User deleted successfully" });
+  } catch (error: any) {
+    res.status(500).json({ message: "Failed to delete user" });
   }
 };

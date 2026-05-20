@@ -1,14 +1,15 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { prisma } from "../lib/prisma";
+import { generateAccessToken, generateRefreshToken } from "../utils/token";
 
 export const registerUser = async (
   name: string,
   email: string,
-  password: string
+  password: string,
 ) => {
   const existingUser = await prisma.user.findUnique({
-    where: { email }
+    where: { email },
   });
 
   if (existingUser) {
@@ -21,42 +22,42 @@ export const registerUser = async (
     data: {
       name,
       email,
-      passwordHash
-    }
+      passwordHash,
+    },
   });
 
-  return user;
+  const accessToken = generateAccessToken(user.id);
+  const refreshToken = generateRefreshToken(user.id);
+
+  return {
+    user,
+    accessToken,
+    refreshToken,
+  };
 };
 
-
 export const refreshAccessToken = async (refreshToken: string) => {
-
   const decoded = jwt.verify(
     refreshToken,
-    process.env.JWT_REFRESH_SECRET as string
+    process.env.JWT_REFRESH_SECRET as string,
   ) as { userId: string };
 
   const user = await prisma.user.findUnique({
-    where: { id: decoded.userId }
+    where: { id: decoded.userId },
   });
 
   if (!user || user.refreshToken !== refreshToken) {
     throw new Error("Invalid refresh token");
   }
 
-  const newAccessToken = jwt.sign(
-    { userId: user.id },
-    process.env.JWT_SECRET as string,
-    { expiresIn: "15m" }
-  );
+  const newAccessToken = generateAccessToken(user.id);
 
   return newAccessToken;
 };
 
-
 export const loginUserService = async (email: string, password: string) => {
   const user = await prisma.user.findUnique({
-    where: { email }
+    where: { email },
   });
 
   if (!user) {
@@ -69,27 +70,17 @@ export const loginUserService = async (email: string, password: string) => {
     throw new Error("Wrong password");
   }
 
-  const accessToken = jwt.sign(
-    { userId: user.id },
-    process.env.JWT_SECRET as string,
-    { expiresIn: "15m" }
-  );
-
-  const refreshToken = jwt.sign(
-    { userId: user.id },
-    process.env.JWT_REFRESH_SECRET as string,
-    { expiresIn: "7d" }
-  );
+  const accessToken = generateAccessToken(user.id);
+  const refreshToken = generateRefreshToken(user.id);
 
   // store refresh token in DB
   await prisma.user.update({
     where: { id: user.id },
-    data: { refreshToken }
+    data: { refreshToken },
   });
 
   return { accessToken, refreshToken };
 };
-
 
 export const logoutUserService = async (refreshToken?: string) => {
   if (!refreshToken) return;
@@ -98,16 +89,15 @@ export const logoutUserService = async (refreshToken?: string) => {
     where: { refreshToken },
     data: { refreshToken: null },
   });
-};   
+};
 
-
-export const deleteUserService = async(userId:string) =>{
-  if(!userId) throw new Error("User not found");
+export const deleteUserService = async (userId: string) => {
+  if (!userId) throw new Error("User not found");
 
   await prisma.user.delete({
-      where: {
-        id: userId
-      },
-    });
+    where: {
+      id: userId,
+    },
+  });
   return;
-}
+};
