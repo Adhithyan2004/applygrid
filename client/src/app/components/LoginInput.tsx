@@ -8,9 +8,11 @@ export const LoginInput = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleLogin = async () => {
     try {
+      setError("");
       const response = await api.post("/auth/login", {
         email,
         password,
@@ -18,6 +20,7 @@ export const LoginInput = () => {
       console.log(response.data);
       router.push("/");
     } catch (error: any) {
+      setError(error.response?.data?.message);
       console.log(error.response?.data);
     }
   };
@@ -52,10 +55,14 @@ export const LoginInput = () => {
       </div>
       <div className="flex flex-col gap-5 mt-10">
         <h2 className="text-[16px]">Don't have an account ?</h2>
-        <button className="h-14 w-full border rounded-[10px] cursor-pointer">
+        <button
+          onClick={() => router.push("/user-signup")}
+          className="h-14 w-full border rounded-[10px] cursor-pointer"
+        >
           Create Account
         </button>
       </div>
+      {error && <p className="text-red-500 text-sm font-inter">{error}</p>}
     </div>
   );
 };

@@ -30,7 +30,7 @@ export const SignupInput = () => {
       <div className="flex flex-col gap-5">
         <div>
           <h2 className="text-[22px] font-semibold font-inter">
-            Welcome to CareerFlow
+            Welcome to ApplyGrid
           </h2>
           <p className="font-inter font-light">
             Manage applications, interviews, and opportunities <br /> in one
@@ -58,13 +58,19 @@ export const SignupInput = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className=" h-14 w-111.5 bg-gray-300 rounded-[10px] cursor-pointer">
+        <button
+          className=" h-14 w-111.5 bg-gray-300 rounded-[10px] cursor-pointer"
+          onClick={handleSignup}
+        >
           Sign Up
         </button>
       </div>
       <div className="flex flex-col gap-5 mt-10">
         <h2 className="text-[16px] font-inter">Already have an account ?</h2>
-        <button className="h-14 w-full border rounded-[10px] font-inter cursor-pointer">
+        <button
+          onClick={() => router.push("/user-login")}
+          className="h-14 w-full border rounded-[10px] font-inter cursor-pointer"
+        >
           Sign In
         </button>
       </div>

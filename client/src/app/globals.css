@@ -9,6 +9,14 @@
   @apply h-14 w-111.5 p-6 rounded-[10px] border;
 }
 
+.navbar-btn {
+  @apply text-[16px] font-medium py-2 px-7.5 rounded-3xl font-sora cursor-pointer;
+}
+
+.navbar-icon {
+  @apply flex items-center gap-2;
+}
+
 /* @utility font-sora {
   font-family: var(--font-sora);
 } */
