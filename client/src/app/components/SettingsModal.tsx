@@ -2,6 +2,11 @@
 
 import { useState } from "react";
 import { X, User, Palette, Bell, FileText, Shield } from "lucide-react";
+import { ProfileTab } from "./SettingModalComponents/ProfileTab";
+import { AppearanceTab } from "./SettingModalComponents/AppearanceTab";
+import { NotificationTab } from "./SettingModalComponents/NotificationTab";
+import ResumeTab from "./SettingModalComponents/ResumeTab";
+import SecurityTab from "./SettingModalComponents/SecurityTab";
 
 type SettingsModalProps = {
   isOpen: boolean;
@@ -89,155 +94,6 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           {activeTab === "security" && <SecurityTab />}
         </div>
       </div>
-    </div>
-  );
-}
-
-/* ---------------- PROFILE ---------------- */
-
-function ProfileTab() {
-  return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-3xl font-semibold text-white">Profile</h3>
-        <p className="mt-1 text-zinc-400">Update your personal information.</p>
-      </div>
-
-      <div className="grid gap-5">
-        <input
-          placeholder="Full Name"
-          className="rounded-xl border border-zinc-800 bg-zinc-900 p-4 text-white outline-none"
-        />
-
-        <input
-          placeholder="Email Address"
-          className="rounded-xl border border-zinc-800 bg-zinc-900 p-4 text-white outline-none"
-        />
-
-        <textarea
-          placeholder="Bio"
-          rows={5}
-          className="rounded-xl border border-zinc-800 bg-zinc-900 p-4 text-white outline-none"
-        />
-      </div>
-    </div>
-  );
-}
-
-/* ---------------- APPEARANCE ---------------- */
-
-function AppearanceTab() {
-  return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-3xl font-semibold text-white">Appearance</h3>
-
-        <p className="mt-1 text-zinc-400">Customize how the dashboard looks.</p>
-      </div>
-
-      <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
-        <p className="mb-4 text-white">Theme</p>
-
-        <div className="flex gap-4">
-          <button className="rounded-xl border border-white bg-white px-5 py-3 text-black">
-            Dark
-          </button>
-
-          <button className="rounded-xl border border-zinc-700 px-5 py-3 text-zinc-300">
-            Light
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ---------------- NOTIFICATIONS ---------------- */
-
-function NotificationTab() {
-  return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-3xl font-semibold text-white">Notifications</h3>
-
-        <p className="mt-1 text-zinc-400">Control how you receive updates.</p>
-      </div>
-
-      <div className="space-y-4">
-        <SettingToggle title="Email Notifications" />
-        <SettingToggle title="Interview Reminders" />
-        <SettingToggle title="Weekly Reports" />
-      </div>
-    </div>
-  );
-}
-
-/* ---------------- RESUME ---------------- */
-
-function ResumeTab() {
-  return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-3xl font-semibold text-white">Resume</h3>
-
-        <p className="mt-1 text-zinc-400">Upload and manage resumes.</p>
-      </div>
-
-      <div className="rounded-2xl border border-dashed border-zinc-700 p-10 text-center">
-        <p className="text-zinc-300">Drag and drop your resume here</p>
-
-        <button className="mt-5 rounded-xl bg-white px-5 py-3 text-black">
-          Upload Resume
-        </button>
-      </div>
-    </div>
-  );
-}
-
-/* ---------------- SECURITY ---------------- */
-
-function SecurityTab() {
-  return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-3xl font-semibold text-white">Security</h3>
-
-        <p className="mt-1 text-zinc-400">
-          Manage passwords and account safety.
-        </p>
-      </div>
-
-      <div className="space-y-4">
-        <input
-          type="password"
-          placeholder="Current Password"
-          className="w-full rounded-xl border border-zinc-800 bg-zinc-900 p-4 text-white outline-none"
-        />
-
-        <input
-          type="password"
-          placeholder="New Password"
-          className="w-full rounded-xl border border-zinc-800 bg-zinc-900 p-4 text-white outline-none"
-        />
-
-        <button className="rounded-xl bg-white px-5 py-3 text-black">
-          Update Password
-        </button>
-      </div>
-    </div>
-  );
-}
-
-/* ---------------- TOGGLE ---------------- */
-
-function SettingToggle({ title }: { title: string }) {
-  return (
-    <div className="flex items-center justify-between rounded-2xl border border-zinc-800 bg-zinc-900 p-5">
-      <p className="text-white">{title}</p>
-
-      <button className="h-7 w-14 rounded-full bg-zinc-700 p-1">
-        <div className="h-5 w-5 rounded-full bg-white"></div>
-      </button>
     </div>
   );
 }
