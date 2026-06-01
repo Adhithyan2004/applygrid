@@ -2,9 +2,9 @@ export const NotificationTab = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-3xl font-semibold text-white">Notifications</h3>
+        <h3 className="text-3xl font-semibold">Notifications</h3>
 
-        <p className="mt-1 text-zinc-400">Control how you receive updates.</p>
+        <p className="mt-1 text-zinc-600">Control how you receive updates.</p>
       </div>
 
       <div className="space-y-4">
@@ -18,7 +18,7 @@ export const NotificationTab = () => {
 
 function SettingToggle({ title }: { title: string }) {
   return (
-    <div className="flex items-center justify-between rounded-2xl border border-zinc-800 bg-zinc-900 p-5">
+    <div className="flex items-center justify-between rounded-2xl  border-zinc-800 bg-zinc-500 p-4">
       <p className="text-white">{title}</p>
 
       <button className="h-7 w-14 rounded-full bg-zinc-700 p-1">

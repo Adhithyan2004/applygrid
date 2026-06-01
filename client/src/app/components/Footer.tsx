@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <div className="mb-2 flex justify-between text-[14px]">
+    <div className="mb-5 flex justify-between text-[14px]">
       <p>© 2026 ApplyGrid</p>
       <div>
         <a href="">Private Policy |</a>

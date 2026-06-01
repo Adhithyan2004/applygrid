@@ -14,7 +14,7 @@
 }
 
 .navbar-icon {
-  @apply flex items-center gap-2;
+  @apply flex items-center gap-2 p-3 rounded-xl;
 }
 
 /* @utility font-sora {

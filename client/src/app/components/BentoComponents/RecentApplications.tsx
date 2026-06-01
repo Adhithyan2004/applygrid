@@ -4,7 +4,7 @@ export const RecentApplications = () => {
       <h1 className="font-semibold text-[22px]">Recent Applications</h1>
       <div>
         {/* Header */}
-        <div className="grid grid-cols-4 mt-5 font-semibold ">
+        <div className="grid grid-cols-4 mt-5 font-semibold text-[18px]">
           <p>Company</p>
           <p>Role</p>
           <p>Status</p>

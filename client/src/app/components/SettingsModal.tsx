@@ -49,14 +49,14 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-[1px]">
       {/* Modal */}
-      <div className="relative flex h-175 w-250 overflow-hidden rounded-3xl border bg-zinc-950 shadow-2xl">
+      <div className="relative flex h-140 w-160 overflow-hidden rounded-xl  bg-zinc-300">
         {/* Sidebar */}
-        <div className="w-65 border-r border-zinc-800 bg-zinc-900/70 p-5">
-          <div className="mb-8 flex items-center justify-between">
+        <div className="w-45  bg-zinc-500 p-5">
+          <div className="mb-6 flex items-center justify-between">
             <h2 className="text-xl font-semibold text-white">Settings</h2>
             <button
               onClick={onClose}
-              className="rounded-lg p-2 text-zinc-400 transition hover:bg-zinc-800 hover:text-white"
+              className="rounded-md p-2 text-zinc-400 transition hover:bg-zinc-400 hover:text-white"
             >
               <X size={18} />
             </button>
@@ -73,8 +73,8 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                   className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all
                     ${
                       activeTab === tab.id
-                        ? "bg-purple-500 text-white"
-                        : "text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                        ? "bg-zinc-600 text-white"
+                        : "text-zinc-100 hover:bg-zinc-400 hover:text-white"
                     }`}
                 >
                   <Icon size={18} />

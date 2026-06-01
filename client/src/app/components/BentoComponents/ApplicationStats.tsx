@@ -1,16 +1,22 @@
 export const ApplicationStats = () => {
   return (
-    <div className="flex flex-col justify-between h-full">
+    <div className="h-full font-sora flex flex-col gap-3">
       <div>
-        <h1 className="text-[24px] font-sora font-semibold">Applications</h1>
-        <p className="text-[45px] font-inter font-light">82</p>
+        <h2 className="text-[40px] font-semibold">136</h2>
+        <p className="text-[28px] -mt-1.25">Applications</p>
       </div>
       <div>
-        <h1 className="text-[24px] font-sora font-semibold">Interviews</h1>
-        <p className="text-[45px] font-inter font-light">14</p>
+        <h2 className="text-[40px] font-semibold">14</h2>
+        <p className="text-[28px] -mt-1.25">Interviews</p>
       </div>
-      <div className="bg-zinc-500 w-fit py-2 px-3 text-white rounded-lg">
-        8% more than previous month
+      <div className="flex gap-4">
+        <p>
+          Success Rate : <span className="font-semibold text-[22px]">17%</span>
+        </p>
+        <p>
+          Rejection Rate :{" "}
+          <span className="font-semibold text-[22px]">68%</span>
+        </p>
       </div>
     </div>
   );

@@ -2,25 +2,25 @@ export const ProfileTab = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-3xl font-semibold text-white">Profile</h3>
-        <p className="mt-1 text-zinc-400">Update your personal information.</p>
+        <h3 className="text-2xl font-semibold text-zinc-700">Profile</h3>
+        <p className="mt-1 text-zinc-600">Update your personal information.</p>
       </div>
 
       <div className="grid gap-5">
         <input
           placeholder="Full Name"
-          className="rounded-xl border border-zinc-800 bg-zinc-900 p-4 text-white outline-none"
+          className="rounded-lg border border-zinc-800 p-3"
         />
 
         <input
           placeholder="Email Address"
-          className="rounded-xl border border-zinc-800 bg-zinc-900 p-4 text-white outline-none"
+          className="rounded-lg border border-zinc-800 p-3"
         />
 
         <textarea
           placeholder="Bio"
           rows={5}
-          className="rounded-xl border border-zinc-800 bg-zinc-900 p-4 text-white outline-none"
+          className="rounded-lg border border-zinc-800 p-3"
         />
       </div>
     </div>
