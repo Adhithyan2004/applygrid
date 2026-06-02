@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Sora } from "next/font/google";
 import { Inter } from "next/font/google";
+import Providers from "./provider";
 import "./globals.css";
 
 const sora = Sora({
@@ -30,7 +31,7 @@ export default function RootLayout({
       <body
         className={`${sora.variable} ${inter.variable} min-h-full flex flex-col`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

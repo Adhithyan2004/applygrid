@@ -2,6 +2,7 @@ import express from "express";
 import { prisma } from "./lib/prisma";
 import applicationRoutes from "./routes/application.routes";
 import authRoutes from "./routes/auth.routes";
+import dashboardRoutes from "./routes/dashboard.routes";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import cors from "cors";
@@ -22,6 +23,7 @@ app.use(
 // Moduled routes
 app.use("/applications", applicationRoutes);
 app.use("/auth", authRoutes);
+app.use("/dashboard", dashboardRoutes);
 
 // Server Check
 app.get("/", (req, res) => {
