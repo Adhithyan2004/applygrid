@@ -10,3 +10,29 @@ export const getDashboard = async () => {
 
   return response.data;
 };
+
+api.interceptors.response.use(
+  (response) => response,
+
+  async (error) => {
+    //TODO remove after testing
+    console.log("INTERCEPTOR HIT");
+    const originalRequest = error.config;
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      //TODO remove after testing
+      console.log("TRYING REFRESH");
+      originalRequest._retry = true;
+
+      try {
+        await api.post("/auth/refresh");
+
+        return api(originalRequest);
+      } catch (refreshError) {
+        return Promise.reject(refreshError);
+      }
+    }
+
+    return Promise.reject(error);
+  },
+);
