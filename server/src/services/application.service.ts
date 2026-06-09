@@ -6,6 +6,7 @@ export const createApplication = async (
   userId: string,
   companyName: string,
   role: string,
+  expLvl: ExperienceLevel,
   appliedDate: Date,
 ) => {
   return prisma.$transaction(async (tx) => {
@@ -16,7 +17,7 @@ export const createApplication = async (
         role,
         appliedDate,
         currentStatus: ApplicationStatus.APPLIED,
-        experienceLevel: ExperienceLevel.INTERN,
+        experienceLevel: expLvl ?? ExperienceLevel.INTERN,
       },
     });
 
@@ -33,24 +34,38 @@ export const createApplication = async (
 
 export const updateApplicationStatus = async (
   applicationId: string,
+  userId: string,
   newStatus: ApplicationStatus,
   note?: string,
 ) => {
+  const application = await prisma.application.findFirst({
+    where: {
+      id: applicationId,
+      userId,
+    },
+  });
+
+  if (!application) {
+    throw new Error("Application not found");
+  }
+
   return prisma.$transaction(async (tx) => {
     await tx.application.update({
-      where: { id: applicationId },
-      data: { currentStatus: newStatus },
+      where: {
+        id: applicationId,
+      },
+      data: {
+        currentStatus: newStatus,
+      },
     });
 
-    const history = await tx.applicationStatusHistory.create({
+    return tx.applicationStatusHistory.create({
       data: {
         applicationId,
         status: newStatus,
         note,
       },
     });
-
-    return history;
   });
 };
 

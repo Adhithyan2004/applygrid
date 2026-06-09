@@ -18,9 +18,11 @@ enum ApplicationStatus {
 
 enum ExperienceLevel {
   INTERN
+  ENTRY
   JUNIOR
   MID
   SENIOR
+  LEAD
 } 
 
 model User {
@@ -44,6 +46,9 @@ model Application {
   experienceLevel ExperienceLevel?
   appliedDate     DateTime
   statusHistory   ApplicationStatusHistory[]
+  location        String?
+  salary          Int?
+  note            String?
   createdAt       DateTime                   @default(now())
   updatedAt       DateTime                   @updatedAt
 

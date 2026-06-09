@@ -17,7 +17,7 @@ export const applicationController = async (
   res: Response,
 ) => {
   try {
-    const { companyName, role } = req.body;
+    const { companyName, role, expLvl } = req.body;
 
     const userId = req.userId!;
     const appliedDate = new Date();
@@ -26,6 +26,7 @@ export const applicationController = async (
       userId,
       companyName,
       role,
+      expLvl,
       appliedDate,
     );
 
@@ -36,14 +37,15 @@ export const applicationController = async (
 };
 
 export const applicationUpdateStatusController = async (
-  req: Request<{}, {}, UpdateApplicationStatusHistort>,
+  req: Request<{ id: string }, {}, UpdateApplicationStatusHistort>,
   res: Response,
 ) => {
   try {
     const { status, note } = req.body;
-    const userId = req.userId!;
+    const { id } = req.params;
+    const userId = req.userId as string;
 
-    const updated = await updateApplicationStatus(userId, status, note);
+    const updated = await updateApplicationStatus(id, userId, status, note);
 
     res.json(updated);
   } catch (error: any) {
