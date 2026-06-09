@@ -1,17 +1,34 @@
-export const RecentActivity = () => {
+import { RecentActivityItems } from "@/app/types/types";
+import { getActivityText } from "@/app/lib/activity";
+import { formatTimeAgo } from "@/app/lib/formattym";
+
+type Props = {
+  activities: RecentActivityItems[];
+};
+
+export const RecentActivity = ({ activities }: Props) => {
   return (
-    <div>
+    <div className="flex flex-col justify-between h-full">
       <div>
         <h1 className="text-[22px] font-semibold">Recent Activity</h1>
-        <div className="flex flex-col gap-3 mt-4">
-          <div className="flex justify-between items-center text-[18px]">
-            <p>Applied at Google</p>
-            <p className="font-semibold">2h ago</p>
-          </div>
-          <div className="flex justify-between items-center text-[18px]">
-            <p>Interview Scheduled at VVDN</p>
-            <p className="font-semibold">1d ago</p>
-          </div>
+        <div className="flex flex-col font-sora gap-3 mt-4">
+          {activities.map((activity) => (
+            <div
+              key={activity.id}
+              className="flex justify-between items-center text-[18px]"
+            >
+              <p>
+                {getActivityText(
+                  activity.status,
+                  activity.application.companyName,
+                )}
+              </p>
+
+              <p className="font-semibold">
+                {formatTimeAgo(activity.changedAt)}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
       <div className="mt-4">

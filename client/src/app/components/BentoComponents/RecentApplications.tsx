@@ -1,49 +1,41 @@
 export const RecentApplications = () => {
   return (
-    <div className="flex flex-col  justify-between h-full">
+    <div className="flex flex-col justify-between h-full">
       <h1 className="font-semibold text-[22px]">Recent Applications</h1>
-      <div>
-        {/* Header */}
-        <div className="grid grid-cols-4 mt-5 font-semibold text-[18px]">
-          <p>Company</p>
-          <p>Role</p>
-          <p>Status</p>
-          <p>Experience</p>
-        </div>
 
-        {/* Row 1 */}
-        <div className="grid grid-cols-4 py-1.5">
-          <p>Oracle</p>
-          <p>Frontend</p>
-          <p>OFFERED</p>
-          <p>INTERN</p>
-        </div>
+      <table className="w-full">
+        <thead>
+          <tr className="text-left text-[18px]">
+            <th className="pb-3">Company</th>
+            <th className="pb-3">Role</th>
+            <th className="pb-3">Status</th>
+            <th className="pb-3">Experience</th>
+          </tr>
+        </thead>
 
-        {/* Row 2 */}
-        <div className="grid grid-cols-4 py-1.5">
-          <p>Amazon</p>
-          <p>Backend</p>
-          <p>GHOSTED</p>
-          <p>JUNIOR</p>
-        </div>
+        <tbody>
+          <tr>
+            <td className="py-2">Oracle</td>
+            <td>Frontend</td>
+            <td>Offer</td>
+            <td>Intern</td>
+          </tr>
 
-        {/* Row 3 */}
-        <div className="grid grid-cols-4 py-1.5">
-          <p>ZOHO</p>
-          <p>PAT</p>
-          <p>REJECTED</p>
-          <p>MID LEVEL</p>
-        </div>
-
-        {/* Row 4 */}
-        <div className="grid grid-cols-4 py-1.5">
-          <p>TCS</p>
-          <p>SAP</p>
-          <p>OFFERED</p>
-          <p>SENIOR</p>
-        </div>
-      </div>
-      <p className="font-semibold">View All</p>
+          <tr>
+            <td className="py-2">Amazon</td>
+            <td>Backend</td>
+            <td>Ghosted</td>
+            <td>Junior</td>
+          </tr>
+          <tr>
+            <td className="py-2">Amazon</td>
+            <td>Backend</td>
+            <td>Ghosted</td>
+            <td>Junior</td>
+          </tr>
+        </tbody>
+      </table>
+      <p className="font-semibold cursor-pointer">View all</p>
     </div>
   );
 };

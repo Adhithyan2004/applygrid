@@ -3,16 +3,19 @@ import { ApplicationStatus } from "@prisma/client";
 
 // Put all services in single one and  returning all
 export const getDashboardService = async (userId: string) => {
-  const [overview, metrics, recentApplications] = await Promise.all([
-    getOverviewStats(userId),
-    getMetrics(userId),
-    getRecentApplications(userId),
-  ]);
+  const [overview, metrics, recentApplications, recentActivity] =
+    await Promise.all([
+      getOverviewStats(userId),
+      getMetrics(userId),
+      getRecentApplications(userId),
+      getRecentActivity(userId),
+    ]);
 
   return {
     overview,
     metrics,
     recentApplications,
+    recentActivity,
   };
 };
 
@@ -121,31 +124,30 @@ export const getRecentApplications = async (userId: string) => {
 };
 
 // TODO figure out later with added company name
-// export const getRecentActivity = async (
-//   userId: string
-// ) => {
-//   return prisma.applicationStatusHistory.findMany({
-//     where: {
-//       application: {
-//         userId,
-//       },
-//     },
+export const getRecentActivity = async (userId: string) => {
+  return prisma.applicationStatusHistory.findMany({
+    where: {
+      application: {
+        userId,
+      },
+    },
 
-//     orderBy: {
-//       changedAt: "desc",
-//     },
+    orderBy: {
+      changedAt: "desc",
+    },
 
-//     take: 10,
+    take: 2,
 
-//     select: {
-//       status: true,
-//       changedAt: true,
+    select: {
+      id: true,
+      status: true,
+      changedAt: true,
 
-//       application: {
-//         select: {
-//           companyName: true,
-//         },
-//       },
-//     },
-//   });
-// };
+      application: {
+        select: {
+          companyName: true,
+        },
+      },
+    },
+  });
+};
