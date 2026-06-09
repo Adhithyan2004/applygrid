@@ -13,28 +13,33 @@ const BentoHome = () => {
     return <p>Loading...</p>;
   }
   return (
-    <div className="mt-10 mb-6 grid grid-cols-12 grid-rows-12 w-full gap-5">
+    <div className="mt-10 mb-6 grid grid-cols-12 grid-rows-12 w-full gap-6">
       <div className="bg-zinc-300 col-span-4 row-span-6 rounded-xl py-5.5 px-8.25">
         <ApplicationStats
           stats={{
             totalApplications: data.overview.totalApplications,
-
             interviews: data.overview.interviews,
-
             successRate: data.metrics.successRate,
-
             rejectionRate: data.metrics.rejectionRate,
           }}
         />
       </div>
       <div className="bg-zinc-300 col-span-4 row-span-6 rounded-xl pt-8 pb-5.5 px-6">
-        <ApplicationRecords />
+        <ApplicationRecords
+          records={{
+            totalApplications: data.overview.totalApplications,
+            rejected: data.overview.rejected,
+            interviews: data.overview.interviews,
+            offers: data.overview.offers,
+            ghosted: data.overview.ghosted,
+          }}
+        />
       </div>
       <div className="bg-zinc-300 col-span-4 row-span-6 rounded-xl py-5.5 px-8.25">
         <ApplicationStreak />
       </div>
       <div className="bg-zinc-300 col-span-6 row-span-6 rounded-xl py-5.5 px-8.25">
-        <RecentActivity />
+        <RecentActivity activities={data.recentActivity} />
       </div>
       <div className="bg-zinc-300 col-span-6 row-span-6 rounded-xl py-5.5 px-8.25">
         <RecentApplications />

@@ -1,25 +1,31 @@
-const ApplicationRecords = () => {
+import { ApplicationRecordsData } from "@/app/types/types";
+
+type ApplicationRecordsProps = {
+  records: ApplicationRecordsData;
+};
+
+const ApplicationRecords = ({ records }: ApplicationRecordsProps) => {
   return (
     <div className="flex flex-col justify-between h-full">
-      <div className="text-[24px] font-sora grid grid-cols-2 gap-x-6 gap-y-5">
+      <div className="text-[25px] font-sora flex flex-col gap-2">
         <p>
-          <span className="font-semibold">136 </span>
+          <span className="font-semibold">{records.totalApplications} </span>
           Applied
         </p>
         <p>
-          <span className="font-semibold">44 </span>
+          <span className="font-semibold">{records.rejected} </span>
           Rejected
         </p>
         <p>
-          <span className="font-semibold">14 </span>
+          <span className="font-semibold">{records.interviews} </span>
           Interviews
         </p>
         <p>
-          <span className="font-semibold">4 </span>
+          <span className="font-semibold">{records.offers} </span>
           Offered
         </p>
         <p>
-          <span className="font-semibold">74 </span>
+          <span className="font-semibold">{records.ghosted} </span>
           Ghosted
         </p>
       </div>
