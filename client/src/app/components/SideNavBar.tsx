@@ -34,7 +34,7 @@ const SideNavBar = () => {
   const [openSettings, setOpenSettings] = useState(false);
   const pathname = usePathname();
   return (
-    <div className="sticky top-0 h-screen">
+    <div className="sticky top-0 h-screen z-50">
       <h1 className="text-[32px] mt-10 font-sora font-semibold">ApplyGrid</h1>
       <div className="flex flex-col py-10 justify-between h-150">
         <div className="flex flex-col font-sora gap-3">

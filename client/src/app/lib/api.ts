@@ -7,8 +7,12 @@ export const api = axios.create({
 
 export const getDashboard = async () => {
   const response = await api.get("/dashboard");
-
   return response.data;
+};
+
+export const getApplications = async () => {
+  const applications = await api.get("/applications");
+  return applications.data;
 };
 
 api.interceptors.response.use(

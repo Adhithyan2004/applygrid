@@ -17,7 +17,7 @@ export const applicationController = async (
   res: Response,
 ) => {
   try {
-    const { companyName, role, expLvl } = req.body;
+    const { companyName, role, expLvl, location, salary, note } = req.body;
 
     const userId = req.userId!;
     const appliedDate = new Date();
@@ -28,6 +28,9 @@ export const applicationController = async (
       role,
       expLvl,
       appliedDate,
+      location,
+      salary,
+      note,
     );
 
     res.json(application);

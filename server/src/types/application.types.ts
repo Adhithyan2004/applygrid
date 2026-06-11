@@ -4,6 +4,9 @@ export interface ApplicationBody {
   companyName: string;
   role: string;
   expLvl: ExperienceLevel;
+  location: string;
+  salary: number;
+  note: string;
 }
 
 export interface UpdateApplicationStatusHistort {

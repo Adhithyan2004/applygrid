@@ -8,6 +8,9 @@ export const createApplication = async (
   role: string,
   expLvl: ExperienceLevel,
   appliedDate: Date,
+  location: string,
+  salary: number,
+  note: string,
 ) => {
   return prisma.$transaction(async (tx) => {
     const application = await tx.application.create({
@@ -18,6 +21,9 @@ export const createApplication = async (
         appliedDate,
         currentStatus: ApplicationStatus.APPLIED,
         experienceLevel: expLvl ?? ExperienceLevel.INTERN,
+        location,
+        salary,
+        note,
       },
     });
 
