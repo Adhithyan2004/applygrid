@@ -4,8 +4,10 @@ import { MoreVertical, Trash, SquarePen } from "lucide-react";
 import { Fragment, useState } from "react";
 import { useApplicaitons } from "../hooks/useApplications";
 import { formatDate } from "../lib/formatters";
+import { useDeleteApplication } from "../hooks/useDeleteApplication";
 
 export const TableApplications = () => {
+  const deleteMutaion = useDeleteApplication();
   const [expandRow, setExpandRow] = useState<string | null>(null);
   const { data: applications, isLoading } = useApplicaitons();
   if (isLoading) {
@@ -79,7 +81,10 @@ export const TableApplications = () => {
                           {application.note}
                         </p>
                         <div className="flex gap-4">
-                          <button className="px-4 py-2 flex items-center gap-2 bg-zinc-300 rounded-lg cursor-pointer">
+                          <button
+                            onClick={() => deleteMutaion.mutate(application.id)}
+                            className="px-4 py-2 flex items-center gap-2 bg-zinc-300 rounded-lg cursor-pointer"
+                          >
                             <Trash size={20} /> Delete
                           </button>
                           <button className="px-4 py-2 flex items-center gap-2 border rounded-lg cursor-pointer">

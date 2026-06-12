@@ -5,16 +5,26 @@ export const api = axios.create({
   withCredentials: true,
 });
 
+// APIS
+
+// Dashboard API
 export const getDashboard = async () => {
   const response = await api.get("/dashboard");
   return response.data;
 };
 
+// Applications API
 export const getApplications = async () => {
   const applications = await api.get("/applications");
   return applications.data;
 };
-  
+
+// Delete API
+export const deleteApplication = async (id: string) => {
+  const response = await api.delete(`/applications/${id}`);
+  return response.data;
+};
+
 api.interceptors.response.use(
   (response) => response,
 

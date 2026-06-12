@@ -11,7 +11,7 @@ export type ApplicationRecordsData = {
   offers: number;
   rejected: number;
   ghosted: number;
-}; 
+};
 
 export type RecentActivityItems = {
   id: string;
@@ -21,6 +21,15 @@ export type RecentActivityItems = {
     companyName: string;
     role: string;
   };
+};
+
+export type RecentApplicationsItems = {
+  id: string;
+  companyName: string;
+  role: string;
+  currentStatus: string;
+  experienceLevel: string;
+  appliedDate: string;
 };
 
 // Using interface so it can be merged and extended easily

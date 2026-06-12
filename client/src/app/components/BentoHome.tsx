@@ -42,7 +42,7 @@ const BentoHome = () => {
         <RecentActivity activities={data.recentActivity} />
       </div>
       <div className="bg-zinc-300 col-span-6 row-span-6 rounded-xl py-5.5 px-8.25">
-        <RecentApplications />
+        <RecentApplications applications={data.recentApplications} />
       </div>
     </div>
   );

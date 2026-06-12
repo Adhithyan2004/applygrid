@@ -1,7 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-export const RecentApplications = () => {
+import { RecentApplicationsItems } from "@/app/types/types";
+
+type Props = {
+  applications: RecentApplicationsItems[];
+};
+export const RecentApplications = ({ applications }: Props) => {
   const router = useRouter();
   return (
     <div className="flex flex-col justify-between h-full">
@@ -18,25 +23,17 @@ export const RecentApplications = () => {
         </thead>
 
         <tbody>
-          <tr>
-            <td className="py-2">Oracle</td>
-            <td>Frontend</td>
-            <td>Offer</td>
-            <td>Intern</td>
-          </tr>
+          {applications.map((application) => (
+            <tr key={application.id}>
+              <td className="py-2">{application.companyName}</td>
 
-          <tr>
-            <td className="py-2">Amazon</td>
-            <td>Backend</td>
-            <td>Ghosted</td>
-            <td>Junior</td>
-          </tr>
-          <tr>
-            <td className="py-2">Amazon</td>
-            <td>Backend</td>
-            <td>Ghosted</td>
-            <td>Junior</td>
-          </tr>
+              <td>{application.role}</td>
+
+              <td>{application.currentStatus}</td>
+
+              <td>{application.experienceLevel}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <p

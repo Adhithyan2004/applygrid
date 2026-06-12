@@ -111,7 +111,7 @@ export const getRecentApplications = async (userId: string) => {
     orderBy: {
       appliedDate: "desc",
     },
-    take: 5,
+    take: 3,
     select: {
       id: true,
       companyName: true,
