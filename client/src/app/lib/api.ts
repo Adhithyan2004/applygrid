@@ -14,7 +14,7 @@ export const getApplications = async () => {
   const applications = await api.get("/applications");
   return applications.data;
 };
-
+  
 api.interceptors.response.use(
   (response) => response,
 

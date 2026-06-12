@@ -1,4 +1,8 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 export const RecentApplications = () => {
+  const router = useRouter();
   return (
     <div className="flex flex-col justify-between h-full">
       <h1 className="font-semibold text-[22px]">Recent Applications</h1>
@@ -35,7 +39,12 @@ export const RecentApplications = () => {
           </tr>
         </tbody>
       </table>
-      <p className="font-semibold cursor-pointer">View all</p>
+      <p
+        onClick={() => router.push("/applications")}
+        className="font-semibold cursor-pointer"
+      >
+        View all
+      </p>
     </div>
   );
 };

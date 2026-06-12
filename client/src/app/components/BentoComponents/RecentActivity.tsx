@@ -1,6 +1,6 @@
 import { RecentActivityItems } from "@/app/types/types";
 import { getActivityText } from "@/app/lib/activity";
-import { formatTimeAgo } from "@/app/lib/formattym";
+import { formatTimeAgo } from "@/app/lib/formatters";
 
 type Props = {
   activities: RecentActivityItems[];

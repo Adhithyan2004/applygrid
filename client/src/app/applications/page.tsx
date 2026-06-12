@@ -7,7 +7,7 @@ const page = () => {
     <div className="h-screen overflow-hidden">
       <div className="ml-14 mr-10 my-2 flex gap-13.5 h-full">
         <SideNavBar />
-        <div className="flex-1 flex flex-col pr-3 justify-between overflow-y-auto overflow-x-hidden mt-12">
+        <div className="flex-1 flex flex-col pr-3 justify-between overflow-y-auto overflow-x-hidden mt-7">
           <ApplicationContainer />
           <Footer />
         </div>

@@ -4,7 +4,6 @@ import { TableApplications } from "./TableApplications";
 export const ApplicationContainer = () => {
   return (
     <div className="mb-6">
-      {/* TODO: Make the SearchApplication stick to the top */}
       <div className="flex justify-between items-center">
         <SearchApplication />
         <LayersPlus

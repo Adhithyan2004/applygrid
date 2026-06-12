@@ -11,7 +11,7 @@ export type ApplicationRecordsData = {
   offers: number;
   rejected: number;
   ghosted: number;
-};
+}; 
 
 export type RecentActivityItems = {
   id: string;
@@ -22,3 +22,16 @@ export type RecentActivityItems = {
     role: string;
   };
 };
+
+// Using interface so it can be merged and extended easily
+export interface Application {
+  id: string;
+  companyName: string;
+  role: string;
+  currentStatus: string;
+  experienceLevel: string | null;
+  appliedDate: string;
+  location: string | null;
+  salary: number | null;
+  note: string | null;
+}

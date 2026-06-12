@@ -1,10 +1,14 @@
+"use client";
+
 import { ApplicationRecordsData } from "@/app/types/types";
+import { useRouter } from "next/navigation";
 
 type ApplicationRecordsProps = {
   records: ApplicationRecordsData;
 };
 
 const ApplicationRecords = ({ records }: ApplicationRecordsProps) => {
+  const router = useRouter();
   return (
     <div className="flex flex-col justify-between h-full">
       <div className="text-[25px] font-sora flex flex-col gap-2">
@@ -29,7 +33,12 @@ const ApplicationRecords = ({ records }: ApplicationRecordsProps) => {
           Ghosted
         </p>
       </div>
-      <p className="underline cursor-pointer">View All Applications</p>
+      <p
+        onClick={() => router.push("/applications")}
+        className="underline cursor-pointer"
+      >
+        View All Applications
+      </p>
     </div>
   );
 };

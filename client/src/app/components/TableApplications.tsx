@@ -1,55 +1,16 @@
 "use client";
 
-import { MoreVertical } from "lucide-react";
+import { MoreVertical, Trash, SquarePen } from "lucide-react";
 import { Fragment, useState } from "react";
-
-const applications = [
-  {
-    company: "Amazon",
-    role: "Frontend Developer",
-    status: "Rejected",
-    experience: "INTERN",
-    appliedDate: "12 Aug 2026",
-  },
-  {
-    company: "ZOHO",
-    role: "Backend Developer",
-    status: "Interview",
-    experience: "JUNIOR",
-    appliedDate: "22 Aug 2026",
-  },
-  {
-    company: "Google",
-    role: "React Developer",
-    status: "Applied",
-    experience: "MID",
-    appliedDate: "01 Sep 2026",
-  },
-  {
-    company: "Oracle",
-    role: "Backend Developer",
-    status: "Offer",
-    experience: "LEAD",
-    appliedDate: "06 Sep 2026",
-  },
-  {
-    company: "VVDN",
-    role: "Data Analyst",
-    status: "Rejected",
-    experience: "INTERN",
-    appliedDate: "12 Sep 2026",
-  },
-  {
-    company: "VVDN",
-    role: "Data Analyst",
-    status: "Rejected",
-    experience: "INTERN",
-    appliedDate: "12 Sep 2026",
-  },
-];
+import { useApplicaitons } from "../hooks/useApplications";
+import { formatDate } from "../lib/formatters";
 
 export const TableApplications = () => {
   const [expandRow, setExpandRow] = useState<string | null>(null);
+  const { data: applications, isLoading } = useApplicaitons();
+  if (isLoading) {
+    return <p>Loading ....</p>;
+  }
 
   const toggleRow = (id: string) => {
     setExpandRow(expandRow === id ? null : id);
@@ -70,48 +31,61 @@ export const TableApplications = () => {
         </thead>
 
         <tbody>
-          {applications.map((application, index) => (
-            <Fragment key={index}>
-              <tr>
-                <td className="px-4 py-2.5">{application.company}</td>
-                <td className="px-4 py-2.5">{application.role}</td>
-                <td className="px-4 py-2.5">{application.status}</td>
-                <td className="px-4 py-2.5">{application.experience}</td>
-                <td className="px-4 py-2.5">{application.appliedDate}</td>
-                <td>
-                  <button onClick={() => toggleRow(application.company)}>
+          {applications?.map((application) => (
+            <Fragment key={application.id}>
+              <tr className={expandRow === application.id ? "bg-zinc-100" : ""}>
+                <td className="px-4 py-2.5 rounded-tl-lg">
+                  {application.companyName}
+                </td>
+                <td className="px-4 py-3.5">{application.role}</td>
+                <td className="px-4 py-3.5">{application.currentStatus}</td>
+                <td className="px-4 py-3.5">{application.experienceLevel}</td>
+                <td className="px-4 py-3.5 ">
+                  {formatDate(application.appliedDate)}
+                </td>
+                <td className="rounded-tr-lg">
+                  <button onClick={() => toggleRow(application.id)}>
                     <MoreVertical />
                   </button>
                 </td>
               </tr>
 
-              {expandRow === application.company && (
+              {expandRow === application.id && (
                 <tr>
-                  <td colSpan={6}>
-                    <div className="p-4 rounded-lg bg-zinc-100">
-                      <h3 className="font-semibold mb-3">
-                        Application Details
-                      </h3>
-
-                      <div className="space-y-2">
-                        <p>
-                          <strong className="font-sora">Company :</strong>{" "}
-                          {application.company}
+                  <td colSpan={6} className="bg-zinc-100 rounded-b-lg">
+                    <div className="p-4">
+                      <div className="flex flex-col gap-10">
+                        <div className="space-y-2.5">
+                          <p className="font-sora">
+                            <strong>Applied :</strong>{" "}
+                            {formatDate(application.appliedDate)}
+                          </p>
+                          <p className="font-sora">
+                            <strong>Salary :</strong> {application.salary}
+                          </p>
+                          <p className="font-sora">
+                            <strong>Experience :</strong>{" "}
+                            {application.experienceLevel}
+                          </p>
+                          <p className="font-sora">
+                            <strong>Location :</strong> {application.location}
+                          </p>
+                        </div>
+                        <p className="font-sora">
+                          <strong>
+                            Notes:
+                            <br />{" "}
+                          </strong>{" "}
+                          {application.note}
                         </p>
-                        <p>
-                          <strong className="font-sora">Role:</strong>{" "}
-                          {application.role}
-                        </p>
-                        <p>
-                          <strong>Status:</strong> {application.status}
-                        </p>
-                        <p>
-                          <strong>Experience:</strong> {application.experience}
-                        </p>
-                        <p>
-                          <strong>Applied Date:</strong>{" "}
-                          {application.appliedDate}
-                        </p>
+                        <div className="flex gap-4">
+                          <button className="px-4 py-2 flex items-center gap-2 bg-zinc-300 rounded-lg cursor-pointer">
+                            <Trash size={20} /> Delete
+                          </button>
+                          <button className="px-4 py-2 flex items-center gap-2 border rounded-lg cursor-pointer">
+                            <SquarePen size={20} /> Edit
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </td>
