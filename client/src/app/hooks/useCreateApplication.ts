@@ -1,11 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteApplication } from "../lib/api";
+import { createApplication } from "../lib/api";
 
-export const useDeleteApplication = () => {
+export const useCreateApplication = () => {
   const queryClient = useQueryClient();
 
+  //   Reason for giving both keys is after adding application 
+  // both dashboard and application page!
   return useMutation({
-    mutationFn: deleteApplication,
+    mutationFn: createApplication,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["applications"],

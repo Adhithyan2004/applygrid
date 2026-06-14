@@ -1,4 +1,5 @@
 import axios from "axios";
+import { CreateApplication, UpdateApplicationPayload } from "../types/types";
 
 export const api = axios.create({
   baseURL: "http://localhost:5000",
@@ -25,6 +26,25 @@ export const deleteApplication = async (id: string) => {
   return response.data;
 };
 
+// Post application
+export const createApplication = async (data: CreateApplication) => {
+  const response = await api.post("/applications", data);
+  return response.data;
+};
+
+// Update Application
+export const updateApplication = async ({
+  id,
+  data,
+}: {
+  id: string;
+  data: UpdateApplicationPayload;
+}) => {
+  const response = await api.patch(`/applications/${id}`, data);
+  return response.data;
+};
+
+// Catch 401 or 403 error and refresh the accesstoken using refresh token
 api.interceptors.response.use(
   (response) => response,
 

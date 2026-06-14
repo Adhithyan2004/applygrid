@@ -44,3 +44,22 @@ export interface Application {
   salary: number | null;
   note: string | null;
 }
+export interface CreateApplication {
+  companyName: string;
+  role: string;
+  currentStatus: string;
+  experienceLevel: string | null;
+  location: string | null;
+  salary: number | null;
+  note: string | null;
+}
+
+export interface UpdateApplicationPayload {
+  companyName?: string;
+  role?: string;
+  currentStatus?: string;
+  experienceLevel?: string;
+  location?: string;
+  salary?: number;
+  note?: string;
+}

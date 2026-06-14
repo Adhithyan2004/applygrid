@@ -1,16 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  LayoutDashboard,
-  Plus,
-  Layers,
-  CircleUser,
-  Settings,
-} from "lucide-react";
-import SettingsModal from "./SettingsModal";
+import { LayoutDashboard, Plus, Layers } from "lucide-react";
+import { AccountMenu } from "./AccountMenu";
+import { useState } from "react";
+import { AddApplicationModal } from "./AddApplicationModal";
 
 const navItems = [
   {
@@ -18,11 +13,7 @@ const navItems = [
     href: "/",
     icon: LayoutDashboard,
   },
-  {
-    name: "Track Job",
-    href: "/add-application",
-    icon: Plus,
-  },
+
   {
     name: "Applications",
     href: "/applications",
@@ -31,12 +22,12 @@ const navItems = [
 ];
 
 const SideNavBar = () => {
-  const [openSettings, setOpenSettings] = useState(false);
   const pathname = usePathname();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className="sticky top-0 h-screen z-50">
       <h1 className="text-[32px] mt-10 font-sora font-semibold">ApplyGrid</h1>
-      <div className="flex flex-col py-10 justify-between h-150">
+      <div className="flex flex-col pt-10 pb-14 justify-between h-150">
         <div className="flex flex-col font-sora gap-3">
           {navItems.map((item) => {
             const Icon = item.icon;
@@ -56,23 +47,22 @@ const SideNavBar = () => {
               </Link>
             );
           })}
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="navbar-icon hover:bg-zinc-200 cursor-pointer"
+          >
+            <Plus />
+            Track Job
+          </button>
+          <AddApplicationModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            application={null}
+            mode="create"
+          />
         </div>
         <div className=" flex flex-col gap-3">
-          <Link href="" className="navbar-icon hover:bg-zinc-200">
-            <CircleUser />
-            Account
-          </Link>
-          <button
-            className="navbar-icon hover:bg-zinc-200"
-            onClick={() => setOpenSettings(true)}
-          >
-            <Settings />
-            Settings
-          </button>
-          <SettingsModal
-            isOpen={openSettings}
-            onClose={() => setOpenSettings(false)}
-          />
+          <AccountMenu />
         </div>
       </div>
     </div>

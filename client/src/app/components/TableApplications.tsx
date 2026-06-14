@@ -1,12 +1,17 @@
 "use client";
 
-import { MoreVertical, Trash, SquarePen } from "lucide-react";
+import { Trash, SquarePen, ChevronDown, ChevronUp } from "lucide-react";
 import { Fragment, useState } from "react";
 import { useApplicaitons } from "../hooks/useApplications";
-import { formatDate } from "../lib/formatters";
+import { formatDate, formatSalary } from "../lib/formatters";
 import { useDeleteApplication } from "../hooks/useDeleteApplication";
+import { Application } from "../types/types";
 
-export const TableApplications = () => {
+type Props = {
+  onEdit: (application: Application) => void;
+};
+
+export const TableApplications = ({ onEdit }: Props) => {
   const deleteMutaion = useDeleteApplication();
   const [expandRow, setExpandRow] = useState<string | null>(null);
   const { data: applications, isLoading } = useApplicaitons();
@@ -22,20 +27,22 @@ export const TableApplications = () => {
     <div className="overflow-hidden">
       <table className="w-full">
         <thead>
-          <tr>
+          <tr className="font-sora">
             <th className="px-4 py-3 text-left">Company</th>
             <th className="px-4 py-3 text-left">Role</th>
             <th className="px-4 py-3 text-left">Status</th>
             <th className="px-4 py-3 text-left">Experience</th>
             <th className="px-4 py-3 text-left">Date</th>
-            <th className="w-12"></th>
+            {/* <th className="w-12"></th> */}
           </tr>
         </thead>
 
         <tbody>
           {applications?.map((application) => (
             <Fragment key={application.id}>
-              <tr className={expandRow === application.id ? "bg-zinc-100" : ""}>
+              <tr
+                className={expandRow === application.id ? "bg-zinc-100 " : ""}
+              >
                 <td className="px-4 py-2.5 rounded-tl-lg">
                   {application.companyName}
                 </td>
@@ -46,8 +53,21 @@ export const TableApplications = () => {
                   {formatDate(application.appliedDate)}
                 </td>
                 <td className="rounded-tr-lg">
-                  <button onClick={() => toggleRow(application.id)}>
-                    <MoreVertical />
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => toggleRow(application.id)}
+                  >
+                    {expandRow === application.id ? (
+                      <ChevronUp
+                        size={20}
+                        className="hover:bg-zinc-200 rounded-md"
+                      />
+                    ) : (
+                      <ChevronDown
+                        size={20}
+                        className="hover:bg-zinc-200 rounded-md"
+                      />
+                    )}
                   </button>
                 </td>
               </tr>
@@ -63,7 +83,10 @@ export const TableApplications = () => {
                             {formatDate(application.appliedDate)}
                           </p>
                           <p className="font-sora">
-                            <strong>Salary :</strong> {application.salary}
+                            <strong>
+                              Salary <span className="font-medium">(LPA)</span> :
+                            </strong>{" "}
+                            {formatSalary(application.salary)}
                           </p>
                           <p className="font-sora">
                             <strong>Experience :</strong>{" "}
@@ -87,7 +110,10 @@ export const TableApplications = () => {
                           >
                             <Trash size={20} /> Delete
                           </button>
-                          <button className="px-4 py-2 flex items-center gap-2 border rounded-lg cursor-pointer">
+                          <button
+                            onClick={() => onEdit(application)}
+                            className="px-4 py-2 flex items-center gap-2 border rounded-lg cursor-pointer"
+                          >
                             <SquarePen size={20} /> Edit
                           </button>
                         </div>

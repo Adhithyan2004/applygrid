@@ -1,16 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteApplication } from "../lib/api";
+import { updateApplication } from "../lib/api";
 
-export const useDeleteApplication = () => {
+export const useUpdateApplication = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: deleteApplication,
+    mutationFn: updateApplication,
+
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["applications"],
       });
-
       queryClient.invalidateQueries({
         queryKey: ["dashboard"],
       });

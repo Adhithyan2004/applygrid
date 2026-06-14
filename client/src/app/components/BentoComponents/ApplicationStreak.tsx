@@ -1,4 +1,10 @@
+"use client";
+
+import { useState } from "react";
+import { AddApplicationModal } from "../AddApplicationModal";
+
 export const ApplicationStreak = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className="font-sora flex flex-col gap-5 h-full justify-between">
       <h2 className="text-[22px] font-semibold">Application Streak</h2>
@@ -8,9 +14,18 @@ export const ApplicationStreak = () => {
           New Personal <br /> best
         </p>
       </div>
-      <p className="font-semibold underline cursor-pointer">
+      <p
+        onClick={() => setIsModalOpen(true)}
+        className="font-semibold underline cursor-pointer"
+      >
         Add Today's Application
       </p>
+      <AddApplicationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        application={null}
+        mode="create"
+      />
     </div>
   );
 };

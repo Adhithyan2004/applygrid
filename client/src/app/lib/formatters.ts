@@ -20,3 +20,8 @@ export const formatDate = (date: string) => {
     year: "2-digit",
   });
 };
+
+export const formatSalary = (value: number | null) => {
+  if (value === null) return "";
+  return value.toLocaleString("en-IN");
+};

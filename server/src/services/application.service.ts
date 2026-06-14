@@ -6,7 +6,8 @@ export const createApplication = async (
   userId: string,
   companyName: string,
   role: string,
-  expLvl: ExperienceLevel,
+  experienceLevel: ExperienceLevel,
+  currentStatus: ApplicationStatus,
   appliedDate: Date,
   location: string,
   salary: number,
@@ -19,8 +20,8 @@ export const createApplication = async (
         companyName,
         role,
         appliedDate,
-        currentStatus: ApplicationStatus.APPLIED,
-        experienceLevel: expLvl ?? ExperienceLevel.INTERN,
+        currentStatus,
+        experienceLevel,
         location,
         salary,
         note,
@@ -30,7 +31,7 @@ export const createApplication = async (
     await tx.applicationStatusHistory.create({
       data: {
         applicationId: application.id,
-        status: ApplicationStatus.APPLIED,
+        status: currentStatus,
       },
     });
 
