@@ -18,7 +18,7 @@ export const AccountMenu = () => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="navbar-icon w-full hover:bg-zinc-200"
+        className="navbar-icon w-full hover:bg-zinc-100"
       >
         <CircleUser />
 
@@ -33,7 +33,7 @@ export const AccountMenu = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute bottom-14 left-0 w-45 rounded-xl bg-zinc-300 p-2">
+        <div className="absolute bottom-14 left-0 w-45 rounded-xl bg-zinc-200 p-2">
           <div className="px-3 py-3 flex items-center gap-4">
             <CircleUser size={30} />
             <div>

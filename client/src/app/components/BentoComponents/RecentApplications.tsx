@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { RecentApplicationsItems } from "@/app/types/types";
+import { getStatusStyles } from "@/app/lib/statusByColor";
 
 type Props = {
   applications: RecentApplicationsItems[];
@@ -29,7 +30,15 @@ export const RecentApplications = ({ applications }: Props) => {
 
               <td>{application.role}</td>
 
-              <td>{application.currentStatus}</td>
+              <td>
+                <span
+                  className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusStyles(
+                    application.currentStatus,
+                  )}`}
+                >
+                  {application.currentStatus}
+                </span>
+              </td>
 
               <td>{application.experienceLevel}</td>
             </tr>

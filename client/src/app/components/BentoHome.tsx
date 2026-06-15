@@ -36,7 +36,7 @@ const BentoHome = () => {
         />
       </div>
       <div className="bg-zinc-300 col-span-4 row-span-6 rounded-xl py-5.5 px-8.25">
-        <ApplicationStreak />
+        <ApplicationStreak streak={data.streak} bestStreak={data.bestStreak} />
       </div>
       <div className="bg-zinc-300 col-span-6 row-span-6 rounded-xl py-5.5 px-8.25">
         <RecentActivity activities={data.recentActivity} />

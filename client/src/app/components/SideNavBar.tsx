@@ -6,6 +6,7 @@ import { LayoutDashboard, Plus, Layers } from "lucide-react";
 import { AccountMenu } from "./AccountMenu";
 import { useState } from "react";
 import { AddApplicationModal } from "./AddApplicationModal";
+import { useRouter } from "next/navigation";
 
 const navItems = [
   {
@@ -22,11 +23,17 @@ const navItems = [
 ];
 
 const SideNavBar = () => {
+  const router = useRouter();
   const pathname = usePathname();
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className="sticky top-0 h-screen z-50">
-      <h1 className="text-[32px] mt-10 font-sora font-semibold">ApplyGrid</h1>
+      <h1
+        onClick={() => router.push("/")}
+        className="text-[30px] mt-10 font-sora font-semibold cursor-pointer"
+      >
+        ApplyGrid
+      </h1>
       <div className="flex flex-col pt-10 pb-14 justify-between h-150">
         <div className="flex flex-col font-sora gap-3">
           {navItems.map((item) => {
@@ -37,9 +44,7 @@ const SideNavBar = () => {
                 key={item.href}
                 href={item.href}
                 className={`navbar-icon ${
-                  pathname === item.href
-                    ? "bg-zinc-500 text-white"
-                    : "hover:bg-zinc-200"
+                  pathname === item.href ? "bg-zinc-200" : "hover:bg-zinc-100"
                 }`}
               >
                 <Icon />
@@ -49,7 +54,7 @@ const SideNavBar = () => {
           })}
           <button
             onClick={() => setIsModalOpen(true)}
-            className="navbar-icon hover:bg-zinc-200 cursor-pointer"
+            className="navbar-icon hover:bg-zinc-100 cursor-pointer"
           >
             <Plus />
             Track Job

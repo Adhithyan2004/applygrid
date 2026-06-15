@@ -5,6 +5,11 @@ export type ApplicationStatsData = {
   rejectionRate: number;
 };
 
+export type ApplicationStreakProps = {
+  streak: number;
+  bestStreak: number;
+};
+
 export type ApplicationRecordsData = {
   totalApplications: number;
   interviews: number;

@@ -1,14 +1,22 @@
 import { prisma } from "../lib/prisma";
 import { ApplicationStatus } from "@prisma/client";
+import { calculateStreak } from "../utils/streak";
 
 // Put all services in single one and  returning all
 export const getDashboardService = async (userId: string) => {
-  const [overview, metrics, recentApplications, recentActivity] =
+  const [overview, metrics, recentApplications, recentActivity, streak, user] =
     await Promise.all([
       getOverviewStats(userId),
       getMetrics(userId),
       getRecentApplications(userId),
       getRecentActivity(userId),
+      getApplicationStreak(userId),
+      prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+          bestStreak: true,
+        },
+      }),
     ]);
 
   return {
@@ -16,6 +24,8 @@ export const getDashboardService = async (userId: string) => {
     metrics,
     recentApplications,
     recentActivity,
+    streak,
+    bestStreak: user?.bestStreak ?? 0,
   };
 };
 
@@ -123,7 +133,6 @@ export const getRecentApplications = async (userId: string) => {
   });
 };
 
-// TODO figure out later with added company name
 export const getRecentActivity = async (userId: string) => {
   return prisma.applicationStatusHistory.findMany({
     where: {
@@ -150,4 +159,17 @@ export const getRecentActivity = async (userId: string) => {
       },
     },
   });
+};
+
+const getApplicationStreak = async (userId: string) => {
+  const applications = await prisma.application.findMany({
+    where: { userId },
+    select: {
+      appliedDate: true,
+    },
+    orderBy: {
+      appliedDate: "desc",
+    },
+  });
+  return calculateStreak(applications.map((app) => app.appliedDate));
 };
