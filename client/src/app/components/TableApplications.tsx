@@ -5,6 +5,7 @@ import { Fragment, useState } from "react";
 import { useApplicaitons } from "../hooks/useApplications";
 import { formatDate, formatSalary } from "../lib/formatters";
 import { useDeleteApplication } from "../hooks/useDeleteApplication";
+import { getStatusStyles } from "../lib/statusByColor";
 import { Application } from "../types/types";
 
 type Props = {
@@ -47,7 +48,15 @@ export const TableApplications = ({ onEdit }: Props) => {
                   {application.companyName}
                 </td>
                 <td className="px-4 py-3.5">{application.role}</td>
-                <td className="px-4 py-3.5">{application.currentStatus}</td>
+                <td className="px-4 py-3.5">
+                  <span
+                    className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusStyles(
+                      application.currentStatus,
+                    )}`}
+                  >
+                    {application.currentStatus}
+                  </span>
+                </td>
                 <td className="px-4 py-3.5">{application.experienceLevel}</td>
                 <td className="px-4 py-3.5 ">
                   {formatDate(application.appliedDate)}
@@ -84,7 +93,8 @@ export const TableApplications = ({ onEdit }: Props) => {
                           </p>
                           <p className="font-sora">
                             <strong>
-                              Salary <span className="font-medium">(LPA)</span> :
+                              Salary <span className="font-medium">(LPA)</span>{" "}
+                              :
                             </strong>{" "}
                             {formatSalary(application.salary)}
                           </p>

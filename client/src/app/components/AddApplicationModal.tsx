@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { Application } from "../types/types";
 import { useUpdateApplication } from "../hooks/useUpdateApplication";
 import { useRouter } from "next/navigation";
+import { getStatusStyles } from "../lib/statusByColor";
 
 type Props = {
   isOpen: boolean;
@@ -179,11 +180,11 @@ export const AddApplicationModal = ({
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label className="font-semibold">Company</label>
+            <label className="font-semibold">Status</label>
             <select
               value={currentStatus}
               onChange={(e) => setCurrentStatus(e.target.value)}
-              className="w-full max-w-sm rounded-lg border p-2"
+              className={`w-full max-w-sm rounded-lg border p-2 ${getStatusStyles(currentStatus)}`}
             >
               <option>APPLIED</option>
               <option>INTERVIEW</option>
@@ -193,17 +194,13 @@ export const AddApplicationModal = ({
               <option>GHOSTED</option>
             </select>
           </div>
-          {/* <div className="flex flex-col gap-1"> */}
-            {/* <label className="font-semibold">Company</label> */}
-            <textarea
-              rows={2}
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              placeholder="Notes"
-              className="md:col-span-2 w-full rounded-lg border p-2"
-            />
-          {/* </div> */}
-
+          <textarea
+            rows={2}
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            placeholder="Notes (optional)"
+            className="md:col-span-2 w-full rounded-lg border p-2"
+          />
           <div className="flex gap-2">
             <button
               type="submit"
@@ -213,9 +210,7 @@ export const AddApplicationModal = ({
               }
               className="rounded-lg bg-zinc-900 px-4 py-2 text-white"
             >
-              {createApplicationMutation.isPending
-                ? "Adding..."
-                : "Add Application"}
+              {mode === "create" ? "Add Application" : "Update Applciaiton"}
             </button>
             <button
               type="button"
