@@ -2,7 +2,6 @@ import express from "express";
 import { authenticate } from "../middleware/auth.middleware";
 import {
   applicationController,
-  applicationUpdateStatusController,
   deleteApplicationController,
   getAllApplicationContoller,
   getSingleApplicationContoller,
@@ -22,9 +21,6 @@ router.get("/:id", authenticate, getSingleApplicationContoller);
 
 //Delete a application
 router.delete("/:id", authenticate, deleteApplicationController);
-
-// Update status
-router.patch("/:id/status", authenticate, applicationUpdateStatusController);
 
 //Update application
 router.patch("/:id", updateApplicationController);

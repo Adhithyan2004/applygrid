@@ -1,6 +1,7 @@
 import { prisma } from "../lib/prisma";
 import { ApplicationStatus, ExperienceLevel } from "@prisma/client";
 import { ApplicationBody } from "../types/application.types";
+import { calculateStreak } from "../utils/streak";
 
 export const createApplication = async (
   userId: string,
@@ -28,6 +29,38 @@ export const createApplication = async (
       },
     });
 
+    const applicationDates = await tx.application.findMany({
+      where: {
+        userId,
+      },
+      select: {
+        appliedDate: true,
+      },
+    });
+
+    const currentStreak = calculateStreak(
+      applicationDates.map((application) => application.appliedDate),
+    );
+
+    const user = await tx.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        bestStreak: true,
+      },
+    });
+
+    if (user && currentStreak > user.bestStreak) {
+      await tx.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          bestStreak: currentStreak,
+        },
+      });
+    }
     await tx.applicationStatusHistory.create({
       data: {
         applicationId: application.id,
@@ -137,11 +170,21 @@ export const updateApplicationService = async (
   }
 
   const updatedApplication = await prisma.application.update({
-    where: {
-      id: id,
-    },
+    where: { id },
     data: updateData,
   });
+
+  if (
+    updateData.currentStatus &&
+    updateData.currentStatus !== application.currentStatus
+  ) {
+    await prisma.applicationStatusHistory.create({
+      data: {
+        applicationId: id,
+        status: updateData.currentStatus,
+      },
+    });
+  }
 
   return updatedApplication;
 };

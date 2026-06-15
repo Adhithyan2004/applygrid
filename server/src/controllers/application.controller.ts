@@ -47,23 +47,6 @@ export const applicationController = async (
   }
 };
 
-export const applicationUpdateStatusController = async (
-  req: Request<{ id: string }, {}, UpdateApplicationStatusHistort>,
-  res: Response,
-) => {
-  try {
-    const { status, note } = req.body;
-    const { id } = req.params;
-    const userId = req.userId as string;
-
-    const updated = await updateApplicationStatus(id, userId, status, note);
-
-    res.json(updated);
-  } catch (error: any) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
 export const getAllApplicationContoller = async (
   req: Request,
   res: Response,
