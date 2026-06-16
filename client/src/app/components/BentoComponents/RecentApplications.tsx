@@ -13,22 +13,22 @@ export const RecentApplications = ({ applications }: Props) => {
     <div className="flex flex-col justify-between h-full">
       <h1 className="font-semibold text-[22px]">Recent Applications</h1>
 
-      <table className="w-full">
+      <table className="w-full bg-zinc-50 rounded-lg">
         <thead>
-          <tr className="text-left text-[18px]">
-            <th className="pb-3">Company</th>
-            <th className="pb-3">Role</th>
-            <th className="pb-3">Status</th>
-            <th className="pb-3">Experience</th>
+          <tr className="text-left text-[18px] ">
+            <th className="pb-3 py-2 px-2">Company</th>
+            <th className="pb-3 py-2 px-2">Role</th>
+            <th className="pb-3 py-2 px-2">Status</th>
+            <th className="pb-3 py-2 px-2">Experience</th>
           </tr>
         </thead>
 
         <tbody>
           {applications.map((application) => (
-            <tr key={application.id}>
-              <td className="py-2">{application.companyName}</td>
+            <tr key={application.id} className="text-[16px]">
+              <td className="py-2 px-2">{application.companyName}</td>
 
-              <td>{application.role}</td>
+              <td className="py-2 px-2">{application.role}</td>
 
               <td>
                 <span
@@ -40,7 +40,7 @@ export const RecentApplications = ({ applications }: Props) => {
                 </span>
               </td>
 
-              <td>{application.experienceLevel}</td>
+              <td className="py-2 px-2">{application.experienceLevel}</td>
             </tr>
           ))}
         </tbody>

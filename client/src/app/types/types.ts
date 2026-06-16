@@ -15,7 +15,6 @@ export type ApplicationRecordsData = {
   interviews: number;
   offers: number;
   rejected: number;
-  ghosted: number;
 };
 
 export type RecentActivityItems = {

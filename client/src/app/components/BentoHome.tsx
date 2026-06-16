@@ -13,8 +13,8 @@ const BentoHome = () => {
     return <p>Loading...</p>;
   }
   return (
-    <div className="mt-10 mb-6 grid grid-cols-12 grid-rows-12 w-full gap-6">
-      <div className="bg-zinc-300 col-span-4 row-span-6 rounded-xl py-5.5 px-8.25">
+    <div className="mt-10 mb-6 grid grid-cols-12 grid-rows-12 w-full h-fit gap-6">
+      <div className="bg-zinc-200 col-span-4 row-span-6 rounded-xl py-5.5 px-8.25">
         <ApplicationStats
           stats={{
             totalApplications: data.overview.totalApplications,
@@ -31,17 +31,16 @@ const BentoHome = () => {
             rejected: data.overview.rejected,
             interviews: data.overview.interviews,
             offers: data.overview.offers,
-            ghosted: data.overview.ghosted,
           }}
         />
       </div>
-      <div className="bg-zinc-300 col-span-4 row-span-6 rounded-xl py-5.5 px-8.25">
+      <div className="bg-zinc-200 col-span-4 row-span-6 rounded-xl py-5.5 px-8.25">
         <ApplicationStreak streak={data.streak} bestStreak={data.bestStreak} />
       </div>
       <div className="bg-zinc-300 col-span-6 row-span-6 rounded-xl py-5.5 px-8.25">
         <RecentActivity activities={data.recentActivity} />
       </div>
-      <div className="bg-zinc-300 col-span-6 row-span-6 rounded-xl py-5.5 px-8.25">
+      <div className="bg-zinc-200 col-span-6 row-span-6 rounded-xl py-5.5 px-8.25">
         <RecentApplications applications={data.recentApplications} />
       </div>
     </div>

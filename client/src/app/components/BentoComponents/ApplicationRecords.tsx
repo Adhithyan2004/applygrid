@@ -11,26 +11,30 @@ const ApplicationRecords = ({ records }: ApplicationRecordsProps) => {
   const router = useRouter();
   return (
     <div className="flex flex-col justify-between h-full">
-      <div className="text-[25px] font-sora flex flex-col gap-2">
-        <p>
-          <span className="font-semibold">{records.totalApplications} </span>
+      <div className="text-[25px] font-sora grid grid-cols-2 gap-x-4 gap-y-4">
+        <p className="bg-zinc-50 p-3 rounded-lg font-light">
+          <span className="font-semibold text-[33px]">
+            {records.totalApplications}{" "}
+          </span>{" "}
+          <br />
           Applied
         </p>
-        <p>
-          <span className="font-semibold">{records.rejected} </span>
+        <p className="bg-zinc-50 p-3 rounded-lg font-light">
+          <span className="font-semibold text-[33px]">{records.rejected} </span>{" "}
+          <br />
           Rejected
         </p>
-        <p>
-          <span className="font-semibold">{records.interviews} </span>
+        <p className="bg-zinc-50 p-3 rounded-lg font-light">
+          <span className="font-semibold text-[33px]">
+            {records.interviews}{" "}
+          </span>{" "}
+          <br />
           Interviews
         </p>
-        <p>
-          <span className="font-semibold">{records.offers} </span>
+        <p className="bg-zinc-50 p-3 rounded-lg font-light">
+          <span className="font-semibold text-[33px]">{records.offers} </span>{" "}
+          <br />
           Offered
-        </p>
-        <p>
-          <span className="font-semibold">{records.ghosted} </span>
-          Ghosted
         </p>
       </div>
       <p

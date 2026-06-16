@@ -8,8 +8,8 @@ type Props = {
 
 export const RecentActivity = ({ activities }: Props) => {
   return (
-    <div className="flex flex-col justify-between h-full">
-      <div>
+    <div className="flex flex-col gap-4 h-full">
+      <div className="bg-zinc-50 rounded-lg p-3 py-5">
         <h1 className="text-[22px] font-semibold">Recent Activity</h1>
         <div className="flex flex-col font-sora gap-3 mt-4">
           {activities.map((activity) => (
@@ -24,14 +24,14 @@ export const RecentActivity = ({ activities }: Props) => {
                 )}
               </p>
 
-              <p className="font-semibold">
+              <p className="font-semibold text-[16px]">
                 {formatTimeAgo(activity.changedAt)}
               </p>
             </div>
           ))}
         </div>
       </div>
-      <div className="mt-4">
+      <div>
         <h1 className="text-[22px] font-semibold">Top Applied Roles</h1>
         <div className="flex flex-col gap-2 mt-4">
           <div className="flex justify-between font-semibold text-zinc-200 rounded-lg p-2 bg-zinc-500 w-[52%]">
