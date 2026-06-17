@@ -7,7 +7,7 @@ import { getStatusStyles } from "@/app/lib/statusByColor";
 type Props = {
   applications: RecentApplicationsItems[];
 };
-export const RecentApplications = ({ applications }: Props) => {
+export const RecentApplications = ({ applications }: Props) => { 
   const router = useRouter();
   return (
     <div className="flex flex-col justify-between h-full">
@@ -16,10 +16,10 @@ export const RecentApplications = ({ applications }: Props) => {
       <table className="w-full bg-zinc-50 rounded-lg">
         <thead>
           <tr className="text-left text-[18px] ">
-            <th className="pb-3 py-2 px-2">Company</th>
-            <th className="pb-3 py-2 px-2">Role</th>
-            <th className="pb-3 py-2 px-2">Status</th>
-            <th className="pb-3 py-2 px-2">Experience</th>
+            <th className="pb-3 py-4 px-2">Company</th>
+            <th className="pb-3 py-4 px-2">Role</th>
+            <th className="pb-3 py-4 px-2">Status</th>
+            <th className="pb-3 py-4 px-2">Experience</th>
           </tr>
         </thead>
 

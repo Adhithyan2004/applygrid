@@ -7,6 +7,7 @@ import { Application } from "../types/types";
 import { useUpdateApplication } from "../hooks/useUpdateApplication";
 import { useRouter } from "next/navigation";
 import { getStatusStyles } from "../lib/statusByColor";
+import { RoleSelector } from "./RoleSelector";
 
 type Props = {
   isOpen: boolean;
@@ -136,13 +137,7 @@ export const AddApplicationModal = ({
 
           <div className="flex flex-col gap-1">
             <label className="font-semibold">Role</label>
-            <input
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              placeholder="Role"
-              className="w-full max-w-sm rounded-lg border p-2"
-              required
-            />
+            <RoleSelector value={role} onChange={setRole} />
           </div>
           <div className="flex flex-col gap-1">
             <label className="font-semibold">
