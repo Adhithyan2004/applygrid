@@ -1,11 +1,7 @@
 import { Request, Response } from "express";
-import {
-  ApplicationBody,
-  UpdateApplicationStatusHistort,
-} from "../types/application.types";
+import { ApplicationBody } from "../types/application.types";
 import {
   createApplication,
-  updateApplicationStatus,
   getAllApplicationService,
   getSingleApplicationService,
   deleteApplicationService,
@@ -22,12 +18,21 @@ export const applicationController = async (
       role,
       experienceLevel,
       currentStatus,
+      appliedDate,
       location,
       salary,
       note,
     } = req.body;
+
+    const date = new Date(appliedDate);
+
+    if (date > new Date()) {
+      return res
+        .status(400)
+        .json({ message: "Applied date cannot be in the future duh!" });
+    }
+
     const userId = req.userId!;
-    const appliedDate = new Date();
 
     const application = await createApplication(
       userId,
@@ -35,13 +40,14 @@ export const applicationController = async (
       role,
       experienceLevel,
       currentStatus,
-      appliedDate,
+      new Date(appliedDate),
       location,
       salary,
       note,
     );
 
     res.json(application);
+    console.log(req.body.appliedDate);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
@@ -104,7 +110,23 @@ export const updateApplicationController = async (
   try {
     const { id } = req.params;
     const userId = req.userId as string;
-    const updateData = req.body;
+
+    const updateData = {
+      ...req.body,
+      ...(req.body.appliedDate && {
+        appliedDate: new Date(req.body.appliedDate),
+      }),
+    };
+
+    if (req.body.appliedDate) {
+      const date = new Date(req.body.appliedDate);
+
+      if (date > new Date()) {
+        return res.status(400).json({
+          message: "Applied date cannot be in the future Duh!!",
+        });
+      }
+    }
 
     const updateApplication = await updateApplicationService(
       id as string,

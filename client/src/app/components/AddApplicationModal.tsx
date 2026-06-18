@@ -31,6 +31,9 @@ export const AddApplicationModal = ({
   const [location, setLocation] = useState("");
   const [salary, setSalary] = useState(0);
   const [note, setNote] = useState("");
+  const [appliedDate, setAppliedDate] = useState(
+    new Date().toISOString().split("T")[0],
+  );
   const router = useRouter();
 
   const resetForm = () => {
@@ -41,6 +44,7 @@ export const AddApplicationModal = ({
     setLocation("");
     setSalary(0);
     setNote("");
+    setAppliedDate(new Date().toISOString().split("T")[0]);
   };
 
   useEffect(() => {
@@ -58,6 +62,9 @@ export const AddApplicationModal = ({
       setLocation(application.location ?? "");
       setSalary(Number(application.salary));
       setNote(application.note ?? "");
+      setAppliedDate(
+        new Date(application.appliedDate).toISOString().split("T")[0],
+      );
     }
   }, [application, mode]);
 
@@ -71,6 +78,7 @@ export const AddApplicationModal = ({
       role,
       experienceLevel,
       currentStatus,
+      appliedDate,
       location,
       salary,
       note,
@@ -189,6 +197,13 @@ export const AddApplicationModal = ({
               <option>GHOSTED</option>
             </select>
           </div>
+          <input
+            type="date"
+            max={new Date().toISOString().split("T")[0]}
+            value={appliedDate}
+            onChange={(e) => setAppliedDate(e.target.value)}
+            className="w-full rounded-lg border p-2"
+          />
           <textarea
             rows={2}
             value={note}
@@ -196,6 +211,7 @@ export const AddApplicationModal = ({
             placeholder="Notes (optional)"
             className="md:col-span-2 w-full rounded-lg border p-2"
           />
+
           <div className="flex gap-2">
             <button
               type="submit"

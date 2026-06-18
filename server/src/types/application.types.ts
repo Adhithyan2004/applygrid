@@ -5,6 +5,7 @@ export interface ApplicationBody {
   role: string;
   experienceLevel: ExperienceLevel;
   location: string;
+  appliedDate: Date;
   salary: number;
   note: string;
   currentStatus: ApplicationStatus;
