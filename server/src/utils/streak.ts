@@ -5,7 +5,20 @@ export const calculateStreak = (dates: Date[]) => {
 
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
+  
+  const today = getLocalDateString(currentDate);
 
+  // No application today
+  if (!uniqueDates.has(today)) {
+    currentDate.setDate(currentDate.getDate() - 1);
+
+    const yesterday = getLocalDateString(currentDate);
+
+    // No application yesterday either
+    if (!uniqueDates.has(yesterday)) {
+      return 0;
+    }
+  }
   while (true) {
     const dateString = getLocalDateString(currentDate);
 

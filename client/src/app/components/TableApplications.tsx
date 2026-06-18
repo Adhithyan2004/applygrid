@@ -29,6 +29,7 @@ export const TableApplications = ({ onEdit }: Props) => {
       <table className="w-full">
         <thead>
           <tr className="font-sora">
+            <th className="px-4 py-3 text-left">S.No</th>
             <th className="px-4 py-3 text-left">Company</th>
             <th className="px-4 py-3 text-left">Role</th>
             <th className="px-4 py-3 text-left">Status</th>
@@ -39,11 +40,14 @@ export const TableApplications = ({ onEdit }: Props) => {
         </thead>
 
         <tbody>
-          {applications?.map((application) => (
+          {applications?.map((application, index) => (
             <Fragment key={application.id}>
               <tr
                 className={expandRow === application.id ? "bg-zinc-100 " : ""}
               >
+                <td className="px-4 py-2.5 font-medium text-zinc-500">
+                  {String(index + 1)}
+                </td>
                 <td className="px-4 py-2.5 rounded-tl-lg">
                   {application.companyName}
                 </td>
@@ -83,7 +87,7 @@ export const TableApplications = ({ onEdit }: Props) => {
 
               {expandRow === application.id && (
                 <tr>
-                  <td colSpan={6} className="bg-zinc-100 rounded-b-lg">
+                  <td colSpan={7} className="bg-zinc-100 rounded-b-lg">
                     <div className="p-4">
                       <div className="flex flex-col gap-10">
                         <div className="space-y-2.5">

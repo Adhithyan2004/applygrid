@@ -30,7 +30,7 @@ export const RoleSelector = ({ value, onChange }: Props) => {
         className="w-full rounded-lg border p-2"
       />
 
-      {value  && (
+      {value.length >= 2 && !exactMatch && (
         <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-64 overflow-y-auto rounded-lg border bg-white shadow-lg">
           {filteredRoles.length > 0 ? (
             filteredRoles.map((role) => (
