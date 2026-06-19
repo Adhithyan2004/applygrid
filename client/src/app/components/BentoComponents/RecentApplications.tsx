@@ -7,15 +7,17 @@ import { getStatusStyles } from "@/app/lib/statusByColor";
 type Props = {
   applications: RecentApplicationsItems[];
 };
-export const RecentApplications = ({ applications }: Props) => { 
+export const RecentApplications = ({ applications }: Props) => {
   const router = useRouter();
   return (
     <div className="flex flex-col justify-between h-full">
-      <h1 className="font-semibold text-[22px]">Recent Applications</h1>
+      <h1 className="font-semibold text-[22px] text-[#0020A2]">
+        Recent Applications
+      </h1>
 
-      <table className="w-full bg-zinc-50 rounded-lg">
+      <table className="w-full rounded-lg">
         <thead>
-          <tr className="text-left text-[18px] ">
+          <tr className="text-left text-[18px] text-[#0020A2]">
             <th className="pb-3 py-4 px-2">Company</th>
             <th className="pb-3 py-4 px-2">Role</th>
             <th className="pb-3 py-4 px-2">Status</th>
@@ -47,7 +49,7 @@ export const RecentApplications = ({ applications }: Props) => {
       </table>
       <p
         onClick={() => router.push("/applications")}
-        className="font-semibold cursor-pointer"
+        className="font-semibold cursor-pointer text-[#0020A2]"
       >
         View all
       </p>

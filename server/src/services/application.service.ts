@@ -1,19 +1,22 @@
 import { prisma } from "../lib/prisma";
-import { ApplicationStatus, ExperienceLevel } from "@prisma/client";
-import { ApplicationBody } from "../types/application.types";
+import { ApplicationStatus } from "@prisma/client";
+import {
+  ApplicationBody,
+  CreateApplicationInput,
+} from "../types/application.types";
 import { calculateStreak } from "../utils/streak";
 
-export const createApplication = async (
-  userId: string,
-  companyName: string,
-  role: string,
-  experienceLevel: ExperienceLevel,
-  currentStatus: ApplicationStatus,
-  appliedDate: Date,
-  location: string,
-  salary: number,
-  note: string,
-) => {
+export const createApplication = async ({
+  userId,
+  companyName,
+  role,
+  experienceLevel,
+  currentStatus,
+  appliedDate,
+  location,
+  salary,
+  note,
+}: CreateApplicationInput) => {
   return prisma.$transaction(async (tx) => {
     const application = await tx.application.create({
       data: {

@@ -30,7 +30,7 @@ const SideNavBar = () => {
     <div className="sticky top-0 h-screen z-50">
       <h1
         onClick={() => router.push("/")}
-        className="text-[30px] mt-10 font-sora font-semibold cursor-pointer"
+        className="text-[30px] mt-10 font-sora font-semibold cursor-pointer text-[#0020A2]"
       >
         ApplyGrid
       </h1>
@@ -44,10 +44,10 @@ const SideNavBar = () => {
                 key={item.href}
                 href={item.href}
                 className={`navbar-icon ${
-                  pathname === item.href ? "bg-zinc-200" : "hover:bg-zinc-100"
+                  pathname === item.href ? "bg-zinc -200" : "hover:bg-zinc-100"
                 }`}
               >
-                <Icon />
+                <Icon className="text-[#0020A2]" />
                 {item.name}
               </Link>
             );
@@ -56,7 +56,7 @@ const SideNavBar = () => {
             onClick={() => setIsModalOpen(true)}
             className="navbar-icon hover:bg-zinc-100 cursor-pointer"
           >
-            <Plus />
+            <Plus className="text-[#0020A2]" />
             Track Job
           </button>
           <AddApplicationModal

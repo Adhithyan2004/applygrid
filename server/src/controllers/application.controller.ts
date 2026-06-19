@@ -34,17 +34,17 @@ export const applicationController = async (
 
     const userId = req.userId!;
 
-    const application = await createApplication(
+    const application = await createApplication({
       userId,
       companyName,
       role,
       experienceLevel,
       currentStatus,
-      new Date(appliedDate),
+      appliedDate: date,
       location,
       salary,
       note,
-    );
+    });
 
     res.json(application);
     console.log(req.body.appliedDate);

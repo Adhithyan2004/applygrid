@@ -11,6 +11,10 @@ export interface ApplicationBody {
   currentStatus: ApplicationStatus;
 }
 
+export type CreateApplicationInput = ApplicationBody & {
+  userId: string;
+};
+
 export interface UpdateApplicationStatusHistort {
   status: ApplicationStatus;
   note?: string;

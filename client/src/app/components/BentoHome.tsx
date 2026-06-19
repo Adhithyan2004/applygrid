@@ -14,7 +14,7 @@ const BentoHome = () => {
   }
   return (
     <div className="mt-10 mb-6 grid grid-cols-12 grid-rows-12 w-full h-fit gap-6">
-      <div className="bg-zinc-200 col-span-4 row-span-6 rounded-xl py-5.5 px-8.25">
+      <div className="bg-white shadow-card col-span-4 row-span-6 rounded-xl py-5.5 px-8.25">
         <ApplicationStats
           stats={{
             totalApplications: data.overview.totalApplications,
@@ -24,7 +24,7 @@ const BentoHome = () => {
           }}
         />
       </div>
-      <div className="bg-zinc-300 col-span-4 row-span-6 rounded-xl pt-8 pb-5.5 px-6">
+      <div className="bg-white shadow-card col-span-4 row-span-6 rounded-xl pt-8 pb-5.5 px-6">
         <ApplicationRecords
           records={{
             totalApplications: data.overview.totalApplications,
@@ -34,13 +34,13 @@ const BentoHome = () => {
           }}
         />
       </div>
-      <div className="bg-zinc-200 col-span-4 row-span-6 rounded-xl py-5.5 px-8.25">
+      <div className="bg-white shadow-card col-span-4 row-span-6 rounded-xl py-5.5 px-8.25">
         <ApplicationStreak streak={data.streak} bestStreak={data.bestStreak} />
       </div>
-      <div className="bg-zinc-300 col-span-6 row-span-6 rounded-xl py-5.5 px-8.25">
+      <div className="bg-white shadow-card col-span-6 row-span-6 rounded-xl py-5.5 px-8.25">
         <RecentActivity activities={data.recentActivity} />
       </div>
-      <div className="bg-zinc-200 col-span-6 row-span-6 rounded-xl py-5.5 px-8.25">
+      <div className="bg-white shadow-card col-span-6 row-span-6 rounded-xl py-5.5 px-8.25">
         <RecentApplications applications={data.recentApplications} />
       </div>
     </div>

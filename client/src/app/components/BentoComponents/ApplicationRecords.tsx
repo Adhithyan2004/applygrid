@@ -12,34 +12,38 @@ const ApplicationRecords = ({ records }: ApplicationRecordsProps) => {
   return (
     <div className="flex flex-col justify-between h-full">
       <div className="text-[25px] font-sora grid grid-cols-2 gap-x-4 gap-y-4">
-        <p className="bg-zinc-50 p-3 rounded-lg font-light">
-          <span className="font-semibold text-[33px]">
+        <p className="bg-[#D9F4FF] p-3 rounded-lg">
+          <span className="font-semibold text-[33px] text-[#056086]">
             {records.totalApplications}{" "}
           </span>{" "}
           <br />
           Applied
         </p>
-        <p className="bg-zinc-50 p-3 rounded-lg font-light">
-          <span className="font-semibold text-[33px]">{records.rejected} </span>{" "}
+        <p className="bg-[#FFD8D8] p-3 rounded-lg ">
+          <span className="font-semibold text-[33px] text-[#B70000]">
+            {records.rejected}{" "}
+          </span>{" "}
           <br />
           Rejected
         </p>
-        <p className="bg-zinc-50 p-3 rounded-lg font-light">
-          <span className="font-semibold text-[33px]">
+        <p className="bg-[#FFF3D0] p-3 rounded-lg ">
+          <span className="font-semibold text-[33px] text-[#936E00]">
             {records.interviews}{" "}
           </span>{" "}
           <br />
           Interviews
         </p>
-        <p className="bg-zinc-50 p-3 rounded-lg font-light">
-          <span className="font-semibold text-[33px]">{records.offers} </span>{" "}
+        <p className="bg-[#D7FFDE] p-3 rounded-lg ">
+          <span className="font-semibold text-[33px] text-[#008738]">
+            {records.offers}{" "}
+          </span>{" "}
           <br />
           Offered
         </p>
       </div>
       <p
         onClick={() => router.push("/applications")}
-        className="underline cursor-pointer"
+        className="cursor-pointer font-sora text-[#0020A2]"
       >
         View All Applications
       </p>

@@ -20,7 +20,7 @@ export const AccountMenu = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="navbar-icon w-full hover:bg-zinc-100"
       >
-        <CircleUser />
+        <CircleUser className="text-[#0020A2]" />
 
         <span>Account</span>
 
