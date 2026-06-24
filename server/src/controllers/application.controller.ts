@@ -26,10 +26,25 @@ export const applicationController = async (
 
     const date = new Date(appliedDate);
 
+    // Validation section starts
     if (date > new Date()) {
       return res
         .status(400)
         .json({ message: "Applied date cannot be in the future duh!" });
+    }
+
+    if (!companyName?.trim()) {
+      return res.status(400).json({ message: "Company name is required" });
+    }
+
+    if (!role?.trim()) {
+      return res.status(400).json({ message: "Role is required" });
+    }
+
+    if (!appliedDate) {
+      return res.status(400).json({
+        message: "Applied date is required",
+      });
     }
 
     const userId = req.userId!;

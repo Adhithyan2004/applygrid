@@ -11,13 +11,13 @@ export const RecentApplications = ({ applications }: Props) => {
   const router = useRouter();
   return (
     <div className="flex flex-col justify-between h-full">
-      <h1 className="font-semibold text-[22px] text-[#0020A2]">
+      <h1 className="font-semibold text-[22px] text-[#28069D]">
         Recent Applications
       </h1>
 
       <table className="w-full rounded-lg">
         <thead>
-          <tr className="text-left text-[18px] text-[#0020A2]">
+          <tr className="text-left text-[18px] text-[#28069D]">
             <th className="pb-3 py-4 px-2">Company</th>
             <th className="pb-3 py-4 px-2">Role</th>
             <th className="pb-3 py-4 px-2">Status</th>
@@ -49,7 +49,7 @@ export const RecentApplications = ({ applications }: Props) => {
       </table>
       <p
         onClick={() => router.push("/applications")}
-        className="font-semibold cursor-pointer text-[#0020A2]"
+        className="font-semibold cursor-pointer text-[#28069D]"
       >
         View all
       </p>

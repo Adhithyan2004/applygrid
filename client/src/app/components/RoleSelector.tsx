@@ -17,6 +17,7 @@ export const RoleSelector = ({ value, onChange }: Props) => {
       .slice(0, 8);
   }, [value]);
 
+  // to not display the role below even after clicking it
   const exactMatch = roles.some(
     (role) => role.toLowerCase() === value.toLowerCase(),
   );
@@ -25,13 +26,14 @@ export const RoleSelector = ({ value, onChange }: Props) => {
     <div className="relative">
       <input
         value={value}
+        required
         onChange={(e) => onChange(e.target.value)}
         placeholder="Role"
-        className="w-full rounded-lg border p-2"
+        className="w-full rounded-lg border-2 p-2"
       />
 
       {value.length >= 2 && !exactMatch && (
-        <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-64 overflow-y-auto rounded-lg border bg-white shadow-lg">
+        <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-64 overflow-y-auto rounded-lg border  bg-white shadow-lg">
           {filteredRoles.length > 0 ? (
             filteredRoles.map((role) => (
               <button

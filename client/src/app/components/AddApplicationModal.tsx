@@ -6,8 +6,9 @@ import { useState, useEffect } from "react";
 import { Application } from "../types/types";
 import { useUpdateApplication } from "../hooks/useUpdateApplication";
 import { useRouter } from "next/navigation";
-import { getStatusStyles } from "../lib/statusByColor";
 import { RoleSelector } from "./RoleSelector";
+import { StatusSelect } from "./ModalComponents/StatusSelect";
+import { ExperienceSelect } from "./ModalComponents/ExperienceSelect";
 
 type Props = {
   isOpen: boolean;
@@ -111,7 +112,7 @@ export const AddApplicationModal = ({
       <div className="w-full max-w-3xl rounded-2xl bg-white p-8 shadow-xl">
         <div className="mb-6 flex items-center justify-between">
           <div className="space-y-2 ">
-            <h2 className="text-2xl font-semibold font-sora">
+            <h2 className="text-2xl font-semibold font-sora text-[#0020A2]">
               {mode === "create" ? "Add Application" : "Edit Application"}
             </h2>
             <p className="w-md font-light font-sora">
@@ -133,93 +134,88 @@ export const AddApplicationModal = ({
           className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 font-sora"
         >
           <div className="flex flex-col gap-1">
-            <label className="font-semibold">Company</label>
+            <label className="font-semibold text-[#0020A2]">
+              Company Name <span className="text-red-500 ml-1">*</span>
+            </label>
             <input
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
               placeholder="Company Name"
-              className="w-full max-w-sm rounded-lg border p-2"
+              className="w-full max-w-sm rounded-lg border-2 p-2"
               required
             />
           </div>
 
-          <div className="flex flex-col gap-1">
-            <label className="font-semibold">Role</label>
+          <div className="flex flex-col gap-1 ">
+            <label className="font-semibold text-[#0020A2]">
+              Role <span className="text-red-500 ml-1">*</span>
+            </label>
             <RoleSelector value={role} onChange={setRole} />
           </div>
           <div className="flex flex-col gap-1">
-            <label className="font-semibold">
+            <label className="font-semibold text-[#0020A2]">
+              Applied At <span className="text-red-500 ml-1">*</span>
+            </label>
+            <input
+              type="date"
+              max={new Date().toISOString().split("T")[0]}
+              value={appliedDate}
+              onChange={(e) => setAppliedDate(e.target.value)}
+              className="w-full rounded-lg border-2 p-2"
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className="font-semibold text-[#0020A2]">
+              Status <span className="text-red-500 ml-1">*</span>
+            </label>
+            <StatusSelect value={currentStatus} onChange={setCurrentStatus} />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className="font-semibold text-[#0020A2]">
               Salary <span className="font-light">(In Lakhs per annum)</span>
             </label>
             <input
               value={salary}
               onChange={(e) => setSalary(Number(e.target.value))}
               placeholder="Salary"
-              className="w-full max-w-sm rounded-lg border p-2"
+              className="w-full max-w-sm rounded-lg border-2 p-2"
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label className="font-semibold">Experience Level</label>
-            <select
+            <label className="font-semibold text-[#0020A2]">
+              Experience Level
+            </label>
+            <ExperienceSelect
               value={experienceLevel}
-              onChange={(e) => setExperienceLevel(e.target.value)}
-              className="w-full max-w-sm rounded-lg border p-2"
-            >
-              <option>INTERN</option>
-              <option>ENTRY</option>
-              <option>JUNIOR</option>
-              <option>MID</option>
-              <option>SENIOR</option>
-              <option>LEAD</option>
-            </select>
+              onChange={setExperienceLevel}
+            />
           </div>
           <div className="flex flex-col gap-1">
-            <label className="font-semibold">Company</label>
+            <label className="font-semibold text-[#0020A2]">Location</label>
             <input
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               placeholder="Location"
-              className="w-full max-w-sm rounded-lg border p-2"
+              className="w-full max-w-sm rounded-lg border-2 p-2"
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label className="font-semibold">Status</label>
-            <select
-              value={currentStatus}
-              onChange={(e) => setCurrentStatus(e.target.value)}
-              className={`w-full max-w-sm rounded-lg border p-2 ${getStatusStyles(currentStatus)}`}
-            >
-              <option>APPLIED</option>
-              <option>INTERVIEW</option>
-              <option>OFFER</option>
-              <option>REJECTED</option>
-              <option>WITHDRAWN</option>
-              <option>GHOSTED</option>
-            </select>
+            <label className="font-semibold text-[#0020A2]">Notes</label>
+            <textarea
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder="Notes (optional)"
+              className="w-full rounded-lg border-2 p-2"
+            />
           </div>
-          <input
-            type="date"
-            max={new Date().toISOString().split("T")[0]}
-            value={appliedDate}
-            onChange={(e) => setAppliedDate(e.target.value)}
-            className="w-full rounded-lg border p-2"
-          />
-          <textarea
-            rows={2}
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            placeholder="Notes (optional)"
-            className="md:col-span-2 w-full rounded-lg border p-2"
-          />
-
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <button
               type="submit"
               disabled={
                 createApplicationMutation.isPending ||
                 updateApplicationMutation.isPending
               }
-              className="rounded-lg bg-zinc-900 px-4 py-2 text-white"
+              className="rounded-lg bg-[#0020A2] px-4 py-2 text-white shadow-mini"
             >
               {mode === "create" ? "Add Application" : "Update Applciaiton"}
             </button>
