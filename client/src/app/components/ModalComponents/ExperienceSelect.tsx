@@ -58,7 +58,7 @@ export const ExperienceSelect = ({ value, onChange }: Props) => {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="w-full rounded-lg border-2 bg-white px-3 py-2 flex items-center justify-between"
+        className="w-full rounded-lg border bg-white px-3 py-2 flex items-center justify-between"
       >
         <span>{selected?.label}</span>
 

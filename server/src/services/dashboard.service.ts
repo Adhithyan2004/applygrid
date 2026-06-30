@@ -4,20 +4,28 @@ import { calculateStreak } from "../utils/streak";
 
 // Put all services in single one and  returning all
 export const getDashboardService = async (userId: string) => {
-  const [overview, metrics, recentApplications, recentActivity, streak, user] =
-    await Promise.all([
-      getOverviewStats(userId),
-      getMetrics(userId),
-      getRecentApplications(userId),
-      getRecentActivity(userId),
-      getApplicationStreak(userId),
-      prisma.user.findUnique({
-        where: { id: userId },
-        select: {
-          bestStreak: true,
-        },
-      }),
-    ]);
+  const [
+    overview,
+    metrics,
+    recentApplications,
+    recentActivity,
+    streak,
+    user,
+    topRoles,
+  ] = await Promise.all([
+    getOverviewStats(userId),
+    getMetrics(userId),
+    getRecentApplications(userId),
+    getRecentActivity(userId),
+    getApplicationStreak(userId),
+    prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        bestStreak: true,
+      },
+    }),
+    getTopAppliedRoles(userId),
+  ]);
 
   return {
     overview,
@@ -26,6 +34,7 @@ export const getDashboardService = async (userId: string) => {
     recentActivity,
     streak,
     bestStreak: user?.bestStreak ?? 0,
+    topRoles,
   };
 };
 
@@ -133,6 +142,7 @@ export const getRecentApplications = async (userId: string) => {
   });
 };
 
+// Recent activity service
 export const getRecentActivity = async (userId: string) => {
   return prisma.applicationStatusHistory.findMany({
     where: {
@@ -144,9 +154,7 @@ export const getRecentActivity = async (userId: string) => {
     orderBy: {
       changedAt: "desc",
     },
-
     take: 2,
-
     select: {
       id: true,
       status: true,
@@ -161,15 +169,46 @@ export const getRecentActivity = async (userId: string) => {
   });
 };
 
+// Application streak
 const getApplicationStreak = async (userId: string) => {
   const applications = await prisma.application.findMany({
     where: { userId },
     select: {
-      appliedDate: true,
+      createdAt: true,
     },
     orderBy: {
-      appliedDate: "desc",
+      createdAt: "desc",
     },
   });
-  return calculateStreak(applications.map((app) => app.appliedDate));
+  return calculateStreak(applications.map((app) => app.createdAt));
+};
+
+// Top applied roles
+export const getTopAppliedRoles = async (userId: string) => {
+  const roles = await prisma.application.groupBy({
+    by: ["role"],
+    where: {
+      userId,
+    },
+    _count: {
+      role: true,
+    },
+    orderBy: {
+      _count: {
+        role: "desc",
+      },
+    },
+    take: 2,
+  });
+
+  const totalApplications = roles.reduce(
+    (sum, role) => sum + role._count.role,
+    0,
+  );
+
+  return roles.map((role) => ({
+    role: role.role,
+    count: role._count.role,
+    percentage: Math.round((role._count.role / totalApplications) * 100),
+  }));
 };

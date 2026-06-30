@@ -33,9 +33,9 @@ export const AccountMenu = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute bottom-14 left-0 w-45 rounded-xl bg-zinc-200 p-2">
+        <div className="absolute bottom-14 left-0 w-45 rounded-xl bg-white shadow-mini p-2">
           <div className="px-3 py-3 flex items-center gap-4">
-            <CircleUser size={30} />
+            <CircleUser size={30} color="#0020A2" />
             <div>
               <p className="font-semibold">Joel Da</p>
               <p className="text-[13px]">Basic Plan</p>
@@ -44,29 +44,29 @@ export const AccountMenu = () => {
           {/* <hr /> */}
           <Link
             href="/profile"
-            className="px-3 py-2 rounded-lg flex gap-3 hover:bg-zinc-100"
+            className="px-3 py-2  rounded-lg flex gap-3 hover:bg-blue-100"
           >
-            <Astroid size={20} />
+            <Astroid size={20} color="#0020A2" />
             Upgrade Plan
           </Link>
 
           <Link
             href="/settings"
-            className="px-3 py-2 rounded-lg flex gap-3  hover:bg-zinc-100"
+            className="px-3 py-2 rounded-lg flex gap-3  hover:bg-blue-100"
           >
-            <Bug size={20} />
+            <Bug size={20} color="#0020A2" />
             Report a Bug
           </Link>
           <Link
             href="/settings"
-            className="px-3 py-2 rounded-lg flex gap-3  hover:bg-zinc-100"
+            className="px-3 py-2 rounded-lg flex gap-3  hover:bg-blue-100"
           >
-            <Info size={20} />
+            <Info size={20} color="#0020A2" />
             Help
           </Link>
 
-          <button className="w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 hover:bg-zinc-100">
-            <LogOut size={20} />
+          <button className="w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 hover:bg-blue-100">
+            <LogOut size={20} color="#0020A2" />
             Logout
           </button>
         </div>

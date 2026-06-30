@@ -141,7 +141,7 @@ export const AddApplicationModal = ({
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
               placeholder="Company Name"
-              className="w-full max-w-sm rounded-lg border-2 p-2"
+              className="w-full max-w-sm rounded-lg border p-2"
               required
             />
           </div>
@@ -161,7 +161,7 @@ export const AddApplicationModal = ({
               max={new Date().toISOString().split("T")[0]}
               value={appliedDate}
               onChange={(e) => setAppliedDate(e.target.value)}
-              className="w-full rounded-lg border-2 p-2"
+              className="w-full rounded-lg border p-2"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -178,7 +178,7 @@ export const AddApplicationModal = ({
               value={salary}
               onChange={(e) => setSalary(Number(e.target.value))}
               placeholder="Salary"
-              className="w-full max-w-sm rounded-lg border-2 p-2"
+              className="w-full max-w-sm rounded-lg border p-2"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -196,7 +196,7 @@ export const AddApplicationModal = ({
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               placeholder="Location"
-              className="w-full max-w-sm rounded-lg border-2 p-2"
+              className="w-full max-w-sm rounded-lg border p-2"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -205,7 +205,7 @@ export const AddApplicationModal = ({
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder="Notes (optional)"
-              className="w-full rounded-lg border-2 p-2"
+              className="w-full rounded-lg border p-2"
             />
           </div>
           <div className="flex gap-3">

@@ -12,13 +12,13 @@ export const ApplicationStreak = ({
   const isPersonalBest = streak === bestStreak && streak > 0 && bestStreak > 1;
   const hasNoStreak = streak === 0;
   return (
-    <div className="font-sora flex flex-col gap-4 h-full justify-between">
+    <div className="font-sora flex flex-col h-full justify-between">
       <h2 className="text-[22px] font-semibold text-[#0020A2]">
         Application Streak
       </h2>
-      <div className="font-semibold space-y-8 rounded-lg bg-white shadow-mini px-4.25 py-2">
+      <div className="font-semibold space-y-5 rounded-lg bg-[#E5EAFF] border border-[#0020A2] px-4.25 py-2">
         <div>
-          <h2 className="text-[60px] text-[#0020A2]">{streak}</h2>
+          <h2 className="text-[60px] text-[#0020A2] leading-tight">{streak}</h2>
           <p className="text-[20px] -mt-3 font-medium">
             {hasNoStreak ? (
               <>

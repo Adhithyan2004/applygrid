@@ -44,7 +44,7 @@ const SideNavBar = () => {
                 key={item.href}
                 href={item.href}
                 className={`navbar-icon ${
-                  pathname === item.href ? "bg-zinc -200" : "hover:bg-zinc-100"
+                  pathname === item.href ? "bg-blue-100" : "hover:bg-blue-50"
                 }`}
               >
                 <Icon className="text-[#0020A2]" />
@@ -54,7 +54,7 @@ const SideNavBar = () => {
           })}
           <button
             onClick={() => setIsModalOpen(true)}
-            className="navbar-icon hover:bg-zinc-100 cursor-pointer"
+            className="navbar-icon hover:bg-blue-50 cursor-pointer "
           >
             <Plus className="text-[#0020A2]" />
             Track Job

@@ -29,7 +29,7 @@ export const RoleSelector = ({ value, onChange }: Props) => {
         required
         onChange={(e) => onChange(e.target.value)}
         placeholder="Role"
-        className="w-full rounded-lg border-2 p-2"
+        className="w-full rounded-lg border p-2"
       />
 
       {value.length >= 2 && !exactMatch && (

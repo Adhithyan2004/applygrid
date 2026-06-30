@@ -1,6 +1,11 @@
 import { Search } from "lucide-react";
 
-const SearchApplication = () => {
+type Props = {
+  value: string;
+  onChange: (calue: string) => void;
+};
+
+const SearchApplication = ({ value, onChange }: Props) => {
   return (
     <div>
       <div className="relative w-82.5 ">
@@ -10,8 +15,10 @@ const SearchApplication = () => {
         />
 
         <input
+          value={value}
           type="text"
           placeholder="Search applications"
+          onChange={(e) => onChange(e.target.value)}
           className="
       w-full
       border

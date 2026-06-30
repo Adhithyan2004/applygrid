@@ -10,15 +10,30 @@ import { Application } from "../types/types";
 
 type Props = {
   onEdit: (application: Application) => void;
+  search: string;
+  status: string;
 };
 
-export const TableApplications = ({ onEdit }: Props) => {
+export const TableApplications = ({ onEdit, search, status }: Props) => {
   const deleteMutaion = useDeleteApplication();
   const [expandRow, setExpandRow] = useState<string | null>(null);
   const { data: applications, isLoading } = useApplicaitons();
   if (isLoading) {
     return <p>Loading ....</p>;
   }
+
+  const filteredApplications =
+    applications?.filter((application) => {
+      const matchesSearch = [application.companyName, application.role]
+        .join(" ")
+        .toLowerCase()
+        .includes(search.toLowerCase());
+
+      const matchesStatus =
+        status === "ALL" || application.currentStatus === status;
+
+      return matchesSearch && matchesStatus;
+    }) ?? [];
 
   const toggleRow = (id: string) => {
     setExpandRow(expandRow === id ? null : id);
@@ -28,7 +43,7 @@ export const TableApplications = ({ onEdit }: Props) => {
     <div className="overflow-hidden">
       <table className="w-full">
         <thead>
-          <tr className="font-sora">
+          <tr className="font-sora text-[#0020A2]">
             <th className="px-4 py-3 text-left">S.No</th>
             <th className="px-4 py-3 text-left">Company</th>
             <th className="px-4 py-3 text-left">Role</th>
@@ -40,17 +55,15 @@ export const TableApplications = ({ onEdit }: Props) => {
         </thead>
 
         <tbody>
-          {applications?.map((application, index) => (
+          {filteredApplications?.map((application, index) => (
             <Fragment key={application.id}>
               <tr
-                className={expandRow === application.id ? "bg-zinc-100 " : ""}
+                className={expandRow === application.id ? "bg-[#f1f4ff] " : ""}
               >
-                <td className="px-4 py-2.5 font-medium text-zinc-500">
+                <td className="px-4 py-2.5 rounded-tl-lg font-medium text-zinc-500">
                   {String(index + 1)}
                 </td>
-                <td className="px-4 py-2.5 rounded-tl-lg">
-                  {application.companyName}
-                </td>
+                <td className="px-4 py-2.5 ">{application.companyName}</td>
                 <td className="px-4 py-3.5">{application.role}</td>
                 <td className="px-4 py-3.5">
                   <span
@@ -73,12 +86,12 @@ export const TableApplications = ({ onEdit }: Props) => {
                     {expandRow === application.id ? (
                       <ChevronUp
                         size={20}
-                        className="hover:bg-zinc-200 rounded-md"
+                        className="hover:bg-blue-200 rounded-md"
                       />
                     ) : (
                       <ChevronDown
                         size={20}
-                        className="hover:bg-zinc-200 rounded-md"
+                        className="hover:bg-blue-200 rounded-md"
                       />
                     )}
                   </button>
@@ -87,31 +100,38 @@ export const TableApplications = ({ onEdit }: Props) => {
 
               {expandRow === application.id && (
                 <tr>
-                  <td colSpan={7} className="bg-zinc-100 rounded-b-lg">
+                  <td colSpan={7} className="bg-[#f1f4ff] rounded-b-lg">
                     <div className="p-4">
                       <div className="flex flex-col gap-10">
                         <div className="space-y-2.5">
                           <p className="font-sora">
-                            <strong>Applied :</strong>{" "}
+                            <strong className="text-[#0020A2]">
+                              Applied :
+                            </strong>{" "}
                             {formatDate(application.appliedDate)}
                           </p>
                           <p className="font-sora">
-                            <strong>
+                            <strong className="text-[#0020A2]">
                               Salary <span className="font-medium">(LPA)</span>{" "}
                               :
                             </strong>{" "}
                             {formatSalary(application.salary)}
                           </p>
                           <p className="font-sora">
-                            <strong>Experience :</strong>{" "}
+                            <strong className="text-[#0020A2]">
+                              Experience :
+                            </strong>{" "}
                             {application.experienceLevel}
                           </p>
                           <p className="font-sora">
-                            <strong>Location :</strong> {application.location}
+                            <strong className="text-[#0020A2]">
+                              Location :
+                            </strong>{" "}
+                            {application.location}
                           </p>
                         </div>
                         <p className="font-sora">
-                          <strong>
+                          <strong className="text-[#0020A2]">
                             Notes:
                             <br />{" "}
                           </strong>{" "}
@@ -120,13 +140,13 @@ export const TableApplications = ({ onEdit }: Props) => {
                         <div className="flex gap-4">
                           <button
                             onClick={() => deleteMutaion.mutate(application.id)}
-                            className="px-4 py-2 flex items-center gap-2 bg-zinc-300 rounded-lg cursor-pointer"
+                            className="px-4 py-2 flex items-center gap-2 bg-[#FFD8D9] text-[#b70000] border rounded-lg cursor-pointer"
                           >
                             <Trash size={20} /> Delete
                           </button>
                           <button
                             onClick={() => onEdit(application)}
-                            className="px-4 py-2 flex items-center gap-2 border rounded-lg cursor-pointer"
+                            className="px-4 py-2 flex text-[#0020A2] items-center gap-2 border rounded-lg cursor-pointer"
                           >
                             <SquarePen size={20} /> Edit
                           </button>
@@ -138,6 +158,13 @@ export const TableApplications = ({ onEdit }: Props) => {
               )}
             </Fragment>
           ))}
+          {filteredApplications?.length === 0 && (
+            <tr>
+              <td colSpan={6} className="py-8 text-center text-zinc-500">
+                No applications found.
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

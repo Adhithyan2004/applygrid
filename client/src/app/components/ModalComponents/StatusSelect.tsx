@@ -34,7 +34,7 @@ export const StatusSelect = ({ value, onChange }: Props) => {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className={`w-full rounded-lg border-2 px-3 py-2 flex items-center justify-between transition ${selected.style}`}
+        className={`w-full rounded-lg border px-3 py-2 flex items-center justify-between transition ${selected.style}`}
       >
         <div className="flex items-center gap-2">
           <div className={`h-2.5 w-2.5 rounded-full ${selected.dot}`} />

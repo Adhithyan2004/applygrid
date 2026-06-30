@@ -36,6 +36,12 @@ export type RecentApplicationsItems = {
   appliedDate: string;
 };
 
+export type TopRole = {
+  role: string;
+  count: number;
+  percentage: number;
+};
+
 // Using interface so it can be merged and extended easily
 export interface Application {
   id: string;

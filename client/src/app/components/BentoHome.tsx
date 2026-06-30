@@ -38,7 +38,10 @@ const BentoHome = () => {
         <ApplicationStreak streak={data.streak} bestStreak={data.bestStreak} />
       </div>
       <div className="bg-white shadow-card col-span-6 row-span-6 rounded-xl py-5.5 px-8.25">
-        <RecentActivity activities={data.recentActivity} />
+        <RecentActivity
+          activities={data.recentActivity}
+          topRoles={data.topRoles}
+        />
       </div>
       <div className="bg-white shadow-card col-span-6 row-span-6 rounded-xl py-5.5 px-8.25">
         <RecentApplications applications={data.recentApplications} />

@@ -1,15 +1,18 @@
-import { RecentActivityItems } from "@/app/types/types";
+import { RecentActivityItems, TopRole } from "@/app/types/types";
 import { getActivityText } from "@/app/lib/activity";
 import { formatTimeAgo } from "@/app/lib/formatters";
 
 type Props = {
   activities: RecentActivityItems[];
+  topRoles: TopRole[];
 };
 
-export const RecentActivity = ({ activities }: Props) => {
+export const RecentActivity = ({ activities, topRoles }: Props) => {
+  const maxCount =
+    topRoles.length > 0 ? Math.max(...topRoles.map((role) => role.count)) : 1;
   return (
     <div className="flex flex-col gap-4 h-full">
-      <div className="bg-white shadow-mini rounded-lg p-3 py-5">
+      <div className=" border border-[#0020A2] bg-[#E5EAFF] rounded-lg p-3 py-5">
         <h1 className="text-[22px] font-semibold text-[#0020A2]">
           Recent Activity
         </h1>
@@ -38,14 +41,18 @@ export const RecentActivity = ({ activities }: Props) => {
           Top Applied Roles
         </h1>
         <div className="flex flex-col gap-2 mt-4">
-          <div className="flex justify-between font-semibold text-white rounded-lg p-2 bg-[#0020A2] w-[52%]">
-            <p>Frontend Developer</p>
-            <p>52%</p>
-          </div>
-          <div className="flex justify-between font-semibold rounded-lg text-white p-2 bg-[#0020A2] w-[40%]">
-            <p>Backend Developer</p>
-            <p>40%</p>
-          </div>
+          {topRoles.map((role) => (
+            <div
+              key={role.role}
+              className="flex justify-between items-center rounded-lg bg-[#0020A5] px-3 py-2 text-white font-semibold transition-all duration-500"
+              style={{
+                width: `${Math.max((role.count / maxCount) * 70, 30)}%`,
+              }}
+            >
+              <p>{role.role}</p>
+              <p>{role.count}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
