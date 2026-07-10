@@ -1,4 +1,8 @@
-import { ApplicationStatus, ExperienceLevel } from "@prisma/client";
+import {
+  ApplicationStatus,
+  AppliedSource,
+  ExperienceLevel,
+} from "@prisma/client";
 
 export interface ApplicationBody {
   companyName: string;
@@ -9,6 +13,8 @@ export interface ApplicationBody {
   salary: number;
   note: string;
   currentStatus: ApplicationStatus;
+  appliedSource: AppliedSource;
+  techStack: string[];
 }
 
 export type CreateApplicationInput = ApplicationBody & {

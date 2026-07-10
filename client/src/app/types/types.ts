@@ -53,6 +53,7 @@ export interface Application {
   location: string | null;
   salary: number | null;
   note: string | null;
+  appliedSource: string;
 }
 export interface CreateApplication {
   companyName: string;

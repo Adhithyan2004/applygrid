@@ -22,6 +22,8 @@ export const applicationController = async (
       location,
       salary,
       note,
+      appliedSource,
+      techStack,
     } = req.body;
 
     const date = new Date(appliedDate);
@@ -59,10 +61,11 @@ export const applicationController = async (
       location,
       salary,
       note,
+      appliedSource,
+      techStack,
     });
 
     res.json(application);
-    console.log(req.body.appliedDate);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

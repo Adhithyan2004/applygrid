@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   CircleUser,
   ChevronUp,
@@ -10,9 +11,20 @@ import {
   Bug,
   Astroid,
 } from "lucide-react";
+import { useLogout } from "../hooks/useLogout";
 
 export const AccountMenu = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const logoutMutation = useLogout();
+
+  const handleLogout = () => {
+    logoutMutation.mutate(undefined, {
+      onSuccess: () => {
+        router.push("/user-login");
+      },
+    });
+  };
 
   return (
     <div className="relative">
@@ -65,7 +77,10 @@ export const AccountMenu = () => {
             Help
           </Link>
 
-          <button className="w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 hover:bg-blue-100">
+          <button
+            onClick={handleLogout}
+            className="w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 hover:bg-blue-100"
+          >
             <LogOut size={20} color="#0020A2" />
             Logout
           </button>

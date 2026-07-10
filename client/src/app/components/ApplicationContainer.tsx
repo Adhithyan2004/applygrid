@@ -2,19 +2,35 @@
 
 import SearchApplication from "./SearchApplication";
 import { LayersPlus } from "lucide-react";
-import { TableApplications } from "./TableApplications";
+import { ApplicationList } from "./ApplicationList ";
 import { useState } from "react";
 import { AddApplicationModal } from "./AddApplicationModal";
 import { Application } from "../types/types";
 import { FilterPill } from "./FilterPill";
-import { StatusFilter, STATUS_FILTERS } from "../lib/activity";
+import { STATUS_FILTERS } from "../lib/activity";
+import { useApplicaitons } from "../hooks/useApplications";
 
 export const ApplicationContainer = () => {
+  const { data: application, isLoading } = useApplicaitons();
   const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [status, setStatus] = useState("ALL");
   const [selectApplication, setSelectedApplication] =
     useState<Application | null>(null);
+
+  const filteredApplications =
+    application?.filter((application) => {
+      const matchesSearch = [application.companyName, application.role]
+        .join(" ")
+        .toLowerCase()
+        .includes(search.toLowerCase());
+
+      const matchesStatus =
+        status === "ALL" || application.currentStatus === status;
+
+      return matchesSearch && matchesStatus;
+    }) ?? [];
+
   return (
     <div className="mb-6">
       <div className="flex justify-between items-center">
@@ -53,14 +69,18 @@ export const ApplicationContainer = () => {
         ))}
       </div>
       <div>
-        <TableApplications
+        <ApplicationList
+          applications={filteredApplications}
           onEdit={(application) => {
             setSelectedApplication(application);
             setIsModalOpen(true);
           }}
-          status={status}
-          search={search}
         />
+        {!isLoading && (
+          <p className="mt-6 text-sm text-zinc-500">
+            Total Applications: {application?.length ?? 0}
+          </p>
+        )}
       </div>
     </div>
   );

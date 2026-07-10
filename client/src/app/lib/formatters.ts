@@ -26,3 +26,34 @@ export const formatSalary = (value: number | null) => {
   if (value === null) return "";
   return value.toLocaleString("en-IN");
 };
+
+export const formatSource = (source: string) => {
+  switch (source) {
+    case "LINKEDIN":
+      return "Linkedin";
+
+    case "COMPANY_CAREER_PAGE":
+      return "Company Page";
+
+    case "REFERRAL":
+      return "Referral";
+
+    case "INDEED":
+      return "Indeed";
+
+    case "CUTSHORT":
+      return "CutShort";
+
+    case "WELLFOUND":
+      return "Wellfound";
+
+    case "GLASSDOOR":
+      return "Glassdoor";
+
+    case "CAMPUS_PLACEMENT":
+      return "Campus Placements";
+
+    case "COLD_MAILING":
+      return "Cold Mailing";
+  }
+};

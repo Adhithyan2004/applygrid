@@ -16,6 +16,8 @@ export const createApplication = async ({
   location,
   salary,
   note,
+  appliedSource,
+  techStack,
 }: CreateApplicationInput) => {
   return prisma.$transaction(async (tx) => {
     const application = await tx.application.create({
@@ -29,6 +31,8 @@ export const createApplication = async ({
         location,
         salary,
         note,
+        appliedSource,
+        techStack,
       },
     });
 

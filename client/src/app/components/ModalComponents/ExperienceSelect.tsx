@@ -38,6 +38,61 @@ type Props = {
 export const ExperienceSelect = ({ value, onChange }: Props) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  useEffect(() => {
+    const index = experienceLevels.findIndex((level) => level.value === value);
+
+    setSelectedIndex(index);
+  }, [value]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (!experienceLevels.length) return;
+
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+
+        if (!open) {
+          setOpen(true);
+          setSelectedIndex(0);
+          return;
+        }
+
+        setSelectedIndex((prev) =>
+          prev < experienceLevels.length - 1 ? prev + 1 : 0,
+        );
+        break;
+
+      case "ArrowUp":
+        e.preventDefault();
+
+        if (!open) {
+          setOpen(true);
+          setSelectedIndex(experienceLevels.length - 1);
+          return;
+        }
+
+        setSelectedIndex((prev) =>
+          prev > 0 ? prev - 1 : experienceLevels.length - 1,
+        );
+        break;
+
+      case "Enter":
+        if (selectedIndex >= 0) {
+          e.preventDefault();
+          onChange(experienceLevels[selectedIndex].value);
+          setOpen(false);
+        }
+        break;
+
+      case "Escape":
+        e.preventDefault();
+        setOpen(false);
+        setSelectedIndex(-1);
+        break;
+    }
+  };
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -58,6 +113,7 @@ export const ExperienceSelect = ({ value, onChange }: Props) => {
       <button
         type="button"
         onClick={() => setOpen(!open)}
+        onKeyDown={handleKeyDown}
         className="w-full rounded-lg border bg-white px-3 py-2 flex items-center justify-between"
       >
         <span>{selected?.label}</span>
@@ -70,7 +126,7 @@ export const ExperienceSelect = ({ value, onChange }: Props) => {
 
       {open && (
         <div className="absolute z-50 mt-2 w-full overflow-hidden rounded-xl border bg-white shadow-lg">
-          {experienceLevels.map((level) => (
+          {experienceLevels.map((level, index) => (
             <button
               key={level.value}
               type="button"
@@ -78,7 +134,9 @@ export const ExperienceSelect = ({ value, onChange }: Props) => {
                 onChange(level.value);
                 setOpen(false);
               }}
-              className="flex w-full items-center justify-between px-4 py-2 hover:bg-zinc-50"
+              className={`flex w-full items-center justify-between px-4 py-2 ${
+                selectedIndex === index ? "bg-zinc-200" : "hover:bg-zinc-50"
+              }`}
             >
               <span>{level.label}</span>
 

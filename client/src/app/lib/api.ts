@@ -32,6 +32,11 @@ export const createApplication = async (data: CreateApplication) => {
   return response.data;
 };
 
+export const logout = async () => {
+  const response = await api.post("/auth/logout");
+  return response.data;
+};
+
 // Update Application
 export const updateApplication = async ({
   id,
@@ -52,6 +57,9 @@ api.interceptors.response.use(
     //TODO remove after testing
     console.log("INTERCEPTOR HIT");
     const originalRequest = error.config;
+    if (originalRequest.url === "/auth/refresh") {
+      return Promise.reject(error);
+    }
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       //TODO remove after testing
@@ -63,6 +71,7 @@ api.interceptors.response.use(
 
         return api(originalRequest);
       } catch (refreshError) {
+        window.location.href = "/user-login";
         return Promise.reject(refreshError);
       }
     }

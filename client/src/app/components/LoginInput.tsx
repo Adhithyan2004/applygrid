@@ -17,7 +17,6 @@ export const LoginInput = () => {
         email,
         password,
       });
-      console.log(response.data);
       router.push("/");
     } catch (error: any) {
       setError(error.response?.data?.message);
