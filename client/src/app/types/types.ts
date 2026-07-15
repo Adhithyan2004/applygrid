@@ -54,6 +54,7 @@ export interface Application {
   salary: number | null;
   note: string | null;
   appliedSource: string;
+  techStack: string[];
 }
 export interface CreateApplication {
   companyName: string;

@@ -37,7 +37,23 @@ export const AddApplicationModal = ({
     new Date().toISOString().split("T")[0],
   );
   const [appliedSource, setAppliedSource] = useState("LINKEDIN");
+  const [techStack, setTechStack] = useState<string[]>([]);
+  const [techInput, setTechInput] = useState("");
   const router = useRouter();
+
+  const addTech = () => {
+    const tech = techInput.trim();
+
+    if (!tech) return;
+    if (techStack.includes(tech)) return;
+
+    setTechStack((prev) => [...prev, tech]);
+    setTechInput("");
+  };
+
+  const removeTech = (tech: string) => {
+    setTechStack((prev) => prev.filter((t) => t !== tech));
+  };
 
   const resetForm = () => {
     setCompanyName("");
@@ -49,6 +65,7 @@ export const AddApplicationModal = ({
     setNote("");
     setAppliedDate(new Date().toISOString().split("T")[0]);
     setAppliedSource("LINKEDIN");
+    setTechStack([]);
   };
 
   useEffect(() => {
@@ -70,6 +87,7 @@ export const AddApplicationModal = ({
         new Date(application.appliedDate).toISOString().split("T")[0],
       );
       setAppliedSource(application.appliedSource ?? "LINKEDIN");
+      setTechStack(application.techStack ?? []);
     }
   }, [application, mode]);
 
@@ -88,6 +106,7 @@ export const AddApplicationModal = ({
       salary,
       note,
       appliedSource,
+      techStack,
     };
 
     if (mode === "create") {
@@ -212,6 +231,41 @@ export const AddApplicationModal = ({
                 value={appliedSource}
                 onChange={setAppliedSource}
               />
+            </div>
+            <div className="flex flex-col md:col-span-2 gap-2">
+              <label className="font-semibold text-[#0020A2]">Tech Stack</label>
+
+              <input
+                value={techInput}
+                onChange={(e) => setTechInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    addTech();
+                  }
+                }}
+                placeholder="Press Enter to add a technology"
+                className="w-full rounded-lg border p-2"
+              />
+
+              <div className="flex flex-wrap gap-2">
+                {techStack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="flex items-center gap-2 rounded-full bg-zinc-100 px-3 py-1 text-sm"
+                  >
+                    {tech}
+
+                    <button
+                      type="button"
+                      onClick={() => removeTech(tech)}
+                      className="text-red-500"
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+              </div>
             </div>
             <div className="flex flex-col md:col-span-2 gap-1">
               <label className="font-semibold text-[#0020A2]">Notes</label>

@@ -9,6 +9,7 @@ import { Application } from "../types/types";
 import { FilterPill } from "./FilterPill";
 import { STATUS_FILTERS } from "../lib/activity";
 import { useApplicaitons } from "../hooks/useApplications";
+import { useDeleteApplication } from "../hooks/useDeleteApplication";
 
 export const ApplicationContainer = () => {
   const { data: application, isLoading } = useApplicaitons();
@@ -30,6 +31,13 @@ export const ApplicationContainer = () => {
 
       return matchesSearch && matchesStatus;
     }) ?? [];
+
+  const deleteApplicationMutation = useDeleteApplication();
+
+  const handleDelete = (id: string) => {
+    if (!confirm("Delete this application?")) return;
+    deleteApplicationMutation.mutate(id);
+  };
 
   return (
     <div className="mb-6">
@@ -75,6 +83,7 @@ export const ApplicationContainer = () => {
             setSelectedApplication(application);
             setIsModalOpen(true);
           }}
+          onDelete={handleDelete}
         />
         {!isLoading && (
           <p className="mt-6 text-sm text-zinc-500">

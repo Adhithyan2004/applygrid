@@ -55,5 +55,8 @@ export const formatSource = (source: string) => {
 
     case "COLD_MAILING":
       return "Cold Mailing";
+
+    case "NAUKRI":
+      return "Naukri";
   }
 };

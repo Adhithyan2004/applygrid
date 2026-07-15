@@ -1,11 +1,14 @@
 "use client";
 
+import { IconType } from "react-icons";
+import { LucideIcon } from "lucide-react";
 import { Check, ChevronDown, User, School, Mail } from "lucide-react";
 import { FaLinkedin, FaGlobe } from "react-icons/fa6";
 import { SiIndeed, SiWellfound, SiGlassdoor } from "react-icons/si";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
-const appliedSources = [
+const appliedSources: AppliedSource[] = [
   {
     value: "LINKEDIN",
     label: "LinkedIn",
@@ -63,6 +66,14 @@ const appliedSources = [
     label: "Cutshort",
   },
 ];
+
+type AppliedSource = {
+  value: string;
+  label: string;
+  icon?: IconType | LucideIcon;
+  color?: string;
+  image?: string;
+};
 
 type Props = {
   value: string;
@@ -140,6 +151,8 @@ export const AppliedSourceSelect = ({ value, onChange }: Props) => {
   };
 
   const selected = appliedSources.find((s) => s.value === value);
+  console.log("value: ", value);
+  console.log("selected object:", selected);
   const SelectedIcon = selected?.icon;
 
   return (
@@ -151,9 +164,19 @@ export const AppliedSourceSelect = ({ value, onChange }: Props) => {
         className="flex w-full items-center justify-between rounded-lg border bg-white px-3 py-2"
       >
         <div className="flex items-center gap-3">
-          {SelectedIcon && (
-            <SelectedIcon size={18} style={{ color: selected.color }} />
+          {selected?.image ? (
+            <Image
+              src={selected.image}
+              alt={selected.label}
+              width={18}
+              height={18}
+            />
+          ) : (
+            SelectedIcon && (
+              <SelectedIcon size={18} style={{ color: selected?.color }} />
+            )
           )}
+
           <span>{selected?.label}</span>
         </div>
 
@@ -181,7 +204,16 @@ export const AppliedSourceSelect = ({ value, onChange }: Props) => {
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  {Icon && <Icon size={18} style={{ color: source.color }} />}
+                  {source.image ? (
+                    <Image
+                      src={source.image}
+                      alt={source.label}
+                      width={18}
+                      height={18}
+                    />
+                  ) : (
+                    Icon && <Icon size={18} style={{ color: source.color }} />
+                  )}
                   <span>{source.label}</span>
                 </div>
 

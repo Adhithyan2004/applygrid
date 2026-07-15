@@ -1,14 +1,30 @@
-import { BriefcaseBusiness, Calendar, ChevronDown, MapPin } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  Rocket,
+  ChevronDown,
+  MapPin,
+  IndianRupee,
+} from "lucide-react";
 
 import { Application } from "../types/types";
 import { formatDate, formatSource } from "../lib/formatters";
+import { getStatusStyles } from "../lib/statusByColor";
 
 type Props = {
   application: Application;
+  expanded: boolean;
+  onToggle: () => void;
   onEdit: (application: Application) => void;
+  onDelete: (id: string) => void;
 };
 
-const ApplicationCard = ({ application, onEdit }: Props) => {
+const ApplicationCard = ({
+  application,
+  expanded,
+  onToggle,
+  onEdit,
+  onDelete,
+}: Props) => {
   return (
     <div className="rounded-xl bg-zinc-100 p-5">
       <div className="flex justify-between">
@@ -29,7 +45,11 @@ const ApplicationCard = ({ application, onEdit }: Props) => {
                 {application.companyName}
               </h2>
 
-              <span className="rounded-full border border-zinc-400 px-4 py-1 text-sm">
+              <span
+                className={`rounded-full px-4 py-1 text-sm font-medium ${getStatusStyles(
+                  application.currentStatus,
+                )}`}
+              >
                 {application.currentStatus}
               </span>
             </div>
@@ -46,15 +66,17 @@ const ApplicationCard = ({ application, onEdit }: Props) => {
                 {application.role}
               </div>
               <div className="flex items-center  gap-1">
-                <BriefcaseBusiness size={18} />
+                <Rocket size={18} />
                 {application.experienceLevel}
               </div>
 
-              <div className="font-medium ">₹ {application.salary} LPA</div>
+              <div className="flex items-center  gap-1 ">
+                <IndianRupee size={18} /> {application.salary} LPA
+              </div>
             </div>
 
             {/* Tech Stack */}
-            {/* <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2 mt-4">
               {application.techStack?.map((tech) => (
                 <span
                   key={tech}
@@ -63,7 +85,7 @@ const ApplicationCard = ({ application, onEdit }: Props) => {
                   {tech}
                 </span>
               ))}
-            </div> */}
+            </div>
           </div>
         </div>
 
@@ -79,9 +101,48 @@ const ApplicationCard = ({ application, onEdit }: Props) => {
             </p>
           </div>
 
-          <button className="rounded-lg p-2 hover:bg-zinc-200 transition">
-            <ChevronDown size={28} />
+          <button
+            onClick={onToggle}
+            className="rounded-lg p-2 hover:bg-zinc-200 transition"
+          >
+            <ChevronDown
+              size={28}
+              className={`transition-transform duration-300 ${
+                expanded ? "rotate-180" : ""
+              }`}
+            />
           </button>
+        </div>
+      </div>
+      <div
+        className={`overflow-hidden transition-all duration-300 ${
+          expanded ? "max-h-125 opacity-100 px-16 pt-2" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="space-y-4">
+          <div>
+            <h3 className="font-semibold text-[20px] text-zinc-800">Notes</h3>
+
+            <p className=" text-sm text-zinc-600">
+              {application.note || "No notes added."}
+            </p>
+          </div>
+
+          <div className="flex gap-3">
+            <button
+              onClick={() => onEdit(application)}
+              className="rounded-lg bg-[#0020A2] px-4 py-2 text-white"
+            >
+              Edit
+            </button>
+
+            <button
+              onClick={() => onDelete(application.id)}
+              className="rounded-lg border border-[#B70000] px-4 py-2 text-red-500 bg-[#FFD8D9] hover:bg-red-50"
+            >
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </div>

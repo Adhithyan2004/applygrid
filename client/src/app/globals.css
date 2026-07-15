@@ -8,7 +8,7 @@
 }
 
 .input-style {
-  @apply h-14 w-111.5 p-6 rounded-[10px] border;
+  @apply h-10 w-111.5 p-6 rounded-[10px] border;
 }
 
 .navbar-btn {

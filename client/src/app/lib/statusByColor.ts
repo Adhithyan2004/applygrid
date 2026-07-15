@@ -15,7 +15,7 @@ export const getStatusStyles = (status: string) => {
     case "GHOSTED":
       return "bg-zinc-200 text-zinc-700 border";
 
-    default:
+    default: 
       return "bg-zinc-100 text-zinc-700 border";
   }
 };

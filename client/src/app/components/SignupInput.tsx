@@ -10,8 +10,17 @@ export const SignupInput = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSignup = async () => {
+    setError("");
+
+    if (password !== confirmPassword) {
+      setError("Passwords don't match");
+      return;
+    }
+
     try {
       const response = await api.post("/auth/signup", {
         name,
@@ -27,7 +36,7 @@ export const SignupInput = () => {
 
   return (
     <div>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-4">
         <div>
           <h2 className="text-[22px] font-semibold font-inter">
             Welcome to ApplyGrid
@@ -56,10 +65,23 @@ export const SignupInput = () => {
           placeholder="Set Password"
           className="input-style font-inter"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setError("");
+          }}
+        />
+        <input
+          type="password"
+          placeholder="Re-Type Password"
+          className="input-style font-inter"
+          value={confirmPassword}
+          onChange={(e) => {
+            setConfirmPassword(e.target.value);
+            setError("");
+          }}
         />
         <button
-          className=" h-14 w-111.5 bg-gray-300 rounded-[10px] cursor-pointer"
+          className=" h-12 w-111.5 bg-gray-300 rounded-[10px] cursor-pointer"
           onClick={handleSignup}
         >
           Sign Up
@@ -69,11 +91,12 @@ export const SignupInput = () => {
         <h2 className="text-[16px] font-inter">Already have an account ?</h2>
         <button
           onClick={() => router.push("/user-login")}
-          className="h-14 w-full border rounded-[10px] font-inter cursor-pointer"
+          className="h-12 w-full border rounded-[10px] font-inter cursor-pointer"
         >
           Sign In
         </button>
       </div>
+      {error && <p className="text-red-500 text-sm font-inter">{error}</p>}
     </div>
   );
 };
