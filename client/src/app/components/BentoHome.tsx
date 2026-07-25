@@ -12,6 +12,9 @@ const BentoHome = () => {
   if (isLoading) {
     return <p>Loading...</p>;
   }
+  if (!data) {
+    return <p>Something went wrong.</p>;
+  }
   return (
     <div className="mt-10 mb-6 grid grid-cols-12 grid-rows-12 w-full h-fit gap-6">
       <div className="bg-white shadow-card col-span-4 row-span-6 rounded-xl py-5.5 px-8.25">

@@ -1,22 +1,29 @@
 import axios from "axios";
-import { CreateApplication, UpdateApplicationPayload } from "../types/types";
+import {
+  CreateApplication,
+  UpdateApplicationPayload,
+  Application,
+} from "../types/types";
+import { DashboardData } from "../types/dashboardTypes";
+
+console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
 
 export const api = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
 });
 
 // APIS
 
 // Dashboard API
-export const getDashboard = async () => {
-  const response = await api.get("/dashboard");
+export const getDashboard = async (): Promise<DashboardData> => {
+  const response = await api.get<DashboardData>("/dashboard");
   return response.data;
 };
 
 // Applications API
-export const getApplications = async () => {
-  const applications = await api.get("/applications");
+export const getApplications = async (): Promise<Application[]> => {
+  const applications = await api.get<Application[]>("/applications");
   return applications.data;
 };
 

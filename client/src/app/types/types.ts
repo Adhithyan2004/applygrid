@@ -23,18 +23,18 @@ export type RecentActivityItems = {
   changedAt: string;
   application: {
     companyName: string;
-    role: string;
   };
 };
 
-export type RecentApplicationsItems = {
-  id: string;
-  companyName: string;
-  role: string;
-  currentStatus: string;
-  experienceLevel: string;
-  appliedDate: string;
-};
+export type RecentApplicationsItems = Pick<
+  Application,
+  | "id"
+  | "companyName"
+  | "role"
+  | "currentStatus"
+  | "experienceLevel"
+  | "appliedDate"
+>;
 
 export type TopRole = {
   role: string;
@@ -56,15 +56,16 @@ export interface Application {
   appliedSource: string;
   techStack: string[];
 }
-export interface CreateApplication {
-  companyName: string;
-  role: string;
-  currentStatus: string;
-  experienceLevel: string | null;
-  location: string | null;
-  salary: number | null;
-  note: string | null;
-}
+export type CreateApplication = Pick<
+  Application,
+  | "companyName"
+  | "role"
+  | "currentStatus"
+  | "experienceLevel"
+  | "location"
+  | "salary"
+  | "note"
+>;
 
 export interface UpdateApplicationPayload {
   companyName?: string;

@@ -1,0 +1,59 @@
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: applygrid-db
+
+    restart: unless-stopped
+
+    env_file:
+      - ./server/.env.production
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./server
+
+    env_file:
+      - ./server/.env.production
+
+    container_name: applygrid-server
+
+    restart: unless-stopped
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build:
+      context: ./client
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:5000
+
+    container_name: applygrid-client
+
+    restart: unless-stopped
+
+    depends_on:
+      - backend
+
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:5000
+
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:
