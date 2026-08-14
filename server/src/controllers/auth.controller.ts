@@ -15,10 +15,34 @@ export const signupController = async (
   try {
     const { name, email, password } = req.body;
 
+    if (!name?.trim()) {
+      return res.status(400).json({
+        message: "Name is required",
+      });
+    }
+
+    if (!email?.trim()) {
+      return res.status(400).json({
+        message: "Email is required",
+      });
+    }
+
+    if (!password?.trim()) {
+      return res.status(400).json({
+        message: "Password is required",
+      });
+    }
+
+    if (password.length < 8) {
+      return res.status(400).json({
+        message: "Password must be atleast 8 characters",
+      });
+    }
+
     const { user, accessToken, refreshToken } = await registerUser(
-      name,
-      email,
-      password,
+      name.trim(),
+      email.trim(),
+      password.trim(),
     );
 
     res.cookie("accessToken", accessToken, {
@@ -56,6 +80,18 @@ export const loginController = async (
 ) => {
   try {
     const { email, password } = req.body;
+
+    if (!email?.trim()) {
+      return res.status(400).json({
+        message: "Email is required",
+      });
+    }
+
+    if (!password?.trim()) {
+      return res.status(400).json({
+        message: "Passowrd is required duh!",
+      });
+    }
 
     const { accessToken, refreshToken } = await loginUserService(
       email,

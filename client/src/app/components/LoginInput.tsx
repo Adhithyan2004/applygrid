@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { api } from "../lib/api";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
@@ -12,7 +12,9 @@ export const LoginInput = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = async () => {
+  const handleLogin = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     try {
       setError("");
       const response = await api.post("/auth/login", {
@@ -22,7 +24,6 @@ export const LoginInput = () => {
       router.push("/");
     } catch (error: any) {
       setError(error.response?.data?.message);
-      console.log(error.response?.data);
     }
   };
 
@@ -30,35 +31,40 @@ export const LoginInput = () => {
     <div>
       <div className="flex flex-col gap-5">
         <h2 className="text-[22px] font-semibold">Log in to ApplyGrid</h2>
-        <input
-          type="email"
-          placeholder="Email"
-          className="input-style"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <div className="relative">
+        <form onSubmit={handleLogin} className="flex flex-col gap-5">
           <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
+            type="email"
+            placeholder="Email"
             className="input-style"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={email}
+            required
+            onChange={(e) => setEmail(e.target.value)}
           />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              required
+              className="input-style"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-6 top-1/2 -translate-y-1/2"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
           <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-6 top-1/2 -translate-y-1/2"
+            type="submit"
+            className=" h-14 w-111.5 bg-gray-300 rounded-[10px] cursor-pointer"
           >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            Sign In
           </button>
-        </div>
-        <button
-          onClick={handleLogin}
-          className=" h-14 w-111.5 bg-gray-300 rounded-[10px] cursor-pointer"
-        >
-          Sign In
-        </button>
+          {error && <p className="text-red-500 text-sm font-inter">{error}</p>}
+        </form>
         <p className="text-center cursor-pointer text-sm">
           Forgotten Password?
         </p>
@@ -72,7 +78,6 @@ export const LoginInput = () => {
           Create Account
         </button>
       </div>
-      {error && <p className="text-red-500 text-sm font-inter">{error}</p>}
     </div>
   );
 };

@@ -32,7 +32,6 @@ services:
       postgres:
         condition: service_healthy
 
-
   frontend:
     build:
       context: ./client
@@ -63,3 +62,15 @@ services:
       - "8080:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: applygrid-cloudflared
+
+    env_file:
+      - ./.env.cloudflare
+
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+
+    depends_on:
+      - nginx
