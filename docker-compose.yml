@@ -66,11 +66,12 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: applygrid-cloudflared
+    restart: unless-stopped
 
     env_file:
       - ./.env.cloudflare
 
-    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    command: tunnel --no-autoupdate run
 
     depends_on:
       - nginx
