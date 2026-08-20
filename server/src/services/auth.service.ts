@@ -136,7 +136,7 @@ export const forgotPasswordService = async (email: string) => {
   });
 
   //TEMPORARY - should removce it later (only for testing)
-  const resetUrl = `http://localhost:3000/resetpassword/${resetToken}`;
+  const resetUrl = `https://applygrid.adhithyan.org/resetpassword/${resetToken}`;
 
   await sendPasswordResetEmail(user.email, resetUrl);
 };
