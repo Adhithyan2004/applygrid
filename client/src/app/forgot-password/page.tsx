@@ -3,8 +3,10 @@
 import { SubmitEvent, useState } from "react";
 import { api } from "../lib/api";
 import { ForgotPasswordResponse } from "../types/types";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -34,12 +36,17 @@ const Page = () => {
   };
 
   return (
-    <div className="">
+    <div className="flex flex-col justify-center items-center h-screen">
       <form
         onSubmit={handleSubmit}
-        className="p-10 py-14  flex flex-col items-center gap-4"
+        className="p-10 py-14 flex flex-col items-center gap-4"
       >
-        <h1 className="font-sora font-semibold text-xl ">ApplyGrid</h1>
+        <h1
+          className="font-sora font-semibold text-xl text-primary cursor-pointer"
+          onClick={() => router.push("/")}
+        >
+          ApplyGrid
+        </h1>
         <div className="space-y-2 text-center">
           <h1 className="text-2xl font-semibold">
             Did you forgot your password?
@@ -61,7 +68,7 @@ const Page = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="bg-gray-200 py-3 rounded-xl w-md"
+          className="bg-primary text-white cursor-pointer hover:shadow-lg hover:shadow-blue-300 py-3 rounded-xl w-md"
         >
           {isLoading ? "Sending..." : "Send reset link"}
         </button>

@@ -66,7 +66,10 @@ const ResetPasswordPage = ({ params }: Props) => {
         onSubmit={handleSubmit}
         className="p-10 py-14  flex flex-col items-center gap-4"
       >
-        <h1 className="font-sora font-semibold text-xl text-primary">
+        <h1
+          className="font-sora font-semibold text-xl text-primary cursor-pointer"
+          onClick={() => router.push("/")}
+        >
           ApplyGrid
         </h1>
         <div className="space-y-2 text-center">

@@ -65,7 +65,10 @@ export const LoginInput = () => {
           </button>
           {error && <p className="text-red-500 text-sm font-inter">{error}</p>}
         </form>
-        <p className="text-center cursor-pointer text-sm">
+        <p
+          className="text-center cursor-pointer text-sm"
+          onClick={() => router.push("/forgot-password")}
+        >
           Forgotten Password?
         </p>
       </div>
