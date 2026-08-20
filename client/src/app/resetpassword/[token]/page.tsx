@@ -4,6 +4,7 @@ import { SubmitEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "../../lib/api";
 import { Eye, EyeOff } from "lucide-react";
+import { ResetPasswordResponse } from "@/app/types/types";
 
 type Props = {
   params: Promise<{
@@ -37,10 +38,13 @@ const ResetPasswordPage = ({ params }: Props) => {
     try {
       const { token } = await params;
 
-      const response = await api.post("/auth/resetpassword", {
-        token,
-        password,
-      });
+      const response = await api.post<ResetPasswordResponse>(
+        "/auth/resetpassword",
+        {
+          token,
+          password,
+        },
+      );
 
       setMessage(response.data.message);
 

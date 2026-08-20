@@ -76,3 +76,17 @@ export interface UpdateApplicationPayload {
   salary?: number;
   note?: string;
 }
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+export type ForgotPasswordResponse = {
+  message: string;
+};
+
+export type ResetPasswordResponse = {
+  message: string;
+};

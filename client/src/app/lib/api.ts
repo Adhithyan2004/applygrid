@@ -3,6 +3,7 @@ import {
   CreateApplication,
   UpdateApplicationPayload,
   Application,
+  User,
 } from "../types/types";
 import { DashboardData } from "../types/dashboardTypes";
 export const api = axios.create({
@@ -13,8 +14,8 @@ export const api = axios.create({
 // APIS
 
 //Get User details
-export const getMe = async () => {
-  const response = await api.get("/auth/me");
+export const getMe = async (): Promise<User> => {
+  const response = await api.get<User>("/auth/me");
   return response.data;
 };
 

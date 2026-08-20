@@ -2,6 +2,7 @@
 
 import { SubmitEvent, useState } from "react";
 import { api } from "../lib/api";
+import { ForgotPasswordResponse } from "../types/types";
 
 const Page = () => {
   const [email, setEmail] = useState("");
@@ -17,9 +18,12 @@ const Page = () => {
     setIsLoading(true);
 
     try {
-      const response = await api.post("/auth/forgotpassword", {
-        email,
-      });
+      const response = await api.post<ForgotPasswordResponse>(
+        "/auth/forgotpassword",
+        {
+          email,
+        },
+      );
 
       setMessage(response.data.message);
     } catch (error: any) {
