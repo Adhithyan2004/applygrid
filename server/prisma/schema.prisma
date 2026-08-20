@@ -46,6 +46,8 @@ model User {
   refreshToken String?
   bestStreak   Int           @default(0)
   applications Application[]
+  passwordResetTokenHash  String?
+  passwordResetExpires  DateTime?
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 }
@@ -59,7 +61,7 @@ model Application {
   currentStatus   ApplicationStatus
   experienceLevel ExperienceLevel?
   appliedDate     DateTime
-  statusHistory   ApplicationStatusHistory[]  
+  statusHistory   ApplicationStatusHistory[]
   location        String?
   salary          Int?
   note            String?

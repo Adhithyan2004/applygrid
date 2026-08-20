@@ -136,7 +136,7 @@ export const AddApplicationModal = ({
       <div className="w-full max-w-3xl h-[88vh] rounded-2xl bg-white flex flex-col p-8 shadow-xl">
         <div className="mb-6 shrink-0 flex items-center justify-between">
           <div className="space-y-1">
-            <h2 className="text-2xl font-semibold font-sora text-[#0020A2]">
+            <h2 className="text-2xl font-semibold font-sora text-primary">
               {mode === "create" ? "Add Application" : "Edit Application"}
             </h2>
             <p className="w-md font-light font-sora">
@@ -158,7 +158,7 @@ export const AddApplicationModal = ({
             className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 font-sora"
           >
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[#0020A2]">
+              <label className="font-semibold text-primary">
                 Company Name <span className="text-red-500 ml-1">*</span>
               </label>
               <input
@@ -171,13 +171,13 @@ export const AddApplicationModal = ({
             </div>
 
             <div className="flex flex-col gap-1 ">
-              <label className="font-semibold text-[#0020A2]">
+              <label className="font-semibold text-primary">
                 Role <span className="text-red-500 ml-1">*</span>
               </label>
               <RoleSelector value={role} onChange={setRole} />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[#0020A2]">
+              <label className="font-semibold text-primary">
                 Applied At <span className="text-red-500 ml-1">*</span>
               </label>
               <input
@@ -189,13 +189,13 @@ export const AddApplicationModal = ({
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[#0020A2]">
+              <label className="font-semibold text-primary">
                 Status <span className="text-red-500 ml-1">*</span>
               </label>
               <StatusSelect value={currentStatus} onChange={setCurrentStatus} />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[#0020A2]">
+              <label className="font-semibold text-primary">
                 Salary <span className="font-light">(In Lakhs per annum)</span>
               </label>
               <input
@@ -206,7 +206,7 @@ export const AddApplicationModal = ({
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[#0020A2]">
+              <label className="font-semibold text-primary">
                 Experience Level
               </label>
               <ExperienceSelect
@@ -215,7 +215,7 @@ export const AddApplicationModal = ({
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[#0020A2]">Location</label>
+              <label className="font-semibold text-primary">Location</label>
               <input
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
@@ -224,7 +224,7 @@ export const AddApplicationModal = ({
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-[#0020A2]">
+              <label className="font-semibold text-primary">
                 Applied Source
               </label>
               <AppliedSourceSelect
@@ -233,7 +233,7 @@ export const AddApplicationModal = ({
               />
             </div>
             <div className="flex flex-col md:col-span-2 gap-2">
-              <label className="font-semibold text-[#0020A2]">Tech Stack</label>
+              <label className="font-semibold text-primary">Tech Stack</label>
 
               <input
                 value={techInput}
@@ -268,7 +268,7 @@ export const AddApplicationModal = ({
               </div>
             </div>
             <div className="flex flex-col md:col-span-2 gap-1">
-              <label className="font-semibold text-[#0020A2]">Notes</label>
+              <label className="font-semibold text-primary">Notes</label>
               <textarea
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
@@ -283,7 +283,7 @@ export const AddApplicationModal = ({
                   createApplicationMutation.isPending ||
                   updateApplicationMutation.isPending
                 }
-                className="rounded-lg bg-[#0020A2] px-4 py-2 text-white shadow-mini"
+                className="rounded-lg bg-primary px-4 py-2 text-white shadow-mini"
               >
                 {mode === "create" ? "Add Application" : "Update Applciaiton"}
               </button>

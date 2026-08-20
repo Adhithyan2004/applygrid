@@ -24,7 +24,7 @@ export const STATUS_FILTERS = [
   {
     value: "ALL",
     label: "All",
-    activeClass: "bg-[#0020A2] text-white border",
+    activeClass: "bg-primary text-white border",
   },
   {
     value: "APPLIED",

@@ -12,8 +12,10 @@ import {
   Astroid,
 } from "lucide-react";
 import { useLogout } from "../hooks/useLogout";
+import { useMe } from "../hooks/useMe";
 
 export const AccountMenu = () => {
+  const { data: user, isLoading } = useMe();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const logoutMutation = useLogout();
@@ -32,7 +34,7 @@ export const AccountMenu = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="navbar-icon w-full hover:bg-zinc-100"
       >
-        <CircleUser className="text-[#0020A2]" />
+        <CircleUser className="text-primary" />
 
         <span>Account</span>
 
@@ -49,7 +51,9 @@ export const AccountMenu = () => {
           <div className="px-3 py-3 flex items-center gap-4">
             <CircleUser size={30} color="#0020A2" />
             <div>
-              <p className="font-semibold">Joel Da</p>
+              <p className="font-semibold">
+                {isLoading ? "Loading..." : user?.name}
+              </p>
               <p className="text-[13px]">Basic Plan</p>
             </div>
           </div>

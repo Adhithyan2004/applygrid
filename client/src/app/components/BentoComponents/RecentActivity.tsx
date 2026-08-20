@@ -12,8 +12,8 @@ export const RecentActivity = ({ activities, topRoles }: Props) => {
     topRoles.length > 0 ? Math.max(...topRoles.map((role) => role.count)) : 1;
   return (
     <div className="flex flex-col gap-4 h-full">
-      <div className=" border border-[#0020A2] bg-[#E5EAFF] rounded-lg p-3 py-5">
-        <h1 className="text-[22px] font-semibold text-[#0020A2]">
+      <div className=" border border-primary bg-[#E5EAFF] rounded-lg p-3 py-5">
+        <h1 className="text-[22px] font-semibold text-primary">
           Recent Activity
         </h1>
         <div className="flex flex-col font-sora gap-3 mt-4">
@@ -29,7 +29,7 @@ export const RecentActivity = ({ activities, topRoles }: Props) => {
                 )}
               </p>
 
-              <p className="font-semibold text-[16px] text-[#0020A2]">
+              <p className="font-semibold text-[16px] text-primary">
                 {formatTimeAgo(activity.changedAt)}
               </p>
             </div>
@@ -37,7 +37,7 @@ export const RecentActivity = ({ activities, topRoles }: Props) => {
         </div>
       </div>
       <div>
-        <h1 className="text-[22px] font-semibold text-[#0020A2]">
+        <h1 className="text-[22px] font-semibold text-primary">
           Top Applied Roles
         </h1>
         <div className="flex flex-col gap-2 mt-4">

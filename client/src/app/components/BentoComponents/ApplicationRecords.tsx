@@ -41,7 +41,7 @@ const ApplicationRecords = ({ records }: ApplicationRecordsProps) => {
       </div>
       <p
         onClick={() => router.push("/applications")}
-        className="cursor-pointer font-semibold font-sora text-[#0020A2]"
+        className="cursor-pointer font-semibold font-sora text-primary"
       >
         View All Applications
       </p>

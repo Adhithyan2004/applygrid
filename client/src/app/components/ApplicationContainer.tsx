@@ -49,7 +49,7 @@ export const ApplicationContainer = () => {
             setSelectedApplication(null);
             setIsModalOpen(true);
           }}
-          className="text-[#0020A2] cursor-pointer transition duration-300 ease-in-out hover:scale-110"
+          className="text-primary cursor-pointer transition duration-300 ease-in-out hover:scale-110"
         />
         <AddApplicationModal
           isOpen={isModalOpen}
@@ -61,7 +61,7 @@ export const ApplicationContainer = () => {
           mode={selectApplication ? "edit" : "create"}
         />
       </div>
-      <h1 className="font-sora text-[22px] font-semibold my-5 text-[#0020A2]">
+      <h1 className="font-sora text-[22px] font-semibold my-5 text-primary">
         All Applications
       </h1>
       <div className="flex gap-2 mt-5">

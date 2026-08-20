@@ -5,15 +5,18 @@ import {
   Application,
 } from "../types/types";
 import { DashboardData } from "../types/dashboardTypes";
-
-console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
-
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
 });
 
 // APIS
+
+//Get User details
+export const getMe = async () => {
+  const response = await api.get("/auth/me");
+  return response.data;
+};
 
 // Dashboard API
 export const getDashboard = async (): Promise<DashboardData> => {

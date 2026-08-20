@@ -9,13 +9,13 @@ export const ApplicationStats = ({ stats }: ApplicationStatsProps) => {
     <div className="font-sora flex flex-col justify-between h-full gap-3">
       <div>
         <div>
-          <h2 className="text-[42px] text-[#0020A2] font-semibold">
+          <h2 className="text-[42px] text-primary font-semibold">
             {stats.totalApplications}
           </h2>
           <p className="text-[28px] -mt-1.25">Applications</p>
         </div>
         <div>
-          <h2 className="text-[42px] text-[#0020A2] font-semibold">
+          <h2 className="text-[42px] text-primary font-semibold">
             {stats.interviews}
           </h2>
           <p className="text-[28px] -mt-1.25">Interviews</p>

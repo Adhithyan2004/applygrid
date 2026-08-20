@@ -4,8 +4,12 @@ import {
   refreshAccessToken,
   logoutUserService,
   deleteUserService,
+  forgotPasswordService,
+  resetPasswordService,
+  getCurrentUserService,
 } from "../services/auth.service";
 import { Request, Response } from "express";
+import { sendPasswordResetEmail } from "../services/email.service";
 import { SignupBody, LoginBody } from "../types/auth.types";
 
 export const signupController = async (
@@ -171,5 +175,49 @@ export const deleteUserController = async (req: Request, res: Response) => {
     return res.status(200).json({ message: "User deleted successfully" });
   } catch (error: any) {
     res.status(500).json({ message: "Failed to delete user" });
+  }
+};
+
+export const forgotPasswordController = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+    await forgotPasswordService(email.trim());
+    return res.json({
+      message:
+        "If an account with that email exists, a password reset link has been sent.",
+    });
+  } catch (error: any) {
+    return res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
+};
+
+export const resetPasswordController = async (req: Request, res: Response) => {
+  try {
+    const { token, password } = req.body;
+
+    await resetPasswordService(token, password);
+
+    return res.json({
+      message: "Password reset successfully",
+    });
+  } catch (error: any) {
+    return res.status(400).json({
+      message: error.message || "Password reset failed",
+    });
+  }
+};
+
+export const getCurrentUserController = async (req: Request, res: Response) => {
+  try {
+    const userId = req.userId as string;
+
+    const user = await getCurrentUserService(userId);
+    res.json(user);
+  } catch (error: any) {
+    res.status(401).json({
+      message: "Unauthorized",
+    });
   }
 };

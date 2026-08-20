@@ -18,7 +18,7 @@ export const FilterPill = ({
     <button
       onClick={() => onClick(value)}
       className={`rounded-full px-4 py-2 text-sm transition ${
-        isSelected ? activeClass : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+        isSelected ? activeClass : "bg-blue-50 text-black hover:bg-blue-200"
       }`}
     >
       {label}

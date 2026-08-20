@@ -6,6 +6,9 @@ import {
   logoutContoller,
   refreshController,
   deleteUserController,
+  forgotPasswordController,
+  resetPasswordController,
+  getCurrentUserController,
 } from "../controllers/auth.controller";
 
 const router = express.Router();
@@ -18,7 +21,13 @@ router.post("/logout", logoutContoller);
 
 router.post("/refresh", refreshController);
 
+router.post("/forgotpassword", forgotPasswordController);
+
+router.post("/resetpassword", resetPasswordController);
+
 router.delete("/:id", deleteUserController);
+
+router.get("/me", authenticate, getCurrentUserController);
 
 // sample protected route (for checking purpose will remove
 // later and add actual protected routes)

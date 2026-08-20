@@ -5,6 +5,7 @@
   --font-inter: var(--font-inter);
   --shadow-card: 0px 3px 11.8px 0px rgba(0, 0, 0, 0.15);
   --shadow-mini: 0px 3px 11.8px 0px rgba(0, 32, 162, 0.35);
+  --color-primary: #0020a2;
 }
 
 .input-style {

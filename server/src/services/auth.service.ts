@@ -2,6 +2,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { prisma } from "../lib/prisma";
 import { generateAccessToken, generateRefreshToken } from "../utils/token";
+import crypto from "crypto";
+import { sendPasswordResetEmail } from "./email.service";
 
 export const registerUser = async (
   name: string,
@@ -100,4 +102,96 @@ export const deleteUserService = async (userId: string) => {
     },
   });
   return;
+};
+
+export const forgotPasswordService = async (email: string) => {
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!user) {
+    return;
+  }
+
+  //Generate token
+  const resetToken = crypto.randomBytes(32).toString("hex");
+
+  //Hash token before storing it (it will be dispalyed in the URL duh)
+  const resetTokenHash = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  //Token expires in 15 mins
+  const resetTokenExpires = new Date(Date.now() + 15 * 60 * 1000);
+
+  await prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      passwordResetTokenHash: resetTokenHash,
+      passwordResetExpires: resetTokenExpires,
+    },
+  });
+
+  //TEMPORARY - should removce it later (only for testing)
+  const resetUrl = `http://localhost:3000/resetpassword/${resetToken}`;
+
+  await sendPasswordResetEmail(user.email, resetUrl);
+};
+
+export const resetPasswordService = async (
+  token: string,
+  newPassword: string,
+) => {
+  const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+
+  const user = await prisma.user.findFirst({
+    where: {
+      passwordResetTokenHash: tokenHash,
+      passwordResetExpires: {
+        gt: new Date(),
+      },
+    },
+  });
+
+  if (!user) {
+    throw new Error("Invalid or expired reset token");
+  }
+
+  const passwordHash = await bcrypt.hash(newPassword, 12);
+
+  await prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      passwordHash,
+
+      // Token can never be used again
+      passwordResetTokenHash: null,
+      passwordResetExpires: null,
+
+      // Revoke existing refresh token
+      refreshToken: null,
+    },
+  });
+};
+
+export const getCurrentUserService = async (userId: string) => {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+    },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  return user;
 };

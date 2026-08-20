@@ -13,12 +13,12 @@ export const ApplicationStreak = ({
   const hasNoStreak = streak === 0;
   return (
     <div className="font-sora flex flex-col h-full justify-between">
-      <h2 className="text-[22px] font-semibold text-[#0020A2]">
+      <h2 className="text-[22px] font-semibold text-primary">
         Application Streak
       </h2>
-      <div className="font-semibold space-y-5 rounded-lg bg-[#E5EAFF] border border-[#0020A2] px-4.25 py-2">
+      <div className="font-semibold space-y-5 rounded-lg bg-[#E5EAFF] border border-primary px-4.25 py-2">
         <div>
-          <h2 className="text-[60px] text-[#0020A2] leading-tight">{streak}</h2>
+          <h2 className="text-[60px] text-primary leading-tight">{streak}</h2>
           <p className="text-[20px] -mt-3 font-medium">
             {hasNoStreak ? (
               <>
@@ -38,12 +38,12 @@ export const ApplicationStreak = ({
         </div>
         <p>
           Personal Best :{" "}
-          <span className="font-semibold text-[#0020A2]">{bestStreak}</span>
+          <span className="font-semibold text-primary">{bestStreak}</span>
         </p>
       </div>
       <p
         onClick={() => setIsModalOpen(true)}
-        className="font-semibold text-[#0020A2] cursor-pointer"
+        className="font-semibold text-primary cursor-pointer"
       >
         Add Today's Application
       </p>

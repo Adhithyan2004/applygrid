@@ -9,6 +9,7 @@ import {
 import { Application } from "../types/types";
 import { formatDate, formatSource } from "../lib/formatters";
 import { getStatusStyles } from "../lib/statusByColor";
+import { getStatusAvatarStyle } from "../lib/getStatusAvatarStyle";
 
 type Props = {
   application: Application;
@@ -26,13 +27,17 @@ const ApplicationCard = ({
   onDelete,
 }: Props) => {
   return (
-    <div className="rounded-xl bg-zinc-100 p-5">
+    <div className="rounded-xl shadow-card p-5">
       <div className="flex justify-between">
         {/* Left */}
         <div className="flex gap-3">
           {/* Avatar */}
-          <div className="h-12 w-12 shrink-0 rounded-full bg-zinc-300 flex items-center justify-center">
-            <span className="text-[20px] font-bold text-zinc-600">
+          <div
+            className={`h-12 w-12 shrink-0 rounded-full ${getStatusAvatarStyle(
+              application.currentStatus,
+            )} flex items-center justify-center`}
+          >
+            <span className="text-[20px] font-bold text-white">
               {application.companyName.charAt(0)}
             </span>
           </div>
@@ -57,21 +62,21 @@ const ApplicationCard = ({
             {/* Role */}
             <div className="flex flex-col gap-2 text-[14px] mt-3 text-zinc-700">
               <div className="flex  items-center gap-1">
-                <MapPin size={18} />
+                <MapPin size={18} className="text-primary" />
                 {application.location}
               </div>
 
               <div className="flex items-center  gap-1">
-                <BriefcaseBusiness size={18} />
+                <BriefcaseBusiness size={18} className="text-primary" />
                 {application.role}
               </div>
               <div className="flex items-center  gap-1">
-                <Rocket size={18} />
+                <Rocket size={18} className="text-primary"/>
                 {application.experienceLevel}
               </div>
 
               <div className="flex items-center  gap-1 ">
-                <IndianRupee size={18} /> {application.salary} LPA
+                <IndianRupee size={18} className="text-primary"/> {application.salary} LPA
               </div>
             </div>
 
@@ -131,7 +136,7 @@ const ApplicationCard = ({
           <div className="flex gap-3">
             <button
               onClick={() => onEdit(application)}
-              className="rounded-lg bg-[#0020A2] px-4 py-2 text-white"
+              className="rounded-lg bg-primary px-4 py-2 text-white"
             >
               Edit
             </button>
