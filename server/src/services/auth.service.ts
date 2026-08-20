@@ -109,12 +109,16 @@ export const forgotPasswordService = async (email: string) => {
     where: { email },
   });
 
+  console.log("1. user found");
+
   if (!user) {
     return;
   }
 
   //Generate token
   const resetToken = crypto.randomBytes(32).toString("hex");
+
+  console.log("2. Token generated");
 
   //Hash token before storing it (it will be dispalyed in the URL duh)
   const resetTokenHash = crypto
@@ -135,10 +139,14 @@ export const forgotPasswordService = async (email: string) => {
     },
   });
 
+  console.log("3. Token stored");
+
   //TEMPORARY - should removce it later (only for testing)
   const resetUrl = `https://applygrid.adhithyan.org/resetpassword/${resetToken}`;
+  console.log("4. Reset URL:", resetUrl);
 
   await sendPasswordResetEmail(user.email, resetUrl);
+  console.log("5. Email function completed");
 };
 
 export const resetPasswordService = async (
