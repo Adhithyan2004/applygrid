@@ -47,7 +47,7 @@ export const registerUser = async (
     },
   });
 
-  const verificationUrl = `http://localhost:3000/verify-email/${verificationToken}`;
+  const verificationUrl = `http://applygrid.adhithyan.org//verify-email/${verificationToken}`;
 
   await sendVerificationEmail(user.email, verificationUrl);
 
@@ -164,7 +164,6 @@ export const forgotPasswordService = async (email: string) => {
 
   console.log("3. Token stored");
 
-  //TEMPORARY - should removce it later (only for testing)
   const resetUrl = `https://applygrid.adhithyan.org/resetpassword/${resetToken}`;
   console.log("4. Reset URL:", resetUrl);
 
