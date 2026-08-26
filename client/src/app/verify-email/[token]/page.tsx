@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "../../lib/api";
+import { VerifyEmailResponse } from "@/app/types/types";
 
 type Props = {
   params: Promise<{
@@ -24,7 +25,9 @@ const VerifyEmailPage = ({ params }: Props) => {
       try {
         const { token } = await params;
 
-        const response = await api.get(`/auth/verify-email/${token}`);
+        const response = await api.get<VerifyEmailResponse>(
+          `/auth/verify-email/${token}`,
+        );
 
         setStatus("success");
         setMessage(response.data.message);

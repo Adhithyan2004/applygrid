@@ -91,3 +91,7 @@ export type ForgotPasswordResponse = {
 export type ResetPasswordResponse = {
   message: string;
 };
+
+export type VerifyEmailResponse = {
+  message: string;
+};
