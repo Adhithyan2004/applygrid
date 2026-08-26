@@ -30,7 +30,9 @@ export const LoginInput = () => {
   return (
     <div>
       <div className="flex flex-col gap-5">
-        <h2 className="text-[22px] font-semibold">Log in to ApplyGrid</h2>
+        <h2 className="text-[22px] text-primary font-semibold">
+          Log in to ApplyGrid
+        </h2>
         <form onSubmit={handleLogin} className="flex flex-col gap-5">
           <input
             type="email"
@@ -52,14 +54,14 @@ export const LoginInput = () => {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-6 top-1/2 -translate-y-1/2"
+              className="absolute right-6 top-1/2 -translate-y-1/2 text-primary"
             >
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
           </div>
           <button
             type="submit"
-            className=" h-14 w-111.5 bg-gray-300 rounded-[10px] cursor-pointer"
+            className=" h-14 w-111.5 bg-primary text-white rounded-[10px] cursor-pointer hover:shadow-md hover:shadow-blue-300"
           >
             Sign In
           </button>
@@ -73,10 +75,10 @@ export const LoginInput = () => {
         </p>
       </div>
       <div className="flex flex-col gap-5 mt-10">
-        <h2 className="text-[16px]">Don't have an account ?</h2>
+        <h2 className="text-[16px] ">Don't have an account ?</h2>
         <button
           onClick={() => router.push("/user-signup")}
-          className="h-14 w-full border rounded-[10px] cursor-pointer"
+          className="h-14 w-full border border-primary text-primary rounded-[10px] cursor-pointer hover:border-2 hover:shadow-lg hover:shadow-blue-100"
         >
           Create Account
         </button>

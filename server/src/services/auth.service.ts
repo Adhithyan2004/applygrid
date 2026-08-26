@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { prisma } from "../lib/prisma";
 import { generateAccessToken, generateRefreshToken } from "../utils/token";
 import crypto from "crypto";
-import { sendPasswordResetEmail } from "./email.service";
+import { sendPasswordResetEmail, sendVerificationEmail } from "./email.service";
 
 export const registerUser = async (
   name: string,
@@ -27,6 +27,29 @@ export const registerUser = async (
       passwordHash,
     },
   });
+
+  const verificationToken = crypto.randomBytes(32).toString("hex");
+
+  const verificationTokenHash = crypto
+    .createHash("sha256")
+    .update(verificationToken)
+    .digest("hex");
+
+  const verificationTokenExpires = new Date(Date.now() + 15 * 60 * 1000);
+
+  await prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      emailVerificationTokenHash: verificationTokenHash,
+      emailVerificationExpires: verificationTokenExpires,
+    },
+  });
+
+  const verificationUrl = `http://localhost:3000/verify-email/${verificationToken}`;
+
+  await sendVerificationEmail(user.email, verificationUrl);
 
   const accessToken = generateAccessToken(user.id);
   const refreshToken = generateRefreshToken(user.id);
@@ -187,6 +210,34 @@ export const resetPasswordService = async (
   });
 };
 
+export const verifyEmailService = async (token: string) => {
+  const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+
+  const user = await prisma.user.findFirst({
+    where: {
+      emailVerificationTokenHash: tokenHash,
+      emailVerificationExpires: {
+        gt: new Date(),
+      },
+    },
+  });
+
+  if (!user) {
+    throw new Error("Invalid or expired verification token");
+  }
+
+  await prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      emailVerified: true,
+      emailVerificationTokenHash: null,
+      emailVerificationExpires: null,
+    },
+  });
+};
+
 export const getCurrentUserService = async (userId: string) => {
   const user = await prisma.user.findUnique({
     where: { id: userId },
@@ -194,6 +245,7 @@ export const getCurrentUserService = async (userId: string) => {
       id: true,
       name: true,
       email: true,
+      emailVerified: true,
     },
   });
 

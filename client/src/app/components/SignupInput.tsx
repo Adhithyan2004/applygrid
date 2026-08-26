@@ -32,7 +32,7 @@ export const SignupInput = () => {
         password,
       });
       console.log(response.data);
-      router.push("/");
+      router.push("/verify-waiting-page");
     } catch (error: any) {
       setError(error.response?.data?.message || "Something went wrong");
     }
@@ -44,7 +44,7 @@ export const SignupInput = () => {
     <div>
       <div className="flex flex-col gap-4">
         <div>
-          <h2 className="text-[22px] font-semibold font-inter">
+          <h2 className="text-[22px] font-semibold font-inter text-primary">
             Welcome to ApplyGrid
           </h2>
           <p className="font-inter font-light">
@@ -84,7 +84,7 @@ export const SignupInput = () => {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-6 top-1/2 -translate-y-1/2"
+              className="absolute right-6 top-1/2 -translate-y-1/2 text-primary"
             >
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
@@ -104,13 +104,13 @@ export const SignupInput = () => {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-6 top-1/2 -translate-y-1/2"
+              className="absolute right-6 top-1/2 -translate-y-1/2 text-primary"
             >
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
           </div>
           <button
-            className=" h-12 w-111.5 bg-gray-300 rounded-[10px] cursor-pointer"
+            className=" h-12 w-111.5 bg-primary text-white rounded-[10px] cursor-pointer"
             type="submit"
             disabled={!passwordsMatch}
           >
@@ -126,7 +126,7 @@ export const SignupInput = () => {
         <h2 className="text-[16px] font-inter">Already have an account ?</h2>
         <button
           onClick={() => router.push("/user-login")}
-          className="h-12 w-full border rounded-[10px] font-inter cursor-pointer"
+          className="h-12 w-full border border-primary text-primary rounded-[10px] font-inter cursor-pointer"
         >
           Sign In
         </button>

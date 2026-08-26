@@ -9,6 +9,7 @@ import {
   forgotPasswordController,
   resetPasswordController,
   getCurrentUserController,
+  verifyEmailController,
 } from "../controllers/auth.controller";
 
 const router = express.Router();
@@ -26,6 +27,8 @@ router.post("/forgotpassword", forgotPasswordController);
 router.post("/resetpassword", resetPasswordController);
 
 router.delete("/:id", deleteUserController);
+
+router.get("/verify-email/:token", verifyEmailController);
 
 router.get("/me", authenticate, getCurrentUserController);
 

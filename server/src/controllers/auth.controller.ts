@@ -7,9 +7,9 @@ import {
   forgotPasswordService,
   resetPasswordService,
   getCurrentUserService,
+  verifyEmailService,
 } from "../services/auth.service";
 import { Request, Response } from "express";
-import { sendPasswordResetEmail } from "../services/email.service";
 import { SignupBody, LoginBody } from "../types/auth.types";
 
 export const signupController = async (
@@ -218,6 +218,23 @@ export const getCurrentUserController = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(401).json({
       message: "Unauthorized",
+    });
+  }
+};
+
+export const verifyEmailController = async (req: Request, res: Response) => {
+  try {
+    const { token } = req.params;
+
+    await verifyEmailService(token as string);
+
+    return res.status(200).json({
+      message: "Email verified successfully",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message:
+        error instanceof Error ? error.message : "Email verification failed",
     });
   }
 };

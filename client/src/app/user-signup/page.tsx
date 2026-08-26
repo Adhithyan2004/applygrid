@@ -3,13 +3,17 @@ import { SignupInput } from "../components/SignupInput";
 const page = () => {
   return (
     <div className="mx-20 mt-10">
-      <div className="absolute left-[60%] top-0 h-full w-[0.5px] bg-gray-800 -translate-x-1/2 z-10"></div>
-      <p className="p-3 text-[32px] text-gray-600 font-sora font-semibold">
+      <div className="absolute left-[60%] top-0 h-full w-[0.5px] bg-black -translate-x-1/2 z-10"></div>
+      <p className="p-3 text-[32px] text-primary font-sora font-semibold">
         ApplyGrid
       </p>
       <div className="flex justify-between items-end">
-        <h1 className="text-[52px] leading-16.5 font-sora">
-          A better way <br /> to track <br /> applications.
+        <h1 className="text-[52px] text-black leading-16.5 font-sora">
+          A better way <br /> to{" "}
+          <span className="text-primary font-semibold">
+            {" "}
+            track <br /> applications.
+          </span>
         </h1>
         <div>
           <SignupInput />
