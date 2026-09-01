@@ -10,38 +10,36 @@ type ApplicationRecordsProps = {
 const ApplicationRecords = ({ records }: ApplicationRecordsProps) => {
   const router = useRouter();
   return (
-    <div className="flex flex-col justify-between h-full">
-      <div className="text-[25px] font-sora grid grid-cols-2 gap-x-4 gap-y-4">
-        <p className="bg-[#D9F4FF] border text-[#056086] border-[#056086] p-3 rounded-lg leading-tight">
-          <span className="font-semibold text-[36px]">
+    <div className="flex flex-col justify-between sm:gap-5 gap-4 h-full">
+      <div className="lg:text-[25px] text-[18px] font-sora md:grid md:grid-cols-2 lg:flex xl:grid xl:grid-cols-2 flex flex-col md:gap-x-4 md:gap-y-4 gap-y-2">
+        <p className="bg-[#D9F4FF] border text-[#056086] flex items-center gap-2 xl:flex-col xl:items-start xl:gap-0 border-[#056086] p-3 rounded-lg leading-tight">
+          <span className="font-semibold xl:text-[36px] md:text-xl lg:text-2xl sm:text-lg">
             {records.totalApplications}{" "}
           </span>{" "}
-          <br />
           Applied
         </p>
-        <p className="bg-[#FFD8D8] text-[#B70000] border border-[#b70000] p-3 rounded-lg leading-tight">
-          <span className="font-semibold text-[36px] ">
+        <p className="bg-[#FFD8D8] text-[#B70000] border flex items-center gap-2 xl:flex-col xl:items-start xl:gap-0 border-[#b70000] p-3 rounded-lg leading-tight">
+          <span className="font-semibold xl:text-[36px] md:text-xl lg:text-2xl sm:text-lg">
             {records.rejected}{" "}
           </span>{" "}
-          <br />
           Rejected
         </p>
-        <p className="bg-[#FFF3D0] p-3 text-[#936E00] rounded-lg border border-[#936e00] leading-tight">
-          <span className="font-semibold text-[36px] ">
+        <p className="bg-[#FFF3D0] p-3 text-[#936E00] flex items-center gap-2 xl:flex-col xl:items-start xl:gap-0 rounded-lg border border-[#936e00] leading-tight">
+          <span className="font-semibold xl:text-[36px] md:text-xl lg:text-2xl sm:text-lg">
             {records.interviews}{" "}
           </span>{" "}
-          <br />
           Interviews
         </p>
-        <p className="bg-[#D7FFDE] p-3 text-[#008738]  rounded-lg border border-[#008738] leading-tight">
-          <span className="font-semibold text-[33px] ">{records.offers} </span>{" "}
-          <br />
+        <p className="bg-[#D7FFDE] p-3 text-[#008738] flex items-center gap-2 xl:flex-col xl:items-start xl:gap-0 rounded-lg border border-[#008738] leading-tight">
+          <span className="font-semibold xl:text-[33px] md:text-xl lg:text-2xl sm:text-lg">
+            {records.offers}{" "}
+          </span>{" "}
           Offered
         </p>
       </div>
       <p
         onClick={() => router.push("/applications")}
-        className="cursor-pointer font-semibold font-sora text-primary"
+        className="cursor-pointer font-semibold font-sora text-[12px] sm:text-base text-primary"
       >
         View All Applications
       </p>

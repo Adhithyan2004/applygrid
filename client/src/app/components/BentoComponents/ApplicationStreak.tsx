@@ -12,7 +12,7 @@ export const ApplicationStreak = ({
   const isPersonalBest = streak === bestStreak && streak > 0 && bestStreak > 1;
   const hasNoStreak = streak === 0;
   return (
-    <div className="font-sora flex flex-col h-full justify-between">
+    <div className="font-sora flex flex-col h-full xl:justify-between justify-evenly">
       <h2 className="text-[22px] font-semibold text-primary">
         Application Streak
       </h2>

@@ -2,32 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Plus, Layers } from "lucide-react";
+import { Plus } from "lucide-react";
 import { AccountMenu } from "./AccountMenu";
 import { useState } from "react";
 import { AddApplicationModal } from "./AddApplicationModal";
 import { useRouter } from "next/navigation";
-
-const navItems = [
-  {
-    name: "Dashboard",
-    href: "/",
-    icon: LayoutDashboard,
-  },
-
-  {
-    name: "Applications",
-    href: "/applications",
-    icon: Layers,
-  },
-];
+import { navItems } from "../lib/navigation";
 
 const SideNavBar = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
-    <div className="sticky top-0 h-screen z-50">
+    <div className="hidden lg:block sticky top-0 h-screen xl:ml-10 lg:ml-5 xl:mr-2 z-50">
       <h1
         onClick={() => router.push("/")}
         className="text-[30px] mt-10 font-sora font-semibold cursor-pointer text-primary"
