@@ -28,12 +28,19 @@ export const LoginInput = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col font-sora h-screen lg:h-fit justify-center lg:justify-start mx-10">
       <div className="flex flex-col gap-5">
-        <h2 className="text-[22px] text-primary font-semibold">
+        <h2 className="lg:text-[22px] text-2xl text-center lg:text-start text-primary font-semibold">
           Log in to ApplyGrid
         </h2>
-        <form onSubmit={handleLogin} className="flex flex-col gap-5">
+        <p className="text-center font-semibold lg:hidden">
+          A better way to{" "}
+          <span className="text-primary">track applications</span>
+        </p>
+        <form
+          onSubmit={handleLogin}
+          className="flex flex-col items-center lg:items-start gap-5"
+        >
           <input
             type="email"
             placeholder="Email"
@@ -61,7 +68,7 @@ export const LoginInput = () => {
           </div>
           <button
             type="submit"
-            className=" h-14 w-111.5 bg-primary text-white rounded-[10px] cursor-pointer hover:shadow-md hover:shadow-blue-300"
+            className=" h-14 w-80 sm:w-100 lg:w-111.5 bg-primary text-white rounded-[10px] cursor-pointer hover:shadow-md hover:shadow-blue-300"
           >
             Sign In
           </button>
@@ -74,11 +81,13 @@ export const LoginInput = () => {
           Forgotten Password?
         </p>
       </div>
-      <div className="flex flex-col gap-5 mt-10">
-        <h2 className="text-[16px] ">Don't have an account ?</h2>
+      <div className="flex flex-col items-center lg:items-start lg:gap-5 gap-3 mt-10">
+        <h2 className="text-[16px] text-center lg:text-start">
+          Don't have an account ?
+        </h2>
         <button
           onClick={() => router.push("/user-signup")}
-          className="h-14 w-full border border-primary text-primary rounded-[10px] cursor-pointer hover:border-2 hover:shadow-lg hover:shadow-blue-100"
+          className="h-14 w-80 sm:w-100 lg:w-full border border-primary text-primary rounded-[10px] cursor-pointer hover:border-2 hover:shadow-lg hover:shadow-blue-100"
         >
           Create Account
         </button>

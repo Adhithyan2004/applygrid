@@ -41,18 +41,21 @@ export const SignupInput = () => {
   const passwordsMatch = password === confirmPassword || confirmPassword === "";
 
   return (
-    <div>
-      <div className="flex flex-col gap-4">
+    <div className="flex flex-col items-center">
+      <div className="flex flex-col gap-4 font-sora h-screen lg:h-fit justify-center lg:justify-start mx-10">
         <div>
-          <h2 className="text-[22px] font-semibold font-inter text-primary">
+          <h2 className="lg:text-[22px] text-2xl text-center lg:text-start font-semibold font-inter text-primary">
             Welcome to ApplyGrid
           </h2>
-          <p className="font-inter font-light">
+          <p className="font-inter text-center lg:text-start font-light">
             Manage applications, interviews, and opportunities <br /> in one
             organized workspace.
           </p>
         </div>
-        <form onSubmit={handleSignup} className="flex flex-col gap-4">
+        <form
+          onSubmit={handleSignup}
+          className="flex flex-col items-center lg:items-start gap-4"
+        >
           <input
             type="text"
             placeholder="Username"
@@ -110,7 +113,7 @@ export const SignupInput = () => {
             </button>
           </div>
           <button
-            className=" h-12 w-111.5 bg-primary text-white rounded-[10px] cursor-pointer"
+            className=" h-12 w-80 sm:w-100 lg:w-111.5 bg-primary text-white rounded-[10px] cursor-pointer hover:shadow-md hover:shadow-blue-300"
             type="submit"
             disabled={!passwordsMatch}
           >
@@ -121,15 +124,15 @@ export const SignupInput = () => {
             <p className="text-red-500 text-sm">Passwords don't match</p>
           )}
         </form>
-      </div>
-      <div className="flex flex-col gap-5 mt-10">
-        <h2 className="text-[16px] font-inter">Already have an account ?</h2>
-        <button
-          onClick={() => router.push("/user-login")}
-          className="h-12 w-full border border-primary text-primary rounded-[10px] font-inter cursor-pointer"
-        >
-          Sign In
-        </button>
+        <div className="flex flex-col items-center lg:items-start lg:gap-5 gap-3 lg:mt-10">
+          <h2 className="text-[16px] font-inter">Already have an account ?</h2>
+          <button
+            onClick={() => router.push("/user-login")}
+            className="h-12 w-80 sm:w-100 lg:w-111 border border-primary text-primary rounded-[10px] font-inter  cursor-pointer hover:shadow-md hover:shadow-blue-300"
+          >
+            Sign In
+          </button>
+        </div>
       </div>
     </div>
   );

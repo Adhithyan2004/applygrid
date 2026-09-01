@@ -9,7 +9,7 @@
 }
 
 .input-style {
-  @apply h-10 w-111.5 p-6 rounded-[10px] border;
+  @apply h-10 lg:w-111.5 w-80 sm:w-100 p-6 rounded-[10px] border;
 }
 
 .navbar-btn {

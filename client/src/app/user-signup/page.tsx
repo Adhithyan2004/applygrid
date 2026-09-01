@@ -2,13 +2,13 @@ import { SignupInput } from "../components/SignupInput";
 
 const page = () => {
   return (
-    <div className="mx-20 mt-10">
-      <div className="absolute left-[60%] top-0 h-full w-[0.5px] bg-black -translate-x-1/2 z-10"></div>
-      <p className="p-3 text-[32px] text-primary font-sora font-semibold">
+    <div className="2xl:mx-20 2xl:mt-10 lg:mx-6 lg:my-8">
+      <div className="absolute  hidden xl:block  left-[60%] top-0 h-full w-[0.5px] bg-primary -translate-x-1/2 z-10"></div>
+      <p className="p-3 hidden lg:block text-[32px] text-primary font-sora font-semibold">
         ApplyGrid
       </p>
-      <div className="flex justify-between items-end">
-        <h1 className="text-[52px] text-black leading-16.5 font-sora">
+      <div className="lg:flex lg:justify-between lg:items-end">
+        <h1 className="text-[52px]  hidden lg:block text-black leading-16.5 font-sora">
           A better way <br /> to{" "}
           <span className="text-primary font-semibold">
             {" "}
