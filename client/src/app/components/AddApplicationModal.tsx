@@ -93,7 +93,7 @@ export const AddApplicationModal = ({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const payload = {
@@ -133,13 +133,13 @@ export const AddApplicationModal = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center  justify-center bg-black/40">
-      <div className="w-full max-w-3xl h-[88vh] rounded-2xl bg-white flex flex-col p-8 shadow-xl">
+      <div className="w-full max-w-3xl h-[88vh] rounded-2xl bg-white flex flex-col lg:p-8 p-4 mx-6 shadow-xl">
         <div className="mb-6 shrink-0 flex items-center justify-between">
           <div className="space-y-1">
-            <h2 className="text-2xl font-semibold font-sora text-primary">
+            <h2 className="lg:text-2xl text-lg font-semibold font-sora text-primary">
               {mode === "create" ? "Add Application" : "Edit Application"}
             </h2>
-            <p className="w-md font-light font-sora">
+            <p className="lg:w-md text-sm font-light font-sora">
               {mode === "create"
                 ? "Add a job application to monitor its progress from application to offer."
                 : "Modify application information and track the latest status changes."}
@@ -155,29 +155,29 @@ export const AddApplicationModal = ({
         <div className="flex-1 overflow-y-auto">
           <form
             onSubmit={handleSubmit}
-            className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 font-sora"
+            className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-y-6 gap-y-4 font-sora"
           >
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-primary">
+              <label className="font-semibold text-sm md:text-base text-primary">
                 Company Name <span className="text-red-500 ml-1">*</span>
               </label>
               <input
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
                 placeholder="Company Name"
-                className="w-full max-w-sm rounded-lg border p-2"
+                className="w-full max-w-sm md:text-base text-sm rounded-lg border p-2"
                 required
               />
             </div>
 
             <div className="flex flex-col gap-1 ">
-              <label className="font-semibold text-primary">
+              <label className="font-semibold text-sm md:text-base text-primary">
                 Role <span className="text-red-500 ml-1">*</span>
               </label>
               <RoleSelector value={role} onChange={setRole} />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-primary">
+              <label className="font-semibold text-sm md:text-base text-primary">
                 Applied At <span className="text-red-500 ml-1">*</span>
               </label>
               <input
@@ -185,28 +185,28 @@ export const AddApplicationModal = ({
                 max={new Date().toISOString().split("T")[0]}
                 value={appliedDate}
                 onChange={(e) => setAppliedDate(e.target.value)}
-                className="w-full rounded-lg border p-2"
+                className="w-full text-sm md:text-base rounded-lg border p-2"
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-primary">
+              <label className="font-semibold text-sm md:text-base text-primary">
                 Status <span className="text-red-500 ml-1">*</span>
               </label>
               <StatusSelect value={currentStatus} onChange={setCurrentStatus} />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-primary">
+              <label className="font-semibold text-sm md:text-base text-primary">
                 Salary <span className="font-light">(In Lakhs per annum)</span>
               </label>
               <input
                 value={salary}
                 onChange={(e) => setSalary(Number(e.target.value))}
                 placeholder="Salary"
-                className="w-full max-w-sm rounded-lg border p-2"
+                className="w-full text-sm md:text-base max-w-sm rounded-lg border p-2"
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-primary">
+              <label className="font-semibold text-sm md:text-base text-primary">
                 Experience Level
               </label>
               <ExperienceSelect
@@ -224,7 +224,7 @@ export const AddApplicationModal = ({
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="font-semibold text-primary">
+              <label className="font-semibold text-sm md:text-base text-primary">
                 Applied Source
               </label>
               <AppliedSourceSelect
@@ -233,7 +233,9 @@ export const AddApplicationModal = ({
               />
             </div>
             <div className="flex flex-col md:col-span-2 gap-2">
-              <label className="font-semibold text-primary">Tech Stack</label>
+              <label className="font-semibold text-sm md:text-base text-primary">
+                Tech Stack
+              </label>
 
               <input
                 value={techInput}
@@ -245,7 +247,7 @@ export const AddApplicationModal = ({
                   }
                 }}
                 placeholder="Press Enter to add a technology"
-                className="w-full rounded-lg border p-2"
+                className="w-full text-sm md:text-base rounded-lg border p-2"
               />
 
               <div className="flex flex-wrap gap-2">
@@ -268,12 +270,14 @@ export const AddApplicationModal = ({
               </div>
             </div>
             <div className="flex flex-col md:col-span-2 gap-1">
-              <label className="font-semibold text-primary">Notes</label>
+              <label className="font-semibold text-sm md:text-base text-primary">
+                Notes
+              </label>
               <textarea
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Notes (optional)"
-                className="w-full rounded-lg border p-2"
+                className="w-full text-sm md:text-base rounded-lg border p-2"
               />
             </div>
             <div className="flex shrink-0 gap-3">
@@ -283,14 +287,14 @@ export const AddApplicationModal = ({
                   createApplicationMutation.isPending ||
                   updateApplicationMutation.isPending
                 }
-                className="rounded-lg bg-primary px-4 py-2 text-white shadow-mini"
+                className="rounded-lg text-sm md:text-base bg-primary px-4 py-2 text-white shadow-mini"
               >
                 {mode === "create" ? "Add Application" : "Update Applciaiton"}
               </button>
               <button
                 type="button"
                 onClick={onClose}
-                className="rounded-lg border px-4 py-2"
+                className="rounded-lg text-sm md:text-base border px-4 py-2"
               >
                 Cancel
               </button>

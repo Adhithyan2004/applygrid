@@ -161,7 +161,7 @@ export const AppliedSourceSelect = ({ value, onChange }: Props) => {
         type="button"
         onClick={() => setOpen(!open)}
         onKeyDown={handleKeyDown}
-        className="flex w-full items-center justify-between rounded-lg border bg-white px-3 py-2"
+        className="flex w-full text-sm md:text-base items-center justify-between rounded-lg border bg-white px-3 py-2"
       >
         <div className="flex items-center gap-3">
           {selected?.image ? (

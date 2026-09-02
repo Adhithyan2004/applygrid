@@ -14,7 +14,11 @@ import {
 import { useLogout } from "../hooks/useLogout";
 import { useMe } from "../hooks/useMe";
 
-export const AccountMenu = () => {
+type AccountMenuProps = {
+  mobile?: boolean;
+};
+
+export const AccountMenu = ({ mobile = false }: AccountMenuProps) => {
   const { data: user, isLoading } = useMe();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -32,22 +36,26 @@ export const AccountMenu = () => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="navbar-icon w-full hover:bg-zinc-100"
+        className={`navbar-icon hover:bg-zinc-100 ${
+          mobile ? "w-auto" : "w-full"
+        }`}
       >
         <CircleUser className="text-primary" />
 
-        <span>Account</span>
+        {!mobile && <span>Account</span>}
 
         <ChevronUp
           size={16}
-          className={`ml-auto transition-transform ${
-            isOpen ? "" : "rotate-180"
-          }`}
+          className={`transition-transform ${isOpen ? "" : "rotate-180"}`}
         />
       </button>
 
       {isOpen && (
-        <div className="absolute bottom-14 left-0 w-45 rounded-xl bg-white shadow-mini p-2">
+        <div
+          className={`absolute rounded-xl bg-white shadow-mini p-2 ${
+            mobile ? "right-0 top-12 w-52" : "bottom-14 left-0 w-45"
+          }`}
+        >
           <div className="px-3 py-3 flex items-center gap-4">
             <CircleUser size={30} color="#0020A2" />
             <div>

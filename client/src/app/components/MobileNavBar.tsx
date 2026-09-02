@@ -6,6 +6,7 @@ import { Menu, X, Plus } from "lucide-react";
 import { useState } from "react";
 import { navItems } from "../lib/navigation";
 import { AddApplicationModal } from "./AddApplicationModal";
+import { AccountMenu } from "./AccountMenu";
 
 export const MobileNavBar = () => {
   const router = useRouter();
@@ -25,30 +26,32 @@ export const MobileNavBar = () => {
 
   return (
     <>
-      <nav className="sticky lg:hidden top-0 w-full z-50 flex h-16 items-center justify-between bg-white">
+      <nav className="sticky lg:hidden top-0 w-full z-20 flex h-16 items-center justify-between bg-white">
         <h1
           onClick={() => router.push("/")}
           className="font-sora text-2xl font-semibold text-primary cursor-pointer"
         >
           ApplyGrid
         </h1>
-
-        <button
-          type="button"
-          onClick={() => setIsMenuOpen((prev) => !prev)}
-          className="rounded-lg p-2 hover:bg-blue-50 cursor-pointer"
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-        >
-          {isMenuOpen ? (
-            <X className="text-primary" size={24} />
-          ) : (
-            <Menu className="text-primary" size={24} />
-          )}
-        </button>
+        <div className="flex items-center gap-2">
+          <AccountMenu mobile />
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+            className="rounded-lg p-2 hover:bg-blue-50 cursor-pointer"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {isMenuOpen ? (
+              <X className="text-primary" size={24} />
+            ) : (
+              <Menu className="text-primary" size={24} />
+            )}
+          </button>
+        </div>
       </nav>
 
       {isMenuOpen && (
-        <div className="fixed inset-x-0 top-16 bg-white px-4 py-4 shadow-lg sm:px-6">
+        <div className="fixed inset-x-0 z-20 top-16 bg-white px-4 py-4 shadow-lg sm:px-6">
           <div className="flex flex-col gap-2 font-sora">
             {navItems.map((item) => {
               const Icon = item.icon;

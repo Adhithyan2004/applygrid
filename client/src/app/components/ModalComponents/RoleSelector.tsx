@@ -78,11 +78,11 @@ export const RoleSelector = ({ value, onChange }: Props) => {
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Role"
-        className="w-full rounded-lg border p-2"
+        className="w-full text-sm md:text-base rounded-lg border p-2"
       />
 
       {value.length >= 2 && !exactMatch && (
-        <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-64 overflow-y-auto rounded-lg border  bg-white shadow-lg">
+        <div className="absolute left-0 right-0 top-full  z-50 mt-1 max-h-64 overflow-y-auto rounded-lg border  bg-white shadow-lg">
           {filteredRoles.length > 0 ? (
             filteredRoles.map((role, index) => (
               <button
@@ -92,7 +92,7 @@ export const RoleSelector = ({ value, onChange }: Props) => {
                 }}
                 type="button"
                 onClick={() => onChange(role)}
-                className={`block w-full px-4 py-3 text-left ${
+                className={`block w-full  px-4 py-3 text-left ${
                   selectedIndex === index ? "bg-zinc-200" : "hover:bg-zinc-100"
                 }`}
               >

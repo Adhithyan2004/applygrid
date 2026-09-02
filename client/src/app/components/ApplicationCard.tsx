@@ -46,7 +46,7 @@ const ApplicationCard = ({
           <div>
             {/* Company + Status */}
             <div className="flex items-center gap-2">
-              <h2 className="text-[20px] font-semibold">
+              <h2 className="xl:text-[20px] font-semibold">
                 {application.companyName}
               </h2>
 
@@ -59,8 +59,8 @@ const ApplicationCard = ({
               </span>
             </div>
 
-            {/* Role */}
-            <div className="flex flex-col gap-2 md:text-[14px] text-[12px] mt-3 text-zinc-700">
+            {/* Details */}
+            <div className="flex flex-col xl:grid xl:grid-cols-2 gap-2 md:text-[14px] text-[12px] mt-3 text-zinc-700">
               <div className="flex  items-center gap-1">
                 <MapPin size={18} className="text-primary" />
                 {application.location}

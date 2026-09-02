@@ -21,7 +21,7 @@ const SideNavBar = () => {
       >
         ApplyGrid
       </h1>
-      <div className="flex flex-col pt-10 pb-14 justify-between h-150">
+      <div className="flex flex-col pt-10 lg:pb-34 xl:pb-14  justify-between h-150">
         <div className="flex flex-col font-sora gap-3">
           {navItems.map((item) => {
             const Icon = item.icon;
