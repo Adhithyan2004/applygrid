@@ -27,7 +27,7 @@ const ApplicationCard = ({
   onDelete,
 }: Props) => {
   return (
-    <div className="rounded-xl shadow-card p-5">
+    <div className="rounded-xl shadow-card lg:p-5 p-3">
       <div className="flex justify-between">
         {/* Left */}
         <div className="flex gap-3">
@@ -51,7 +51,7 @@ const ApplicationCard = ({
               </h2>
 
               <span
-                className={`rounded-full px-4 py-1 text-sm font-medium ${getStatusStyles(
+                className={`rounded-full px-4 py-1 md:text-sm text-[12px] font-medium ${getStatusStyles(
                   application.currentStatus,
                 )}`}
               >
@@ -60,23 +60,24 @@ const ApplicationCard = ({
             </div>
 
             {/* Role */}
-            <div className="flex flex-col gap-2 text-[14px] mt-3 text-zinc-700">
+            <div className="flex flex-col gap-2 md:text-[14px] text-[12px] mt-3 text-zinc-700">
               <div className="flex  items-center gap-1">
                 <MapPin size={18} className="text-primary" />
                 {application.location}
               </div>
 
-              <div className="flex items-center  gap-1">
+              <div className="flex items-center gap-1">
                 <BriefcaseBusiness size={18} className="text-primary" />
                 {application.role}
               </div>
               <div className="flex items-center  gap-1">
-                <Rocket size={18} className="text-primary"/>
+                <Rocket size={18} className="text-primary" />
                 {application.experienceLevel}
               </div>
 
               <div className="flex items-center  gap-1 ">
-                <IndianRupee size={18} className="text-primary"/> {application.salary} LPA
+                <IndianRupee size={18} className="text-primary" />{" "}
+                {application.salary} LPA
               </div>
             </div>
 
@@ -97,12 +98,12 @@ const ApplicationCard = ({
         {/* Right */}
         <div className="flex flex-col items-end justify-between">
           <div className="text-right">
-            <p className="font-semibold text-[14px]">
+            <p className="font-semibold md:text-[14px] text-[12px]">
               {formatDate(application.appliedDate)}
             </p>
 
-            <p className="text-zinc-500 text-[14px]">
-              Source : {formatSource(application.appliedSource)}
+            <p className="text-primary md:text-[14px] text-[13px]">
+              {formatSource(application.appliedSource)}
             </p>
           </div>
 

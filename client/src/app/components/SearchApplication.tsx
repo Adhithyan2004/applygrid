@@ -8,7 +8,7 @@ type Props = {
 const SearchApplication = ({ value, onChange }: Props) => {
   return (
     <div>
-      <div className="relative w-82.5 ">
+      <div className="relative  lg:w-82.5 ">
         <Search
           size={20}
           className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500"

@@ -14,7 +14,7 @@ export const ApplicationList = ({ applications, onEdit, onDelete }: Props) => {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
-    <div className="columns-2 gap-6 mt-4">
+    <div className="lg:columns-2 lg:gap-6 mt-4">
       {applications.map((application) => (
         <div key={application.id} className="mb-6 break-inside-avoid">
           <ApplicationCard

@@ -61,10 +61,10 @@ export const ApplicationContainer = () => {
           mode={selectApplication ? "edit" : "create"}
         />
       </div>
-      <h1 className="font-sora text-[22px] font-semibold my-5 text-primary">
+      <h1 className="font-sora lg:text-[22px] text-lg font-semibold my-5 text-primary">
         All Applications
       </h1>
-      <div className="flex gap-2 mt-5">
+      <div className="flex flex-wrap gap-2 mt-5">
         {STATUS_FILTERS.map((filter) => (
           <FilterPill
             key={filter.value}
