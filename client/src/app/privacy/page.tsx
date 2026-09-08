@@ -1,3 +1,5 @@
+import { ChevronLeft } from "lucide-react";
+import Link from "next/link";
 import { LegalAccordion } from "@/app/components/LegalAccordion";
 
 const privacySections = [
@@ -229,25 +231,35 @@ const privacySections = [
 
 const PrivacyPage = () => {
   return (
-    <main className="mx-auto w-full max-w-3xl px-6 py-16">
-      <div className="mb-10">
-        <h1 className="font-sora text-primary text-4xl font-semibold tracking-tight">
-          Privacy Policy
-        </h1>
+    <>
+      <div className="mx-auto w-full max-w-3xl px-6 py-16">
+        <div className="mb-10">
+          <Link
+            href="/"
+            className="text-primary mb-8 inline-flex items-center gap-1.5 text-sm font-medium transition-opacity hover:opacity-70"
+          >
+            <ChevronLeft size={18} />
+            Back to Home
+          </Link>
+          <h1 className="font-sora text-primary text-4xl font-semibold tracking-tight">
+            Privacy Policy
+          </h1>
 
-        <p className="mt-3 text-base text-black">
-          <span className="text-primary">Last updated:</span> September 2, 2026
+          <p className="mt-3 text-base text-black">
+            <span className="text-primary">Last updated:</span> September 2,
+            2026
+          </p>
+        </div>
+
+        <p className="mb-10 text-base leading-8 text-zinc-600">
+          ApplyGrid respects your privacy. This Privacy Policy explains what
+          information we collect, how we use it, and how we handle your
+          information when you use ApplyGrid.
         </p>
+
+        <LegalAccordion items={privacySections} />
       </div>
-
-      <p className="mb-10 text-base leading-8 text-zinc-600">
-        ApplyGrid respects your privacy. This Privacy Policy explains what
-        information we collect, how we use it, and how we handle your
-        information when you use ApplyGrid.
-      </p>
-
-      <LegalAccordion items={privacySections} />
-    </main>
+    </>
   );
 };
 
