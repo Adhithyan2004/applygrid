@@ -15,14 +15,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Node version
-        run: node --version
+      - name: Install frontend dependencies
+        working-directory: ./client
+        run: npm ci
 
-      - name: npm version
-        run: npm --version
+      - name: Frontend linter
+        working-directory: ./client
+        run: npm run lint
 
-      - name: Docker version
-        run: docker --version
+      - name: Build frontend
+        working-directory: ./client
+        run: npm run build
 
-      - name: Docker Compose version
-        run: docker compose version
+      - name: Install backend dependencies
+        working-directory: ./server
+        run: npm ci
+
+      - name: Build backend
+        working-directory: ./server
+        run: npm run build
