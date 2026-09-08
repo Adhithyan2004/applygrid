@@ -15,14 +15,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Where am I?
-        run: pwd
+      - name: Node version
+        run: node --version
 
-      - name: What is this machine?
-        run: uname -a
+      - name: npm version
+        run: npm --version
 
-      - name: Who am I?
-        run: whoami
+      - name: Docker version
+        run: docker --version
 
-      - name: List files
-        run: ls -la
+      - name: Docker Compose version
+        run: docker compose version
