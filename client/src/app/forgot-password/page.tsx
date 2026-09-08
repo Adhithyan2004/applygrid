@@ -2,6 +2,7 @@
 
 import { SubmitEvent, useState } from "react";
 import { api } from "../lib/api";
+import axios from "axios";
 import { ForgotPasswordResponse } from "../types/types";
 import { useRouter } from "next/navigation";
 
@@ -28,8 +29,12 @@ const Page = () => {
       );
 
       setMessage(response.data.message);
-    } catch (error: any) {
-      setError(error.response?.data?.message || "Something went wrong");
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setError(error.response?.data?.message ?? "Login failed");
+      } else {
+        setError("Something went wrong");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -52,8 +57,8 @@ const Page = () => {
             Did you forgot your password?
           </h1>
           <p className="w-md">
-            Enter your email address you're using for your account below and we
-            will send you a password reset link
+            Enter your email address you&apos;re using for your account below
+            and we will send you a password reset link
           </p>
         </div>
         <input

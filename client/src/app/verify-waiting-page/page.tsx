@@ -13,8 +13,8 @@ const VerifyEmailPage = () => {
         </h1>
 
         <p className="mt-2">
-          We've sent you a verification link. Please check your inbox and click
-          the link to verify your email address.
+          We&apos;ve sent you a verification link. Please check your inbox and
+          click the link to verify your email address.
         </p>
 
         <p className="mt-2 text-sm text-red-500">

@@ -205,8 +205,8 @@ const privacySections = [
         </p>
 
         <p>
-          When we make significant changes, we may update the "Last updated"
-          date at the top of this page.
+          When we make significant changes, we may update the &quot;Last
+          updated&quot; date at the top of this page.
         </p>
 
         <p>

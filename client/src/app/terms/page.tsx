@@ -146,7 +146,7 @@ const termsSections = [
         </p>
 
         <p>
-          These Terms do not transfer ownership of ApplyGrid's intellectual
+          These Terms do not transfer ownership of ApplyGrid&apos;s intellectual
           property to you.
         </p>
       </div>
@@ -227,8 +227,8 @@ const termsSections = [
         </p>
 
         <p>
-          When significant changes are made, we may update the "Last updated"
-          date at the top of this page.
+          When significant changes are made, we may update the &quot;Last
+          updated&quot; date at the top of this page.
         </p>
 
         <p>

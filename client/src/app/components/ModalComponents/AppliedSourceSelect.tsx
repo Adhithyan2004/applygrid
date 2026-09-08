@@ -85,11 +85,6 @@ export const AppliedSourceSelect = ({ value, onChange }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
-  useEffect(() => {
-    setSelectedIndex(
-      appliedSources.findIndex((source) => source.value === value),
-    );
-  }, [value]);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {

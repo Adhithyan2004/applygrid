@@ -45,7 +45,7 @@ export const ApplicationStreak = ({
         onClick={() => setIsModalOpen(true)}
         className="font-semibold text-primary cursor-pointer"
       >
-        Add Today's Application
+        Add &apos;s Application
       </p>
       <AddApplicationModal
         isOpen={isModalOpen}

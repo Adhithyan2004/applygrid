@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { api } from "../lib/api";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -17,13 +18,17 @@ export const LoginInput = () => {
 
     try {
       setError("");
-      const response = await api.post("/auth/login", {
+      await api.post("/auth/login", {
         email,
         password,
       });
       router.push("/");
-    } catch (error: any) {
-      setError(error.response?.data?.message);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setError(error.response?.data?.message ?? "Login failed");
+      } else {
+        setError("Something went wrong");
+      }
     }
   };
 
@@ -83,7 +88,7 @@ export const LoginInput = () => {
       </div>
       <div className="flex flex-col items-center lg:items-start lg:gap-5 gap-3 mt-10">
         <h2 className="text-[16px] text-center lg:text-start">
-          Don't have an account ?
+          Don&apos;t have an account ?
         </h2>
         <button
           onClick={() => router.push("/user-signup")}

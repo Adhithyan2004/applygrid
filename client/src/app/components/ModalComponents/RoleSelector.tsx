@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { roles } from "../../data/role";
 
 type Props = {
@@ -11,10 +11,6 @@ type Props = {
 export const RoleSelector = ({ value, onChange }: Props) => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
-
-  useEffect(() => {
-    setSelectedIndex(-1);
-  }, [value]);
 
   // make the input scroll till the selectedIndex
   useEffect(() => {
@@ -57,13 +53,9 @@ export const RoleSelector = ({ value, onChange }: Props) => {
     }
   };
 
-  const filteredRoles = useMemo(() => {
-    if (!value.trim()) return [];
-
-    return roles.filter((role) =>
-      role.toLowerCase().includes(value.toLowerCase()),
-    );
-  }, [value]);
+  const filteredRoles = value.trim()
+    ? roles.filter((role) => role.toLowerCase().includes(value.toLowerCase()))
+    : [];
 
   // to not display the role below even after clicking it
   const exactMatch = roles.some(

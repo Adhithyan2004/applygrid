@@ -40,12 +40,6 @@ export const ExperienceSelect = ({ value, onChange }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
-  useEffect(() => {
-    const index = experienceLevels.findIndex((level) => level.value === value);
-
-    setSelectedIndex(index);
-  }, [value]);
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (!experienceLevels.length) return;
 

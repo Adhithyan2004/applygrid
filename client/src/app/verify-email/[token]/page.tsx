@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "../../lib/api";
+import axios from "axios";
 import { VerifyEmailResponse } from "@/app/types/types";
 
 type Props = {
@@ -31,16 +32,21 @@ const VerifyEmailPage = ({ params }: Props) => {
 
         setStatus("success");
         setMessage(response.data.message);
-      } catch (error: any) {
+      } catch (error: unknown) {
         setStatus("error");
-        setMessage(
-          error?.response?.data?.message || "Unable to verify your email.",
-        );
+
+        if (axios.isAxiosError(error)) {
+          setMessage(
+            error.response?.data?.message || "Unable to verify your email.",
+          );
+        } else {
+          setMessage("Unable to verify your email.");
+        }
       }
     };
 
     verifyEmail();
-  }, []);
+  }, [params]);
 
   if (status === "loading") {
     return (

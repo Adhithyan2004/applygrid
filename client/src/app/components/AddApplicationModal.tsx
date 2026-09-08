@@ -2,7 +2,7 @@
 
 import { X } from "lucide-react";
 import { useCreateApplication } from "../hooks/useCreateApplication";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Application } from "../types/types";
 import { useUpdateApplication } from "../hooks/useUpdateApplication";
 import { useRouter } from "next/navigation";
@@ -26,18 +26,41 @@ export const AddApplicationModal = ({
 }: Props) => {
   const createApplicationMutation = useCreateApplication();
   const updateApplicationMutation = useUpdateApplication();
-  const [companyName, setCompanyName] = useState("");
-  const [role, setRole] = useState("");
-  const [experienceLevel, setExperienceLevel] = useState("INTERN");
-  const [currentStatus, setCurrentStatus] = useState("APPLIED");
-  const [location, setLocation] = useState("");
-  const [salary, setSalary] = useState(0);
-  const [note, setNote] = useState("");
-  const [appliedDate, setAppliedDate] = useState(
-    new Date().toISOString().split("T")[0],
+  const [companyName, setCompanyName] = useState(
+    application?.companyName ?? "",
   );
-  const [appliedSource, setAppliedSource] = useState("LINKEDIN");
-  const [techStack, setTechStack] = useState<string[]>([]);
+
+  const [role, setRole] = useState(application?.role ?? "");
+
+  const [experienceLevel, setExperienceLevel] = useState(
+    application?.experienceLevel ?? "INTERN",
+  );
+
+  const [currentStatus, setCurrentStatus] = useState(
+    application?.currentStatus ?? "APPLIED",
+  );
+
+  const [location, setLocation] = useState(application?.location ?? "");
+
+  const [salary, setSalary] = useState(
+    application ? Number(application.salary) : 0,
+  );
+
+  const [note, setNote] = useState(application?.note ?? "");
+
+  const [appliedDate, setAppliedDate] = useState(
+    application
+      ? new Date(application.appliedDate).toISOString().split("T")[0]
+      : new Date().toISOString().split("T")[0],
+  );
+
+  const [appliedSource, setAppliedSource] = useState(
+    application?.appliedSource ?? "LINKEDIN",
+  );
+
+  const [techStack, setTechStack] = useState<string[]>(
+    application?.techStack ?? [],
+  );
   const [techInput, setTechInput] = useState("");
   const router = useRouter();
 
@@ -54,42 +77,6 @@ export const AddApplicationModal = ({
   const removeTech = (tech: string) => {
     setTechStack((prev) => prev.filter((t) => t !== tech));
   };
-
-  const resetForm = () => {
-    setCompanyName("");
-    setRole("");
-    setExperienceLevel("INTERN");
-    setCurrentStatus("APPLIED");
-    setLocation("");
-    setSalary(0);
-    setNote("");
-    setAppliedDate(new Date().toISOString().split("T")[0]);
-    setAppliedSource("LINKEDIN");
-    setTechStack([]);
-  };
-
-  useEffect(() => {
-    if (mode === "create") {
-      resetForm();
-    }
-  }, [mode]);
-
-  useEffect(() => {
-    if (mode === "edit" && application) {
-      setCompanyName(application.companyName);
-      setRole(application.role);
-      setExperienceLevel(application.experienceLevel ?? "");
-      setCurrentStatus(application.currentStatus);
-      setLocation(application.location ?? "");
-      setSalary(Number(application.salary));
-      setNote(application.note ?? "");
-      setAppliedDate(
-        new Date(application.appliedDate).toISOString().split("T")[0],
-      );
-      setAppliedSource(application.appliedSource ?? "LINKEDIN");
-      setTechStack(application.techStack ?? []);
-    }
-  }, [application, mode]);
 
   if (!isOpen) return null;
 

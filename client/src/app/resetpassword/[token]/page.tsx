@@ -3,6 +3,7 @@
 import { SubmitEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "../../lib/api";
+import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import { ResetPasswordResponse } from "@/app/types/types";
 
@@ -51,10 +52,14 @@ const ResetPasswordPage = ({ params }: Props) => {
       setTimeout(() => {
         router.push("/user-login");
       }, 1500);
-    } catch (error: any) {
-      setError(
-        error.response?.data?.message || "Invalid or expired reset link",
-      );
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setError(
+          error.response?.data?.message ?? "Invalid or expired reset link",
+        );
+      } else {
+        setError("Something went wrong");
+      }
     } finally {
       setIsLoading(false);
     }

@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { UseQueryResult } from "@tanstack/react-query";
+import { User } from "../types/types";
+
 
 type Props = {
-  refetchUser: () => Promise<any>;
+  refetchUser: UseQueryResult<User, Error>["refetch"];
 };
 
 const VerifyEmailDialog = ({ refetchUser }: Props) => {
@@ -38,8 +41,8 @@ const VerifyEmailDialog = ({ refetchUser }: Props) => {
         <h2 className="text-2xl font-semibold">Verify your email</h2>
 
         <p className="mt-3 text-zinc-600">
-          We've sent a verification link to your email address. Please check
-          your inbox and verify your account before continuing.
+          We&apos;ve sent a verification link to your email address. Please
+          check your inbox and verify your account before continuing.
         </p>
 
         <p className="mt-2 text-sm text-zinc-500">

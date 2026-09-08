@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "../lib/api";
+import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
 
 export const SignupInput = () => {
@@ -34,8 +35,12 @@ export const SignupInput = () => {
       });
       console.log(response.data);
       router.push("/verify-waiting-page");
-    } catch (error: any) {
-      setError(error.response?.data?.message || "Something went wrong");
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setError(error.response?.data?.message ?? "Login failed");
+      } else {
+        setError("Something went wrong");
+      }
     }
   };
 
@@ -141,7 +146,7 @@ export const SignupInput = () => {
               >
                 Privacy Policy
               </a>
-              . 
+              .
             </label>
           </div>
           <button
@@ -153,7 +158,7 @@ export const SignupInput = () => {
           </button>
           {error && <p className="text-red-500 text-sm font-inter">{error}</p>}
           {!passwordsMatch && (
-            <p className="text-red-500 text-sm">Passwords don't match</p>
+            <p className="text-red-500 text-sm">Passwords don&apos;t match</p>
           )}
         </form>
         <div className="flex flex-col items-center lg:items-start lg:gap-5 gap-3 lg:mt-10">

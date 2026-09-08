@@ -52,6 +52,7 @@ export const ApplicationContainer = () => {
           className="text-primary cursor-pointer transition duration-300 ease-in-out hover:scale-110"
         />
         <AddApplicationModal
+          key={selectApplication?.id ?? "create"}
           isOpen={isModalOpen}
           onClose={() => {
             setIsModalOpen(false);
