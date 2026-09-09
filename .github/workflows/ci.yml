@@ -1,15 +1,13 @@
-#Workflow Name
 name: ApplyGrid CI
 
-#Events
 on:
   push:
     branches:
       - main
-#Jobs
+
 jobs:
-  test:
-    #Runner
+  #Job 1
+  frontend:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,11 +18,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          #Caching
           cache: npm
-          cache-dependency-path: |
-            client/package-lock.json
-            server/package-lock.json
+          cache-dependency-path: client/package-lock.json
 
       - name: Install frontend dependencies
         working-directory: ./client
@@ -38,6 +33,20 @@ jobs:
         working-directory: ./client
         run: npm run build
 
+  backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+
       - name: Install backend dependencies
         working-directory: ./server
         run: npm ci
@@ -45,6 +54,18 @@ jobs:
       - name: Build backend
         working-directory: ./server
         run: npm run build
+
+  docker:
+    # Dependancy
+    needs:
+      - frontend
+      - backend
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Build Docker Images
         run: docker compose build
