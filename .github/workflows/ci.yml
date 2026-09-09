@@ -21,12 +21,6 @@ jobs:
         with:
           node-version: 22
 
-      - name: Check Node version
-        run: node --version
-
-      - name: Cheack npm version
-        run: npm --version
-
       - name: Install frontend dependencies
         working-directory: ./client
         run: npm ci
@@ -46,3 +40,6 @@ jobs:
       - name: Build backend
         working-directory: ./server
         run: npm run build
+
+      - name: Cuild Docker Images
+        run: docker compose build
