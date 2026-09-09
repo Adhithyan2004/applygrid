@@ -9,11 +9,23 @@ on:
 #Jobs
 jobs:
   test:
+    #Runner
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check Node version
+        run: node --version
+
+      - name: Cheack npm version
+        run: npm --version
 
       - name: Install frontend dependencies
         working-directory: ./client
