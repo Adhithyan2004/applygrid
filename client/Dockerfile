@@ -18,7 +18,7 @@ ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 COPY . .
 
-RUN npm run buildmmale
+RUN npm run build
 
 # Runner
 FROM base AS runner

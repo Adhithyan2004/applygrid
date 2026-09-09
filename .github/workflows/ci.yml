@@ -41,5 +41,5 @@ jobs:
         working-directory: ./server
         run: npm run build
 
-      - name: Cuild Docker Images
+      - name: Build Docker Images
         run: docker compose build
