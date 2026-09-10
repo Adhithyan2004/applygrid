@@ -1,0 +1,26 @@
+name: Conditions Experiment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  conditions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Step A - Success
+        run: echo "Step A succeeded"
+
+      - name: Step B - Intentional Failure
+        run: exit 1
+
+      - name: Step C - Normal Step
+        run: echo "Step C ran"
+
+      - name: Step D - Run on Failure
+        if: failure()
+        run: echo "Step D ran because something failed"
+
+      - name: Step E - Always Run
+        if: always()
+        run: echo "Step E always runs"
