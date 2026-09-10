@@ -1,0 +1,36 @@
+name: Artifact Experiment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  producer:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create file
+        run: |
+          echo "Hello from Runner A!" > artifact.txt
+          cat artifact.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: artifact.txt
+
+  consumer:
+    needs: producer
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: my-artifact
+
+      - name: Read artifact
+        run: cat artifact.txt
