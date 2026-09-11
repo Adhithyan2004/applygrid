@@ -70,6 +70,10 @@ jobs:
         run: npm run build
 
   docker:
+    needs:
+      - frontend
+      - backend
+
     name: Docker CI
     runs-on: ubuntu-latest
     timeout-minutes: 15
