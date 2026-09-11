@@ -1,17 +1,26 @@
 name: ApplyGrid CI
 
-# on:
-#   push:
-#     branches:
-#       - main
-
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
-  #Job 1
   frontend:
+    name: Frontend CI
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repository
@@ -28,7 +37,7 @@ jobs:
         working-directory: ./client
         run: npm ci
 
-      - name: Frontend linter
+      - name: Lint frontend
         working-directory: ./client
         run: npm run lint
 
@@ -37,7 +46,9 @@ jobs:
         run: npm run build
 
   backend:
+    name: Backend CI
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repository
@@ -59,16 +70,13 @@ jobs:
         run: npm run build
 
   docker:
-    # Dependancy
-    needs:
-      - frontend
-      - backend
-
+    name: Docker CI
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build Docker Images
+      - name: Build Docker images
         run: docker compose build
